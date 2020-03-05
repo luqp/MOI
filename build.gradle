@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
 group 'org.jalasoft.moi'
@@ -13,4 +15,13 @@ repositories {
 
 dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    implementation 'org.springframework.boot:spring-boot-dependencies:2.2.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+bootJar {
+    mainClassName = 'org.jalasoft.moi.Main'
 }

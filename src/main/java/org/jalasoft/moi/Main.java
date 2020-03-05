@@ -9,14 +9,13 @@
 
 package org.jalasoft.moi;
 
-import org.jalasoft.moi.model.CsharpCompliler;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
 
     public static void main(String[] args) {
-
-        CsharpCompliler file = new CsharpCompliler();
-        file.executeCommand();
-        //System.out.println("Hello World!!!");
+        SpringApplication.run(Main.class, args);
     }
 }
