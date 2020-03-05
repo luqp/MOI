@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.fundacion-jala'
+group 'org.jalasoft.moi'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -12,5 +12,5 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.0'
 }
