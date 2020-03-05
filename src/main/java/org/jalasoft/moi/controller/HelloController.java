@@ -9,8 +9,7 @@
 
 package org.jalasoft.moi.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/")
 public class HelloController {
@@ -21,5 +20,15 @@ public class HelloController {
     @GetMapping
     public String hello() {
         return "Hello!!";
-    };
+    }
+
+    @PostMapping("{name}")
+    public String helloGuest(@PathVariable String name){
+        return "Hello " + name + "!!!!";
+    }
+
+    @PostMapping("/greet")
+    public String helloGuestWithParams(@RequestParam String name){
+        return "Hello " + name + "!!!!";
+    }
 }
