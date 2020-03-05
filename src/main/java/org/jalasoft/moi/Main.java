@@ -9,9 +9,14 @@
 
 package org.jalasoft.moi;
 
+import org.jalasoft.moi.model.CsharpCompliler;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!!!");
+
+        CsharpCompliler file = new CsharpCompliler();
+        file.executeCommand();
+        //System.out.println("Hello World!!!");
     }
 }
