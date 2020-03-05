@@ -22,11 +22,19 @@ public class HelloController {
         return "Hello!!";
     }
 
+    /**
+     * @param name sent from web as a path variable
+     * @return a composed string greeting the name.
+     */
     @PostMapping("{name}")
     public String helloGuest(@PathVariable String name){
         return "Hello " + name + "!!!!";
     }
 
+    /**
+     * @param name sent from web as a parameter
+     * @return a composed string "Hello {name}"
+     */
     @PostMapping("/greet")
     public String helloGuestWithParams(@RequestParam String name){
         return "Hello " + name + "!!!!";
