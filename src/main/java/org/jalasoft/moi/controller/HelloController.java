@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/")
 public class HelloController {
 
+    /**
+     * @return a constraint string for a simple example
+     */
     @GetMapping
     public String hello() {
         return "Hello!!";
