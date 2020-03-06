@@ -12,13 +12,18 @@ package org.jalasoft.moi.model;
 import java.nio.file.Path;
 
 /**
- * Parms class contains information from client about what language and root are need
+ * Params class contains information from client about what language and root are need
  */
 public class Params {
     private Path filesPath;
     private String version;
     private Enum<Laguage> language;
 
+    /**
+     * @param filesPath contains the root files in the local host.
+     * @param version contains the language version.
+     * @param language of the code.
+     */
     public Params(Path filesPath, String version, Enum<Laguage> language) {
         this.filesPath = filesPath;
         this.version = version;
