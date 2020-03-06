@@ -18,7 +18,7 @@ public class HelloController {
     /**
      * @return a constraint string for a simple example
      */
-    @GetMapping
+    @GetMapping("/hello")
     public String hello() {
         return "Hello!!";
     };
