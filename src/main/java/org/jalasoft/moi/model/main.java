@@ -11,7 +11,7 @@ public class main {
         }
         catch (Exception e)
         {
-            System.out.println("HEY Buddy ! U r Doing Something Wrong ");
+            System.out.println("HEY Buddy! U r Doing Something Wrong ");
             e.printStackTrace();
         }
     }

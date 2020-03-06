@@ -16,7 +16,6 @@ public class comandos {
             Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"help && dir\"");
             InputStreamReader entrada = new InputStreamReader(proceso.getInputStream());
             BufferedReader stdInput = new BufferedReader(entrada);
-
             //Si el comando tiene una salida la mostramos
             if((salida=stdInput.readLine()) != null){
                 System.out.println("Comando ejecutado Correctamente");
