@@ -12,9 +12,7 @@ public class MainCSharp {
 
     public static void main(String[] args) {
 
-        CsharpCompliler compliler = new CsharpCompliler();
-        System.out.println(compliler.printFilePath());
-        System.out.println(compliler.printComplilePath());
+        CsharpCompliler compliler = new CsharpCompliler("C:\\Users\\Admin\\IdeaProjects\\com\\csharp\\hiworld.cs");
         compliler.executeCommand();
     }
 }

@@ -13,30 +13,28 @@ import java.io.IOException;
 
 public class CsharpCompliler {
 
-    String cSharpPath;
+    private String C_SHARP_PATH = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe";
+    private File file;
 
-    public CsharpCompliler() {
-        cSharpPath = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe";
+    /**
+     * @param sRoute add the file path to create a new file
+     */
+    public CsharpCompliler(String sRoute) {
+        file = new File(sRoute);
     }
 
-    public File getFile() {
-        String sRuote = "C:\\Users\\Admin\\IdeaProjects\\com\\csharp\\hiworld.cs";
-        File route = new File(sRuote);
-        return route;
-    }
-
-    public String printComplilePath() {
-        if (getFile().exists()) {
-            String fileName = getFile().getName();
-            return cSharpPath + " " + fileName;
+    private String printComplilePath() {
+        if (file.exists()) {
+            String fileName = file.getName();
+            return C_SHARP_PATH + " " + fileName;
         } else {
             return "El fichero no existe";
         }
     }
 
-    public String printFilePath() {
-        if (getFile().getParent() != null) {
-            return getFile().getParent();
+    private String printFilePath() {
+        if (file.getParent() != null) {
+            return file.getParent();
         } else {
             return "El fichero no existe";
         }
