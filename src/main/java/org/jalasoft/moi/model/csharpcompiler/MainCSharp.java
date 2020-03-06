@@ -8,11 +8,13 @@
  */
 package org.jalasoft.moi.model.csharpcompiler;
 
+import org.jalasoft.moi.model.Csharp;
+
 public class MainCSharp {
 
     public static void main(String[] args) {
 
-        CsharpCompliler compliler = new CsharpCompliler("C:\\Users\\Admin\\IdeaProjects\\com\\csharp\\hiworld.cs");
+        Csharp compliler = new Csharp("C:\\Users\\Admin\\IdeaProjects\\com\\csharp\\hiworld.cs");
         compliler.executeCommand();
     }
 }

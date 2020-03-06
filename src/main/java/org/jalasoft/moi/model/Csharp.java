@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2020 Jalasoft.
+ *   Copyright (c) 2020 Jalasoft.
  *
- * This software is the confidential and proprietary information of Jalasoft.
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Jalasoft.
+ *   This software is the confidential and proprietary information of Jalasoft.
+ *   ("Confidential Information"). You shall not disclose such Confidential
+ *   Information and shall use it only in accordance with the terms of the
+ *   license agreement you entered into with Jalasoft.
  */
-package org.jalasoft.moi.model.csharpcompiler;
+package org.jalasoft.moi.model;
 
 import java.io.File;
 import java.io.IOException;
 
-public class CsharpCompliler {
+public class Csharp {
 
     private String C_SHARP_PATH = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe";
     private File file;
@@ -19,7 +19,7 @@ public class CsharpCompliler {
     /**
      * @param sRoute add the file path to create a new file
      */
-    public CsharpCompliler(String sRoute) {
+    public Csharp(String sRoute) {
         file = new File(sRoute);
     }
 

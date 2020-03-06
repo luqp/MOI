@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-/**
+package org.jalasoft.moi.model;/**
  * This interface defines the type of object for the classes that implement it will use
  */
 public interface ILanguage {
