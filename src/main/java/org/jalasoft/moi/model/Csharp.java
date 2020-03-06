@@ -13,38 +13,42 @@ import java.io.IOException;
 
 public class Csharp {
 
-    private String C_SHARP_PATH = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe";
-    private File file;
+    private String COMPLILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe";
+    private String OPEN_CMD = "cmd /c start cmd.exe /k \"";
+    private String FOLDER_PATH = "cd C:/Users/Admin/IdeaProjects/com/csharp";
 
-    /**
-     * @param sRoute add the file path to create a new file
-     */
-    public Csharp(String sRoute) {
-        file = new File(sRoute);
+    public Csharp() {
     }
 
-    private String printComplilePath() {
+    public String getFileName() {
+        File file = new File("C:/Users/Admin/IdeaProjects/com/csharp/hiworld.cs");
         if (file.exists()) {
-            String fileName = file.getName();
-            return C_SHARP_PATH + " " + fileName;
+            return " " + file.getName();
         } else {
-            return "El fichero no existe";
+            return "File does not exist";
+        }
+    }
+    public String getFileGeneradedName() {
+        File file = new File("C:/Users/Admin/IdeaProjects/com/csharp/hiworld.exe");
+        if (file.exists()) {
+            return file.getName()+"\"";
+        } else {
+            return "File does not exist";
         }
     }
 
-    private String printFilePath() {
-        if (file.getParent() != null) {
-            return file.getParent();
-        } else {
-            return "El fichero no existe";
-        }
+    public String commandBuilder() {
+        return OPEN_CMD + FOLDER_PATH + " && " + COMPLILER_PATH + getFileName()+" && "+ getFileGeneradedName();
+    }
+
+    public String commandBuilderHarcode() {
+        return "cmd /c start cmd.exe /k \"cd C:/Users/Admin/IdeaProjects/com/csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe\"";
     }
 
     public void executeCommand() {
         try {
-            String cmdInit = "cmd /c start cmd.exe /k \" cd ";
-            String command = cmdInit + printFilePath() + " && " + printComplilePath() + " && hiworld.exe\"";
-            Runtime.getRuntime().exec(command);
+
+            Runtime.getRuntime().exec(commandBuilder());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Can not complile the file");

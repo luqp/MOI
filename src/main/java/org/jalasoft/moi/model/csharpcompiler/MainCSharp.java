@@ -14,7 +14,9 @@ public class MainCSharp {
 
     public static void main(String[] args) {
 
-        Csharp compliler = new Csharp("C:\\Users\\Admin\\IdeaProjects\\com\\csharp\\hiworld.cs");
+        Csharp compliler = new Csharp();
+        System.out.println(compliler.commandBuilder());
+        System.out.println(compliler.commandBuilderHarcode());
         compliler.executeCommand();
     }
 }
