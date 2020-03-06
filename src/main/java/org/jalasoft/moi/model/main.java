@@ -14,7 +14,6 @@ public class main {
         String comm1="cmd.exe /c \"cd C:/Users/MauricioOroza/com && javac *.java && java MainClass\"";
         String comm2="help";
         String output;
-
         Execute buildedcomm=new Execute(comm1);
         output=buildedcomm.run();
         System.out.println(output);

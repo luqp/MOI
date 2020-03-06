@@ -17,12 +17,15 @@ public class Execute {
     String command;
     String salida;
 
+     /**
+     * The contructor recieves the string command
+     */
     public Execute(String comm){
         command=comm;
         salida = null;
     }
 
-    /**
+     /**
      * @return  The output of the console in one string in te form: String1 + \n + String1 + \n + ....
      *
      * The code recieves the command and executes it on cmd
@@ -51,6 +54,4 @@ public class Execute {
         salida=builder.toString();
         return salida;
     }
-
-
 }
