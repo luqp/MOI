@@ -7,7 +7,7 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.utils;
+package org.jalasoft.moi.model;
 
 import java.nio.file.Path;
 
@@ -17,12 +17,12 @@ import java.nio.file.Path;
 public class Params {
     private Path filesPath;
     private String version;
-    private String lenguage;
+    private Enum<Laguage> language;
 
-    public Params(Path filesPath, String version, String lenguage) {
+    public Params(Path filesPath, String version, Enum<Laguage> language) {
         this.filesPath = filesPath;
         this.version = version;
-        this.lenguage = lenguage;
+        this.language = language;
     }
 
     public Path getFilesPath() {
@@ -33,7 +33,7 @@ public class Params {
         return version;
     }
 
-    public String getLenguage() {
-        return lenguage;
+    public Enum<Laguage> getLanguage() {
+        return language;
     }
 }
