@@ -12,7 +12,7 @@
  */
 public interface ILanguage {
     /**
-     * @param params whit this object this method will receive its parameters
+     * @param params will contain all parameters abut the file that we will use to generate its commands
      * @return a string that will use another class in charge of execute commands
      */
     String commandBuilder(Params params);
