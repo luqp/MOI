@@ -11,19 +11,22 @@ package org.jalasoft.moi.utils;
 
 import java.nio.file.Path;
 
+/**
+ * Parms class contains information from client about what language and root are need
+ */
 public class Params {
-    private Path filePath;
+    private Path filesPath;
     private String version;
     private String lenguage;
 
-    public Params(Path filePath, String version, String lenguage) {
-        this.filePath = filePath;
+    public Params(Path filesPath, String version, String lenguage) {
+        this.filesPath = filesPath;
         this.version = version;
         this.lenguage = lenguage;
     }
 
-    public Path getFilePath() {
-        return filePath;
+    public Path getFilesPath() {
+        return filesPath;
     }
 
     public String getVersion() {
