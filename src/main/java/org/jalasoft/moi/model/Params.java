@@ -17,14 +17,14 @@ import java.nio.file.Path;
 public class Params {
     private Path filesPath;
     private String version;
-    private Enum<Laguage> language;
+    private Laguage language;
 
     /**
      * @param filesPath contains the root files in the local host.
      * @param version contains the language version.
-     * @param language of the code.
+     * @param language of the code used for the client.
      */
-    public Params(Path filesPath, String version, Enum<Laguage> language) {
+    public Params(Path filesPath, String version, Laguage language) {
         this.filesPath = filesPath;
         this.version = version;
         this.language = language;
@@ -38,7 +38,7 @@ public class Params {
         return version;
     }
 
-    public Enum<Laguage> getLanguage() {
+    public Laguage getLanguage() {
         return language;
     }
 }
