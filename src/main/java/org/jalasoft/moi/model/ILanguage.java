@@ -1,4 +1,4 @@
-/*
+package org.jalasoft.moi.model;/*
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
