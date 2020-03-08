@@ -13,14 +13,6 @@ public class PythonCommandBuilderTest {
         Params params = new Params(Paths.get("H:/hello.py"), "3.7", Laguage.PYTHON);
         Python python = new Python(params);
 
-        assertEquals("python -m compileall H:\\hello.py", python.buildCommandToCompile());
-    }
-
-    @Test
-    public void builderCommandRunTest() {
-        Params params = new Params(Paths.get("H:/hello.py"), "3.7", Laguage.PYTHON);
-        Python python = new Python(params);
-
-        assertEquals("python H:\\__pycache__\\hello.cpython-37.pyc", python.buildCommandToRun());
+        assertEquals("python -m compileall H:\\hello.py && python H:\\__pycache__\\hello.cpython-37.pyc", python.commandBuilder(params));
     }
 }
