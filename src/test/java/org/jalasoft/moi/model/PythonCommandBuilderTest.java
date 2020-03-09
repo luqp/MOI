@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
-public class PythonCommandBuilderCommandBuilderTest {
+public class PythonCommandBuilderTest {
 
     @Test
     public void builderCommandCompileTest() {
