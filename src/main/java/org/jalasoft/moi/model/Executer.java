@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -16,25 +16,28 @@ import java.io.InputStreamReader;
 /**
  * Class recieves a string, executes it on cmd and returns output on a string
  *
- * @author Mauricio Oroza
  * @version 1.0 03 March 2020
+ * @author Mauricio Oroza
+ *
  */
 public class Executer {
     private String command;
     private String output;
 
+
     /**
      * Constructor recieves string command
+     * @param command command to be executed
      */
-    public Executer(String comm) {
+    public Executer(String command) {
         String commandSlash = "\"";
-        command = "cmd /c " + commandSlash + comm + commandSlash;
+        this.command = "cmd /c " + commandSlash + command + commandSlash;
     }
 
     /**
      * Executes command in cmd
      *
-     * @return The output of the console in one string in te form: String1 + \n + String1 + \n + ...
+     * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
     public String run() throws IOException {
         StringBuilder builder = new StringBuilder();
