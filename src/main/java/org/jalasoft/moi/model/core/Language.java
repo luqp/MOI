@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.model;
+package org.jalasoft.moi.model.core;
 
 public enum Language {
 
