@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- *
+ * <p>
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -16,46 +16,39 @@ import java.io.InputStreamReader;
 /**
  * Class recieves a string, executes it on cmd and returns output on a string
  *
- * @version     1.0 03 March 2020
- * @author      Mauricio Oroza
+ * @author Mauricio Oroza
+ * @version 1.0 03 March 2020
  */
 public class Executer {
-    String command;
-    String output;
-    String startCmd;
-    String commandSlash;
+    private String command;
+    private String output;
 
     /**
      * Constructor recieves string command
      */
-    public Executer(String comm){
-        startCmd="cmd /c ";
-        commandSlash="\"";
-        command=startCmd+commandSlash+comm+commandSlash;
+    public Executer(String comm) {
+        String commandSlash = "\"";
+        command = "cmd /c " + commandSlash + comm + commandSlash;
     }
 
     /**
      * Executes command in cmd
-     * @return  The output of the console in one string in te form: String1 + \n + String1 + \n + ...
+     *
+     * @return The output of the console in one string in te form: String1 + \n + String1 + \n + ...
      */
-    public String run(){
-        StringBuilder builder=new StringBuilder();
-        try
-        {
-            Process prcss = Runtime.getRuntime().exec(command);
-            InputStreamReader cmdEntrance = new InputStreamReader(prcss.getInputStream());
-            BufferedReader stdInput = new BufferedReader(cmdEntrance);
-            if((stdInput.readLine()) != null){
-                while ((output =stdInput.readLine()) != null){
-                    builder.append(output).append("\n");
-                }
-            }else{
-                output="There has not been produced any output";
+    public String run() throws IOException {
+        StringBuilder builder = new StringBuilder();
+        Process tempProcess = Runtime.getRuntime().exec(command);
+        InputStreamReader cmdEntrance = new InputStreamReader(tempProcess.getInputStream());
+        BufferedReader stdInput = new BufferedReader(cmdEntrance);
+        if ((stdInput.readLine()) != null) {
+            while ((output = stdInput.readLine()) != null) {
+                builder.append(output).append("\n");
             }
+            output = builder.toString();
+        } else {
+            output = "There has not been produced any output";
         }
-        catch (IOException e) {
-            output="HEY Buddy! U r Doing Something Wrong";
-        }
-        return builder.toString();
+        return output;
     }
 }
