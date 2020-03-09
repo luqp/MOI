@@ -1,10 +1,15 @@
-package org.jalasoft.moi.model;
+package org.jalasoft.moi.model.python;
+
+import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
  * Builds commands to execute a python file.
+ *
+ * @version    1.0
+ * @author     Lucero Quiroga Perez
  */
 public class PythonCommandBuilder implements ICommandBuilder {
 
@@ -23,6 +28,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     }
 
     /**
+     * Builds compilation and execution commands.
+     *
      * @param path contains the location of the directory or file.
      * @return compilation and execution commands.
      */
@@ -32,6 +39,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     }
 
     /**
+     * Builds compilation command.
+     *
      * @param path contains the location of the directory or file.
      * @return compilation command.
      */
@@ -40,6 +49,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     }
 
     /**
+     * Builds execution command.
+     *
      * @param path contains the location of the directory or file.
      * @return execution command.
      */
