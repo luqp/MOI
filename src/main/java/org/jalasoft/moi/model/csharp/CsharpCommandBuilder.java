@@ -13,6 +13,7 @@ import java.nio.file.Path;
 
 /**
  * Builds a command and execute a c# file using the path provided by Params object
+ * and uses the complete path of c# in window to build its string
  *
  * @author Carlos Meneses
  * @version 1.0
@@ -32,14 +33,6 @@ public class CsharpCommandBuilder implements ICommandBuilder {
 
     /**
      * @param path contains the location of the directory or file
-     * @return String of the file's name to compile
-     */
-    private String getFileName(Path path) {
-        return path.getFileName().toString();
-    }
-
-    /**
-     * @param path contains the location of the directory or file
      * @return String of the compiled file name
      */
     private String getCompiledName(Path path) {
@@ -52,7 +45,7 @@ public class CsharpCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String commandBuilder(Path path) {
-        return getFolderPath(path) + " && " + COMPILER_PATH + getFileName(path) + " && " + getCompiledName(path);
+        return getFolderPath(path)+" && "+COMPILER_PATH+path.getFileName().toString()+" && "+getCompiledName(path);
     }
 
 }
