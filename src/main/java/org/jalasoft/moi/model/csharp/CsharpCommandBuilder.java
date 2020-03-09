@@ -9,13 +9,10 @@
 package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
-import org.jalasoft.moi.model.core.Params;
-
-import java.io.File;
 import java.nio.file.Path;
 
 /**
- * Cuilds a command amd execute a c# file using the path provided by Params object
+ * Builds a command and execute a c# file using the path provided by Params object
  *
  * @author Carlos Meneses
  * @version 1.0
@@ -25,18 +22,34 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     private static final String COMPILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe ";
     private static final String CHANGE_DIRECTORY = "cd ";
 
+    /**
+     * @param path contains the location of the directory or file
+     * @return String of the directory to change
+     */
     private String getFolderPath(Path path) {
         return CHANGE_DIRECTORY + path.getParent().toString();
     }
 
+    /**
+     * @param path contains the location of the directory or file
+     * @return String of the file's name to compile
+     */
     private String getFileName(Path path) {
         return path.getFileName().toString();
     }
 
+    /**
+     * @param path contains the location of the directory or file
+     * @return String of the compiled file name
+     */
     private String getCompiledName(Path path) {
         return path.getFileName().toString().replace(".cs", ".exe");
     }
 
+    /**
+     * @param path contains the location of the directory or file
+     * @return String of the command builded with the path Params
+     */
     @Override
     public String commandBuilder(Path path) {
         return getFolderPath(path) + " && " + COMPILER_PATH + getFileName(path) + " && " + getCompiledName(path);

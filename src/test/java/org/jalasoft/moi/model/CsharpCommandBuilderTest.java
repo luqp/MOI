@@ -27,7 +27,7 @@ public class CsharpCommandBuilderTest {
         String currentCommand = compliler.commandBuilder(params.getFilesPath());
         //then
 
-       /* Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
+        /*Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
         CsharpCommandBuilder compliler = new CsharpCommandBuilder();
         System.out.println(compliler.commandBuilder(params.getFilesPath()));
         String expectedCommand = "cd C:\\Users\\Admin\\Desktop\\csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe";

@@ -19,8 +19,8 @@ import java.nio.file.Path;
  */
 public interface ICommandBuilder {
     /**
-     * @param path will contain all parameters abut the file that we will use to generate its commands
-     * @return a string that will use another class in charge of execute commands
+     * @param path contains the location of the directory or file
+     * @return String of the command builded with the path Params
      */
     String commandBuilder(Path path);
 }
