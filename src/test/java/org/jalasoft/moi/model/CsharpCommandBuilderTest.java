@@ -13,8 +13,8 @@ import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.junit.jupiter.api.Test;
-
 import java.nio.file.Paths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CsharpCommandBuilderTest {
     @Test
@@ -26,12 +26,6 @@ public class CsharpCommandBuilderTest {
         //when
         String currentCommand = compliler.commandBuilder(params.getFilesPath());
         //then
-
-        /*Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
-        CsharpCommandBuilder compliler = new CsharpCommandBuilder();
-        System.out.println(compliler.commandBuilder(params.getFilesPath()));
-        String expectedCommand = "cd C:\\Users\\Admin\\Desktop\\csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe";
-        System.out.println(expectedCommand);*/
-
+        assertEquals(expectedCommand, currentCommand);
     }
 }
