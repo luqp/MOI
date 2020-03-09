@@ -34,7 +34,7 @@ public class Params {
     /**
      * Set files location on the local host.
      *
-     * @param filesPath
+     * @param filesPath files location
      */
     public void setFilesPath(Path filesPath) {
         this.filesPath = filesPath;
@@ -52,7 +52,7 @@ public class Params {
     /**
      * Set the language in which files will be compiled.
      *
-     * @param language
+     * @param language type selected by the client
      */
     public void setLanguage(Language language) {
         this.language = language;

@@ -19,8 +19,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     private final String version;
 
     /**
-     * @param pythonPath is the location for the python file.
-     * @param version of the language, required to locate the .pyc file.
+     * @param pythonPath the location for the python file.
+     * @param version language version, required to locate the .pyc file.
      */
     public PythonCommandBuilder(Path pythonPath, String version) {
         this.pythonPath = pythonPath;
@@ -30,7 +30,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds compilation and execution commands.
      *
-     * @param path contains the location of the directory or file.
+     * @param path location of the directory or file.
      * @return compilation and execution commands.
      */
     @Override
@@ -41,7 +41,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds compilation command.
      *
-     * @param path contains the location of the directory or file.
+     * @param path the location of the directory or file.
      * @return compilation command.
      */
     private String commandToCompile(Path path) {
@@ -51,7 +51,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds execution command.
      *
-     * @param path contains the location of the directory or file.
+     * @param path location of the directory or file.
      * @return execution command.
      */
     private String commandToRun(Path path) {
