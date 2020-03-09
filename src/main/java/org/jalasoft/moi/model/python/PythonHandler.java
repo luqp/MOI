@@ -9,8 +9,11 @@
 
 package org.jalasoft.moi.model.python;
 
+import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Params;
+
+import java.io.IOException;
 
 /**
  * Handles the flow of the execution.
@@ -19,7 +22,6 @@ import org.jalasoft.moi.model.core.Params;
  * @author     Lucero Quiroga Perez
  */
 public class PythonHandler {
-
     /**
      * Receives the parameters and execute the program in the file.
      *
@@ -30,7 +32,14 @@ public class PythonHandler {
         ICommandBuilder pythonCommandBuilder = params.getLanguage().getCommandBuilder();
         String command = pythonCommandBuilder.buildCommand(params.getFilesPath());
 
-
-        return "No yet";
+        Executer executer = new Executer(command);
+        String result;
+        try {
+            result = executer.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = "Nothing for compile";
+        }
+        return result;
     }
 }
