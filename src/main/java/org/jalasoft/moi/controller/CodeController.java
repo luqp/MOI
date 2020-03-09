@@ -9,19 +9,23 @@
 
 package org.jalasoft.moi.controller;
 
+import org.jalasoft.moi.model.ICommandBuilder;
+import org.jalasoft.moi.model.Params;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
- * This class defines the controller for the data sent from the endpoint.
+ * This class defines the controller for the data sent from every endpoint.
  */
-@RestController("/")
+@RestController("/api")
 public class CodeController {
 
-    private ILanguage language;
+    private Params codeParams;
+    private final CodeHandler codeHandler = new CodeHandler();
 
     /**
      * This method is used for communication between the model and the client.
@@ -31,16 +35,10 @@ public class CodeController {
      * @param code sent form user as input to be compiled and executed
      * @return the output from the execution
      */
-    @RequestMapping(path = "/api/v1/onlineCompiler", method = RequestMethod.PUT, consumes = "application/json")
-    public String makeParams(@RequestBody String language, String version, String fileName, String code) {
-        File codeFile = new File("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
-        try {
-            FileWriter codeWriter = new FileWriter("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
-            codeWriter.write(code);
-            codeWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return language.construct(codeFile.getAbsolutePath(), language, version);
+    @RequestMapping(path = "/v1/onlineCompiler", method = RequestMethod.PUT, consumes = "application/json")
+    public String executeSingleCode(@RequestBody String language, String version, String fileName, String code) {
+        codeParams = codeHandler.codeParams(fileName, code, language, version);
+        String result = codeHandler.execCode(codeParams);
+        return result;
     }
 }
