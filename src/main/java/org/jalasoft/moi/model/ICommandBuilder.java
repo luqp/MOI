@@ -8,13 +8,16 @@
  */
 package org.jalasoft.moi.model;
 
+import java.nio.file.Path;
+
 /**
- * This interface defines the type of object for the classes that implement it will use
+ * Implemented for all class that want to build commands for a certain language.
  */
-public interface ILanguage {
+public interface ICommandBuilder {
+
     /**
-     * @param params will contain all parameters abut the file that we will use to generate its commands
-     * @return a string that will use another class in charge of execute commands
+     * @param path contains the location of the directory or file.
+     * @return a String that represent the commands to be executed.
      */
-    String commandBuilder(Params params);
+    String buildCommand(Path path);
 }
