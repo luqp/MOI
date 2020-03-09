@@ -9,7 +9,6 @@
 
 package org.jalasoft.moi.model;
 
-import org.jalasoft.moi.model.csharpcompiler.Params;
 
 /**
  * This interface defines the type of object for the classes that implement it will use

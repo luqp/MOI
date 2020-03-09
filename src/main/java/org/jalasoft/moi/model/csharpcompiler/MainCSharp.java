@@ -9,14 +9,18 @@
 package org.jalasoft.moi.model.csharpcompiler;
 
 import org.jalasoft.moi.model.Csharp;
+import org.jalasoft.moi.model.Language;
+import org.jalasoft.moi.model.Params;
+
+import java.nio.file.Paths;
 
 public class MainCSharp {
 
     public static void main(String[] args) {
 
+        Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
         Csharp compliler = new Csharp();
-        System.out.println(compliler.commandBuilder());
-        System.out.println(compliler.commandBuilderHarcode());
-        compliler.executeCommand();
+        System.out.println(compliler.commandBuilder(params));
+
     }
 }

@@ -11,49 +11,57 @@ package org.jalasoft.moi.model;
 import java.io.File;
 import java.io.IOException;
 
-public class Csharp {
+public class Csharp implements ILanguage {
 
-    private String COMPLILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe";
-    private String OPEN_CMD = "cmd /c start cmd.exe /k \"";
-    private String FOLDER_PATH = "cd C:/Users/Admin/IdeaProjects/com/csharp";
+    private static final String COMPILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe";
+    private static final String OPEN_CMD = "cmd.exe /c ";
+    private static final String SPACE = " ";
+    private static final String EXEC_COMMAND = "\"";
+    private static final String CHANGE_DIRECTORY = "cd ";
 
-    public Csharp() {
+    private String getFolderPath(org.jalasoft.moi.model.Params params) {
+        File folder = new File(params.getFilesPath().toString());
+        if (folder.exists()) {
+            return OPEN_CMD + EXEC_COMMAND + CHANGE_DIRECTORY + folder.getParent();
+        } else {
+            return "Folder does not exist";
+        }
     }
 
-    public String getFileName() {
-        File file = new File("C:/Users/Admin/IdeaProjects/com/csharp/hiworld.cs");
+    private String getFileName(Params params) {
+        File file = new File(params.getFilesPath().toString());
         if (file.exists()) {
-            return " " + file.getName();
+            return SPACE + file.getName();
         } else {
             return "File does not exist";
         }
     }
-    public String getFileGeneradedName() {
-        File file = new File("C:/Users/Admin/IdeaProjects/com/csharp/hiworld.exe");
+
+    private String getCompiledName(Params params) {
+        File file = new File(params.getFilesPath().toString().replace(".cs", ".exe"));
         if (file.exists()) {
-            return file.getName()+"\"";
+            return file.getName() + EXEC_COMMAND;
         } else {
             return "File does not exist";
         }
     }
 
-    public String commandBuilder() {
-        return OPEN_CMD + FOLDER_PATH + " && " + COMPLILER_PATH + getFileName()+" && "+ getFileGeneradedName();
+    @Override
+    public String commandBuilder(Params params) {
+        return getFolderPath(params) + " && " + COMPILER_PATH + getFileName(params) + " && " + getCompiledName(params);
     }
 
-    public String commandBuilderHarcode() {
-        return "cmd /c start cmd.exe /k \"cd C:/Users/Admin/IdeaProjects/com/csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe\"";
+    /*public String commandBuilderHarcode() {
+        return "cmd /c start cmd.exe /k \"cd C:/Users/Admin/Desktop/csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe\"";
     }
 
-    public void executeCommand() {
+    public void executeCommand(Params params) {
         try {
-
-            Runtime.getRuntime().exec(commandBuilder());
+            Runtime.getRuntime().exec(commandBuilder(params));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Can not complile the file");
         }
-
-    }
+    }*/
 
 }
