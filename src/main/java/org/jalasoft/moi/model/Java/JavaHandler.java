@@ -23,13 +23,13 @@ import java.io.IOException;
  *
  */
 public class JavaHandler implements IHandler {
+
     /**
      * Creates a java builder, builds a cmd command, runs command
      *
      * @param javaParams hast the java program main path
      * @return A string containing the output of the executed command
      */
-
     @Override
     public String execute(Params javaParams) {
         String output;
