@@ -6,32 +6,32 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with Jalasoft.
  */
-package org.jalasoft.moi.controller;
+package org.jalasoft.moi.model.cplusplus;
 
-import org.jalasoft.moi.model.ILanguage;
-import org.jalasoft.moi.model.Params;
+import org.jalasoft.moi.model.core.ICommandBuilder;
 
-public class Cpp implements ILanguage {
+import java.nio.file.Path;
+
+public class CppCommandBuilder implements ICommandBuilder {
 
     /**
-     *
-     * @param params will contain all parameters abut the file that we will use to generate its commands
-     * @return
+     * Build the command for C++
+     * @param path contains the location of the directory or file
+     * @return The commands to compile the code
      */
     @Override
-    public String commandBuilder(Params params){
+    public String buildCommand(Path path) {
         String CPPCOMPILERPATH = "C:\\MinGW\\bin\\";
-        String FILEPATH = params.getFilesPath().toString();
-        FILEPATH =  "C:\\AWT5\\MOI\\resources\\files\\test.cpp";
         String OUTPUTFILEPATH = "C:\\AWT5\\MOI\\resources\\files\\test.exe";
         String CPPCOMPILECOMMAND = "c++.exe ";
 
         String actualPath = System.getProperty("user.dir");
-        String compileCommands = "cmd /c" +
+        String compileCommands =
                 " cd " + CPPCOMPILERPATH +
-                " && " + CPPCOMPILECOMMAND + FILEPATH +
+                " && " + CPPCOMPILECOMMAND + path +
                 " -o " + OUTPUTFILEPATH +
-                " && cd " + actualPath;
+                " && cd " + actualPath +
+                " && " + OUTPUTFILEPATH;
         System.out.println(compileCommands);
         return (compileCommands);
     }
