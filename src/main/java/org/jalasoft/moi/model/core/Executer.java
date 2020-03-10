@@ -43,6 +43,7 @@ public class Executer {
         Process tempProcess = Runtime.getRuntime().exec(command);
         InputStreamReader cmdEntrance = new InputStreamReader(tempProcess.getInputStream());
         BufferedReader stdInput = new BufferedReader(cmdEntrance);
+        String output;
         if ((output = stdInput.readLine()) != null) {
             builder.append(output).append("\n");
             while ((output = stdInput.readLine()) != null) {
