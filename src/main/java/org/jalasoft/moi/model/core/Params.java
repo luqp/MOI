@@ -16,6 +16,7 @@ import java.nio.file.Path;
  * Params class contains information from client about what language and root are need
  */
 public class Params {
+
     private Path filesPath;
     private String version;
     private Language language;

@@ -18,6 +18,7 @@ import java.nio.file.Path;
  * @author Carlos Meneses
  */
 public interface ICommandBuilder {
+
     /**
      * This method is used to buil a command for every language that implements this interface
      * @param path contains the location of the directory or file
