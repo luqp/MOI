@@ -9,24 +9,28 @@
 
 package org.jalasoft.moi.model.core;
 
+import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
+import org.jalasoft.moi.model.python.PythonCommandBuilder;
 
 import java.nio.file.Paths;
 
 /**
  * Represent the supported languages and give access to the appropriate command builder.
  *
- * @version    1.0
- * @author     Lucero Quiroga Perez
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public enum Language {
-    PYTHON_37(new PythonCommandBuilder(Paths.get("/thirdparty/python/win/Python37/python.exe"), "37"));
+
+    PYTHON_32(new PythonCommandBuilder(Paths.get("\\thirdparty\\python\\win\\python32\\Portable Python 3.2.5.1\\App\\python.exe"), "32")),
+    CSHARP(new CsharpCommandBuilder());
 
     private final ICommandBuilder commandBuilder;
 
     /**
      * Set the command builder of a specific language and version
      *
-     * @param commandBuilder
+     * @param commandBuilder contains a ICommandBuilder
      */
     Language(ICommandBuilder commandBuilder) {
         this.commandBuilder = commandBuilder;
