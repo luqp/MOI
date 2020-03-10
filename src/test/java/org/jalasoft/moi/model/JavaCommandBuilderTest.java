@@ -14,12 +14,15 @@ import org.jalasoft.moi.model.Java.JavaCommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.junit.jupiter.api.Test;
+
 import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JavaCommandBuilderTest {
+
     @Test
-    public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand(){
+    public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand() {
         //given
         Params testParam = new Params(Paths.get("C:/Users/MauricioOroza/com/MainClass"), "1.8", Language.JAVA);
         JavaCommandBuilder buildThisCommand = new JavaCommandBuilder();
