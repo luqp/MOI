@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.model;
+package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CsharpCommandBuilderTest {
 
     @Test
-    public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand(){
+    public void givenPathParamsWhenBuildCommandThenReceiveTheExpectedComand(){
         //given
         Params params = new Params();
         params.setFilesPath(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"));
