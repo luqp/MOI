@@ -23,27 +23,26 @@ import java.io.IOException;
 /**
  * This class defines the controller for C#.
  *
- * @version        1.0
- * @author         Diego Perez
+ * @author Diego Perez
+ * @version 1.0
  */
-@RestController("/csharp")
+@RestController
+@RequestMapping(path = "/onlineCompiler/csharp")
 public class CSharpController {
 
     private Params codeParams;
     private final IHandler csharpHandler = new CsharpHandler();
 
     /**
-     * Returns a String that shows the output of the program.
-     * A JSON serves as the input needed for
-     * a next call.
+     * Returns a String that shows the output of the program. A JSON serves as
+     * the input needed for a next call.
      *
      * @param jsonRequest A String representing a JSON.
      * @return the output from the execution.
      */
-    @RequestMapping(path = "/v1/onlineCompiler/csharp", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = csharpHandler.codeParams(jsonRequest);
-        String result = csharpHandler.execute(codeParams);
-        return result;
+        codeParams = csharpHandler.convertToParams(jsonRequest);
+        return csharpHandler.execute(codeParams);
     }
 }

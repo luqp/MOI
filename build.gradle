@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
 group 'org.jalasoft.moi'
@@ -14,9 +14,9 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    implementation 'org.springframework.boot:spring-boot-dependencies:2.2.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-dependencies:2.2.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

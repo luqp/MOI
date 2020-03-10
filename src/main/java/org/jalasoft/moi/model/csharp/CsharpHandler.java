@@ -24,10 +24,13 @@ import java.io.IOException;
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @version 1.0
  * @author Carlos Meneses
+ * @version 1.0
  */
 public class CsharpHandler implements IHandler {
+
+    private static final String FILE_RELATIVE_PATH = "";
+    private static final String CSHARP_EXTENSION = ".cs";
 
     /**
      * Create a builder witch build the c# command and then sends it command to
@@ -61,22 +64,19 @@ public class CsharpHandler implements IHandler {
      * @return A Params object with the params needed for compile.
      */
     @Override
-    public Params codeParams(String jsonRequest) throws IOException, ParseException {
+    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
         //Parses the object into different strings containing the parameters.
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
         String fileName = (String) jsonObject.get("fileName");
         String code = (String) jsonObject.get("code");
-        String language = (String) jsonObject.get("language");
         String version = (String) jsonObject.get("version");
         //Creates and writes a file with the code needed.
-        File codeFile = new File("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
-        FileWriter codeWriter = new FileWriter("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
+        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
-        Params codeParams = new Params(codeFile.toPath(),
-                                        version,
-                                        Language.CSHARP);
+        Params codeParams = new Params(codeFile.toPath(), version, Language.CSHARP);
         return codeParams;
     }
 }

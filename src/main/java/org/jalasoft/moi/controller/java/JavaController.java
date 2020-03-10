@@ -9,8 +9,9 @@
 
 package org.jalasoft.moi.controller.java;
 
-import org.jalasoft.moi.controller.CodeHelper;
+import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.java.JavaHandler;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +23,15 @@ import java.io.IOException;
 /**
  * This class defines the controller for Java.
  *
- * @version        1.0
- * @author         Diego Perez
+ * @author Diego Perez
+ * @version 1.0
  */
-@RestController("/java")
+@RestController
+@RequestMapping(path = "/onlineCompiler/java")
 public class JavaController {
 
     private Params codeParams;
-    private final CodeHelper codeHelper = new CodeHelper();
+    private final IHandler javaHandler = new JavaHandler();
 
     /**
      * Returns a String that shows the output of the program.
@@ -39,10 +41,9 @@ public class JavaController {
      * @param jsonRequest A String representing a JSON.
      * @return the output from the execution.
      */
-    @RequestMapping(path = "/v1/onlineCompiler/java", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = codeHelper.codeParams(jsonRequest);
-        String result = codeHelper.execCode(codeParams);
-        return result;
+        codeParams = javaHandler.convertToParams(jsonRequest);
+        return javaHandler.execute(codeParams);
     }
 }

@@ -9,7 +9,7 @@
 
 package org.jalasoft.moi.controller.cplusplus;
 
-import org.jalasoft.moi.controller.CodeHelper;
+import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +22,15 @@ import java.io.IOException;
 /**
  * This class defines the controller for C++.
  *
- * @version        1.0
- * @author         Diego Perez
+ * @author Diego Perez
+ * @version 1.0
  */
-@RestController("/cpp")
+@RestController
+@RequestMapping(path = "/onlineCompiler/cpp")
 public class CppController {
 
     private Params codeParams;
-    private final CodeHelper codeHelper = new CodeHelper();
+    private final IHandler cppHandler = new CppHandler();
 
     /**
      * Returns a String that shows the output of the program.
@@ -39,10 +40,9 @@ public class CppController {
      * @param jsonRequest A String representing a JSON.
      * @return the output from the execution.
      */
-    @RequestMapping(path = "/v1/onlineCompiler/cpp", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = codeHelper.codeParams(jsonRequest);
-        String result = codeHelper.execCode(codeParams);
-        return result;
+        codeParams = cppHandler.convertToParams(jsonRequest);
+        return cppHandler.execute(codeParams);
     }
 }

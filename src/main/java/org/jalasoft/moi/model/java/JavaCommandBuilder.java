@@ -6,7 +6,7 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with Jalasoft.
  */
-package org.jalasoft.moi.model.Java;
+package org.jalasoft.moi.model.java;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
 
