@@ -11,6 +11,7 @@ package org.jalasoft.moi.model.python;
 
 import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.ICommandBuilder;
+import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 
 import java.io.IOException;
@@ -21,12 +22,12 @@ import java.io.IOException;
  * @version    1.0
  * @author     Lucero Quiroga Perez
  */
-public class PythonHandler {
+public class PythonHandler implements IHandler {
     
     /**
      * Receives the parameters and execute the program in the file.
      *
-     * @param params
+     * @param params contains files location and language
      * @return String
      */
     public String execute(Params params) {
