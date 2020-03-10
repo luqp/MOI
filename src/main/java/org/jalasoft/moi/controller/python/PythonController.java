@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 /**
- * This class defines the controller for the data sent from every endpoint.
+ * This class defines the controller for Python.
  *
  * @version        1.0
  * @author         Diego Perez
