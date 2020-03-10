@@ -7,13 +7,21 @@
  *   license agreement you entered into with Jalasoft.
  */
 
+package org.jalasoft.moi.model.core;
+
+import java.nio.file.Path;
+
 /**
  * This interface defines the type of object for the classes that implement it will use
+ *
+ * @version 1.0
+ * @author Carlos Meneses
  */
-public interface ILanguage {
+public interface ICommandBuilder {
     /**
-     * @param params will contain all parameters abut the file that we will use to generate its commands
-     * @return a string that will use another class in charge of execute commands
+     * This method is used to buil a command for every language that implements this interface
+     * @param path contains the location of the directory or file
+     * @return String of the command builded with the path Params
      */
-    String commandBuilder(Params params);
+    String commandBuilder(Path path);
 }
