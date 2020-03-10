@@ -13,16 +13,16 @@ import java.nio.file.Path;
 /**
  * Implemented for all class that want to build commands for a certain language.
  *
- * @version     1.0
- * @author      Lucero Quiroga Perez
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public interface ICommandBuilder {
 
     /**
      * Builds a command given the location of the directory or file.
      *
-     * @param path file location
-     * @return String.
+     * @param path file location>
+     * @return String
      */
     String buildCommand(Path path);
 }

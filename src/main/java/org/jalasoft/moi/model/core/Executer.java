@@ -16,13 +16,12 @@ import java.io.InputStreamReader;
 /**
  * Class recieves a string, executes it on cmd and returns output on a string
  *
- * @version 1.0 03 March 2020
  * @author Mauricio Oroza
- *
+ * @version 1.0 03 March 2020
  */
 public class Executer {
+
     private String command;
-    private String output;
 
     /**
      * Constructor recieves string command
@@ -44,6 +43,7 @@ public class Executer {
         Process tempProcess = Runtime.getRuntime().exec(command);
         InputStreamReader cmdEntrance = new InputStreamReader(tempProcess.getInputStream());
         BufferedReader stdInput = new BufferedReader(cmdEntrance);
+        String output;
         if ((stdInput.readLine()) != null) {
             while ((output = stdInput.readLine()) != null) {
                 builder.append(output).append("\n");

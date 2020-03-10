@@ -8,7 +8,6 @@
  */
 
 package org.jalasoft.moi.model.core;
-import org.jalasoft.moi.model.core.Language;
 
 import java.nio.file.Path;
 
@@ -16,10 +15,11 @@ import java.nio.file.Path;
  * Contains information from client about what language,
  * version and files location will be used to compile.
  *
- * @version    1.0
- * @author     Lucero Quiroga Perez
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public class Params {
+
     private Path filesPath;
     private Language language;
 

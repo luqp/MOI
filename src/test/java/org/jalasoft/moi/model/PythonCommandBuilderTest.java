@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PythonCommandBuilderTest {
+
     private static String directoryFile;
     private static String command;
 
