@@ -7,7 +7,6 @@
  * license agreement you entered into with Jalasoft.
  *
  */
-
 package org.jalasoft.moi.model.Java;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
@@ -21,22 +20,20 @@ import java.nio.file.Path;
  *
  */
 public class JavaCommandBuilder implements ICommandBuilder {
-    private static final String MOVE_TO="cd ";
-    private static final String JAVA_COMPLILE_ALL="javac *.java ";
-    private static final String JAVA_RUN="java  ";
+    private static final String MOVE_TO = "cd ";
+    private static final String JAVA_COMPLILE_ALL = "javac *.java";
+    private static final String JAVA_RUN = "java ";
     private static String mainName;
     private static String folderPath;
 
-
     /**
-     * @param path contains the location of the directory or file
+     * @param completePath contains the location of the directory or file
      * @return String of the command builded with the path Params
      */
     @Override
-    public String commandBuilder(Path path) {
-        folderPath=path.getParent().toString();
-        mainName=path.getFileName().toString();
-
+    public String buildCommand(Path completePath) {
+        folderPath = completePath.getParent().toString();
+        mainName = completePath.getFileName().toString();
         return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + mainName;
     }
 }
