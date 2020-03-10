@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
  *
  */
 public class Executer {
+
     private String command;
     private String output;
 
