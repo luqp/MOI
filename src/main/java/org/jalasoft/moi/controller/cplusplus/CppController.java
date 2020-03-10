@@ -7,8 +7,9 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller;
+package org.jalasoft.moi.controller.cplusplus;
 
+import org.jalasoft.moi.controller.CodeHelper;
 import org.jalasoft.moi.model.core.Params;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +25,8 @@ import java.io.IOException;
  * @version        1.0
  * @author         Diego Perez
  */
-@RestController("/code")
-public class CodeController {
+@RestController("/cpp")
+public class CppController {
 
     private Params codeParams;
     private final CodeHelper codeHelper = new CodeHelper();
@@ -38,7 +39,7 @@ public class CodeController {
      * @param jsonRequest A String representing a JSON.
      * @return the output from the execution.
      */
-    @RequestMapping(path = "/v1/onlineCompiler", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(path = "/v1/onlineCompiler/cpp", method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
         codeParams = codeHelper.codeParams(jsonRequest);
         String result = codeHelper.execCode(codeParams);

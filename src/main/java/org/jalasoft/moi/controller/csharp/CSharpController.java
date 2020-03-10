@@ -7,9 +7,11 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller;
+package org.jalasoft.moi.controller.csharp;
 
+import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +26,11 @@ import java.io.IOException;
  * @version        1.0
  * @author         Diego Perez
  */
-@RestController("/code")
-public class CodeController {
+@RestController("/csharp")
+public class CSharpController {
 
     private Params codeParams;
-    private final CodeHelper codeHelper = new CodeHelper();
+    private final IHandler csharpHandler = new CsharpHandler();
 
     /**
      * Returns a String that shows the output of the program.
@@ -38,10 +40,10 @@ public class CodeController {
      * @param jsonRequest A String representing a JSON.
      * @return the output from the execution.
      */
-    @RequestMapping(path = "/v1/onlineCompiler", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(path = "/v1/onlineCompiler/csharp", method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = codeHelper.codeParams(jsonRequest);
-        String result = codeHelper.execCode(codeParams);
+        codeParams = csharpHandler.codeParams(jsonRequest);
+        String result = csharpHandler.execute(codeParams);
         return result;
     }
 }

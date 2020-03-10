@@ -8,6 +8,11 @@
  */
 
 package org.jalasoft.moi.model.core;
+
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
 /**
  * Handler is in charge to work with the executer and the command builder
  *
@@ -22,4 +27,6 @@ public interface IHandler {
      * @return a String of result from CommandBuilder and Executer handling
      */
     String execute(Params params);
+
+    Params codeParams(String jsonRequest) throws IOException, ParseException;
 }

@@ -11,7 +11,14 @@ package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -43,5 +50,33 @@ public class CsharpHandler implements IHandler {
             result = "Nothing for compile";
         }
         return result;
+    }
+
+    /**
+     * Returns a Params object.
+     * A JSON object gets deconstructed and its data used to make a
+     * Params object.
+     *
+     * @param jsonRequest A JSON containing the parameters.
+     * @return A Params object with the params needed for compile.
+     */
+    @Override
+    public Params codeParams(String jsonRequest) throws IOException, ParseException {
+        //Parses the object into different strings containing the parameters.
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
+        String fileName = (String) jsonObject.get("fileName");
+        String code = (String) jsonObject.get("code");
+        String language = (String) jsonObject.get("language");
+        String version = (String) jsonObject.get("version");
+        //Creates and writes a file with the code needed.
+        File codeFile = new File("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
+        FileWriter codeWriter = new FileWriter("C:\\Users\\Admin\\Documents\\temp\\" + fileName);
+        codeWriter.write(code);
+        codeWriter.close();
+        Params codeParams = new Params(codeFile.toPath(),
+                                        version,
+                                        Language.CSHARP);
+        return codeParams;
     }
 }

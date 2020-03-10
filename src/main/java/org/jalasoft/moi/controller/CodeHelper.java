@@ -26,7 +26,7 @@ import java.io.IOException;
  * @version        1.0
  * @author         Diego Perez
  */
-public class CodeHandler {
+public class CodeHelper {
 
     /**
      * Returns a Params object.
