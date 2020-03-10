@@ -45,7 +45,7 @@ public class CsharpCommandBuilder implements ICommandBuilder {
      * @return String of the command builded with the path Params
      */
     @Override
-    public String commandBuilder(Path path) {
+    public String buildCommand(Path path) {
         return getFolderPath(path)+" && "+COMPILER_PATH+path.getFileName().toString()+" && "+getCompiledName(path);
     }
 

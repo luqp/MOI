@@ -8,20 +8,18 @@
  */
 
 package org.jalasoft.moi.model.core;
-
-import java.nio.file.Path;
-
 /**
- * This interface defines the type of object for the classes that implement it will use
+ * Handler is in charge to work with the executer and the command builder
  *
  * @version 1.0
  * @author Carlos Meneses
  */
-public interface ICommandBuilder {
+public interface IHandler {
+
+
     /**
-     * This method is used to buil a command for every language that implements this interface
-     * @param path contains the location of the directory or file
-     * @return String of the command builded with the path Params
+     * @param params contains the parameters to build a command a execute it
+     * @return a String of result from CommandBuilder and Executer handling
      */
-    String buildCommand(Path path);
+    String execute(Params params);
 }
