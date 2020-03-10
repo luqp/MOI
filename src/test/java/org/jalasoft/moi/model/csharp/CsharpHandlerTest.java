@@ -24,7 +24,6 @@ public class CsharpHandlerTest {
         //given
         String expectedResult = "Hi World";
         Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
-        CsharpCommandBuilder compliler = new CsharpCommandBuilder();
         //when
         CsharpHandler csharpHandler = new CsharpHandler();
         String currentResult = csharpHandler.execute(params);
