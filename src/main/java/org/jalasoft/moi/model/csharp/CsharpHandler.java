@@ -23,6 +23,9 @@ import java.io.IOException;
 public class CsharpHandler implements IHandler {
 
     /**
+     * Create a builder witch build the c# command and then sends it command to
+     * executer to get a result
+     *
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
