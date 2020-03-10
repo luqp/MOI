@@ -55,7 +55,7 @@ public class CsharpHandler implements IHandler {
     /**
      * Returns a Params object.
      * A JSON object gets deconstructed and its data used to make a
-     * Params object.
+     * Params for CSHARP.
      *
      * @param jsonRequest A JSON containing the parameters.
      * @return A Params object with the params needed for compile.

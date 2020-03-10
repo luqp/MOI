@@ -28,5 +28,14 @@ public interface IHandler {
      */
     String execute(Params params);
 
+    /**
+     * Returns a Params object.
+     * A JSON object gets deconstructed and its data used to make a
+     * Params object.
+     * @param jsonRequest A string ready to be decomposed into variables.
+     * @return A Params object.
+     * @throws IOException
+     * @throws ParseException
+     */
     Params codeParams(String jsonRequest) throws IOException, ParseException;
 }
