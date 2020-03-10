@@ -6,23 +6,23 @@
  *   Information and shall use it only in accordance with the terms of the
  *   license agreement you entered into with Jalasoft.
  */
-
 package org.jalasoft.moi.model.core;
 
 import java.nio.file.Path;
 
 /**
- * This interface defines the type of object for the classes that implement it will use
+ * Implemented for all class that want to build commands for a certain language.
  *
+ * @author Lucero Quiroga Perez
  * @version 1.0
- * @author Carlos Meneses
  */
 public interface ICommandBuilder {
 
     /**
-     * This method is used to buil a command for every language that implements this interface
-     * @param path contains the location of the directory or file
-     * @return String of the command builded with the path Params
+     * Builds a command given the location of the directory or file.
+     *
+     * @param path file location
+     * @return String
      */
     String buildCommand(Path path);
 }

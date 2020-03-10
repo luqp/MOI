@@ -11,6 +11,7 @@
 package org.jalasoft.moi.model;
 
 import org.jalasoft.moi.model.Java.JavaHandler;
+import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,11 @@ public class JavaHandlerTest {
         //given
         String expectedResult = "Hey! estoy en el main1!\nhellooooooooo!!!!\nHey! estoy en el main2!";
         String currentResult;
-        Params testParam = new Params(Paths.get("C:/Users/MauricioOroza/com/MainClass"), "1.8", Language.JAVA);
+
+        Params testParam = new Params();
+        testParam.setFilesPath(Paths.get("C:/Users/MauricioOroza/com/MainClass"));
+        testParam.setLanguage(Language.JAVA);
+
         JavaHandler JH = new JavaHandler();
         //when
         currentResult = JH.execute(testParam);
