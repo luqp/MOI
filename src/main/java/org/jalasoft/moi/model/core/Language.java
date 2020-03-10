@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.model.core;
 
+import org.jalasoft.moi.model.Java.JavaCommandBuilder;
 import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.jalasoft.moi.model.python.PythonCommandBuilder;
 
@@ -23,7 +24,8 @@ import java.nio.file.Paths;
 public enum Language {
 
     PYTHON_32(new PythonCommandBuilder(Paths.get("\\thirdparty\\python\\win\\python32\\Portable Python 3.2.5.1\\App\\python.exe"), "32")),
-    CSHARP(new CsharpCommandBuilder());
+    CSHARP(new CsharpCommandBuilder()),
+    JAVA(new JavaCommandBuilder());
 
     private final ICommandBuilder commandBuilder;
 
