@@ -9,9 +9,9 @@
 
 package org.jalasoft.moi.model;
 
+import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,11 +20,14 @@ public class CsharpCommandBuilderTest {
     @Test
     public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand(){
         //given
-        Params params = new Params(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"), "4.0", Language.CSHARP);
-        CsharpCommandBuilder compliler = new CsharpCommandBuilder();
+        Params params = new Params();
+        params.setFilesPath(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"));
+        params.setLanguage(Language.CSHARP);
+
+        ICommandBuilder compliler = params.getLanguage().getCommandBuilder();
         String expectedCommand = "cd C:\\Users\\Admin\\Desktop\\csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe";
         //when
-        String currentCommand = compliler.commandBuilder(params.getFilesPath());
+        String currentCommand = compliler.buildCommand(params.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
     }
