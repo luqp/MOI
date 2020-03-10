@@ -8,28 +8,29 @@
  *
  */
 
-package org.jalasoft.moi.model;
-
-import org.jalasoft.moi.model.Java.JavaHandler;
-import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
+package org.jalasoft.moi.model;import org.jalasoft.moi.model.core.Executer;
 import org.junit.jupiter.api.Test;
-import java.nio.file.Paths;
+
+import java.io.IOException;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JavaHandlerTest {
-
+public class ExecuterTest {
     @Test
     public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() {
         //given
-        String expectedResult = "Hey! estoy en el main1!\nhellooooooooo!!!!\nHey! estoy en el main2!";
+        String expectedResult = "Microsoft Windows [Version 10.0.17763.678]";
         String currentResult;
-        Params testParam = new Params(Paths.get("C:/Users/MauricioOroza/com/MainClass"), "1.8", Language.JAVA);
-        JavaHandler JH = new JavaHandler();
+        Executer testExecute = new Executer("VER");
         //when
-        currentResult = JH.execute(testParam);
+        try {
+            currentResult = testExecute.run();
+        } catch (IOException e) {
+            currentResult = "Algo ha fallado";
+            e.printStackTrace();
+        }
         //then
         assertEquals(expectedResult, currentResult);
     }
-
 }
