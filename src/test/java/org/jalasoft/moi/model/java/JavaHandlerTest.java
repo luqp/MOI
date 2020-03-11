@@ -21,9 +21,11 @@ public class JavaHandlerTest {
     @Test
     public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() {
         //given
-        String expectedResult = "Hey! estoy en el main1!\nhellooooooooo!!!!\nHey! estoy en el main2!";
+        String expectedResult = "Hey! estoy en el main1!/nhellooooooooo!!!!/nHey! estoy en el main2!";
         String currentResult;
-        Params testParam = new Params(Paths.get("C:/Users/MauricioOroza/com/MainClass"), "1.8", Language.JAVA);
+        Params testParam = new Params();
+        testParam.setFilesPath(Paths.get("C:/Users/Admin/Documents/temp/wea"));
+        testParam.setLanguage(Language.JAVA);
         JavaHandler JH = new JavaHandler();
         //when
         currentResult = JH.execute(testParam);

@@ -11,6 +11,7 @@ package org.jalasoft.moi.controller.cplusplus;
 
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ import java.io.IOException;
 public class CppController {
 
     private Params codeParams;
-    private final IHandler cppHandler = new CppHandler();
+    private final IHandler cppHandler = new CsharpHandler();
 
     /**
      * Returns a String that shows the output of the program.

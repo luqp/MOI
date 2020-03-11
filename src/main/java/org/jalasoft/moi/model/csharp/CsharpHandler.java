@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class CsharpHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "";
+    private static final String FILE_RELATIVE_PATH = "C:\\Users\\Admin\\Documents\\temp\\";
     private static final String CSHARP_EXTENSION = ".cs";
 
     /**
@@ -43,7 +43,7 @@ public class CsharpHandler implements IHandler {
     public String execute(Params params) {
         CsharpCommandBuilder cSharpCommandBuilder = new CsharpCommandBuilder();
         String command = cSharpCommandBuilder.buildCommand(params.getFilesPath());
-
+        System.out.println(command);
         Executer executer = new Executer(command);
         String result;
         try {
@@ -71,12 +71,15 @@ public class CsharpHandler implements IHandler {
         String fileName = (String) jsonObject.get("fileName");
         String code = (String) jsonObject.get("code");
         String version = (String) jsonObject.get("version");
+
         //Creates and writes a file with the code needed.
         File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
-        Params codeParams = new Params(codeFile.toPath(), version, Language.CSHARP);
+        Params codeParams = new Params();
+        codeParams.setFilesPath(codeFile.toPath());
+        codeParams.setLanguage(Language.CSHARP);
         return codeParams;
     }
 }

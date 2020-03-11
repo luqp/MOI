@@ -8,39 +8,54 @@
  */
 
 package org.jalasoft.moi.model.core;
-import org.jalasoft.moi.model.core.Language;
 
 import java.nio.file.Path;
 
 /**
- * Params class contains information from client about what language and root are need
+ * Contains information from client about what language,
+ * version and files location will be used to compile.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public class Params {
 
     private Path filesPath;
-    private String version;
     private Language language;
 
     /**
-     * @param filesPath contains the root files in the local host.
-     * @param version contains the language version.
-     * @param language of the code used for the client.
+     * Contains files location on the local host.
+     *
+     * @return Path
      */
-    public Params(Path filesPath, String version, Language language) {
-        this.filesPath = filesPath;
-        this.version = version;
-        this.language = language;
-    }
-
     public Path getFilesPath() {
         return filesPath;
     }
 
-    public String getVersion() {
-        return version;
+    /**
+     * Set files location on the local host.
+     *
+     * @param filesPath files location
+     */
+    public void setFilesPath(Path filesPath) {
+        this.filesPath = filesPath;
     }
 
+    /**
+     * Contains the language in which files will be compiled.
+     *
+     * @return Language
+     */
     public Language getLanguage() {
         return language;
+    }
+
+    /**
+     * Set the language in which files will be compiled.
+     *
+     * @param language type selected by the client
+     */
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }

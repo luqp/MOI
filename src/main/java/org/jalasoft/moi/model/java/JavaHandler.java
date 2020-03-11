@@ -30,7 +30,7 @@ import java.io.IOException;
  */
 public class JavaHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "";
+    private static final String FILE_RELATIVE_PATH = "C:/Users/Admin/Documents/temp/";
     private static final String JAVA_EXTENSION = ".java";
 
     /**
@@ -44,6 +44,7 @@ public class JavaHandler implements IHandler {
         String output;
         JavaCommandBuilder newJavaCommBuild = new JavaCommandBuilder();
         String command = newJavaCommBuild.buildCommand(javaParams.getFilesPath());
+        System.out.println(command);
         Executer taskJava = new Executer(command);
         try {
             output = taskJava.run();
@@ -76,7 +77,9 @@ public class JavaHandler implements IHandler {
         FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + JAVA_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
-        Params codeParams = new Params(codeFile.toPath(), version, Language.JAVA);
+        Params codeParams = new Params();
+        codeParams.setFilesPath(codeFile.toPath());
+        codeParams.setLanguage(Language.JAVA);
         return codeParams;
     }
 }

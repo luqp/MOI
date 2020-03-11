@@ -23,7 +23,9 @@ public class JavaCommandBuilderTest {
     @Test
     public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand() {
         //given
-        Params testParam = new Params(Paths.get("C:/Users/MauricioOroza/com/MainClass"), "1.8", Language.JAVA);
+        Params testParam = new Params();
+        testParam.setFilesPath(Paths.get("C:/Users/MauricioOroza/com/MainClass"));
+        testParam.setLanguage(Language.JAVA);
         JavaCommandBuilder buildThisCommand = new JavaCommandBuilder();
         String expectedCommand = "cd C:/Users/MauricioOroza/com && javac *.java && java MainClass";
         //when
