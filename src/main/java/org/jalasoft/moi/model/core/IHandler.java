@@ -22,6 +22,8 @@ import java.io.IOException;
 public interface IHandler {
 
     /**
+     * Returns the output from the execution of a program.
+     *
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
