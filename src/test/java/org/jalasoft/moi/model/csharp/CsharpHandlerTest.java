@@ -23,9 +23,9 @@ public class CsharpHandlerTest {
     @Test
     public void whenHandlerReceiveParamsBuildCommandAndExecuteThenRun(){
         //given
-        String expectedResult = "Hi World";
+        String expectedResult = "Hi World line 1\nHi World line 2\nHi World line 3";
         Params params = new Params();
-        params.setFilesPath(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"));
+        params.setFilesPath(Paths.get("C:/Users/Admin/IdeaProjects/MOI/thirdparty/csharp/hiworld.cs"));
         params.setLanguage(Language.CSHARP);
         //when
         CsharpHandler csharpHandler = new CsharpHandler();
