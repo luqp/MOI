@@ -14,6 +14,7 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -43,5 +44,10 @@ public class CppHandler implements IHandler {
             result = "Nothing for compile";
         }
         return result;
+    }
+
+    @Override
+    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
+        return null;
     }
 }
