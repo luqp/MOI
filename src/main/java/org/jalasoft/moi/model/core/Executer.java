@@ -24,7 +24,7 @@ public class Executer {
     private String command;
 
     /**
-     * Constructor recieves string command
+     * Constructor receives string command
      *
      * @param command command to be executed
      */

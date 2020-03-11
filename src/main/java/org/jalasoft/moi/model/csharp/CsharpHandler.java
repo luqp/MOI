@@ -11,16 +11,26 @@ package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @version 1.0
  * @author Carlos Meneses
+ * @version 1.0
  */
 public class CsharpHandler implements IHandler {
+
+    private static final String FILE_RELATIVE_PATH = "C:\\Users\\Admin\\Documents\\temp\\";
+    private static final String CSHARP_EXTENSION = ".cs";
 
     /**
      * Create a builder witch build the c# command and then sends it command to
@@ -33,7 +43,6 @@ public class CsharpHandler implements IHandler {
     public String execute(Params params) {
         CsharpCommandBuilder cSharpCommandBuilder = new CsharpCommandBuilder();
         String command = cSharpCommandBuilder.buildCommand(params.getFilesPath());
-
         Executer executer = new Executer(command);
         String result;
         try {
@@ -43,5 +52,33 @@ public class CsharpHandler implements IHandler {
             result = "Nothing for compile";
         }
         return result;
+    }
+
+    /**
+     * Returns a Params object.
+     * A JSON object gets deconstructed and its data used to make a
+     * Params for CSHARP.
+     *
+     * @param jsonRequest A JSON containing the parameters.
+     * @return A Params object with the params needed for compile.
+     */
+    @Override
+    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
+        //Parses the object into different strings containing the parameters.
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
+        String fileName = (String) jsonObject.get("fileName");
+        String code = (String) jsonObject.get("code");
+        String version = (String) jsonObject.get("version");
+
+        //Creates and writes a file with the code needed.
+        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        codeWriter.write(code);
+        codeWriter.close();
+        Params codeParams = new Params();
+        codeParams.setFilesPath(codeFile.toPath());
+        codeParams.setLanguage(Language.CSHARP);
+        return codeParams;
     }
 }
