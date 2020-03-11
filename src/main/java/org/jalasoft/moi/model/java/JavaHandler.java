@@ -44,7 +44,6 @@ public class JavaHandler implements IHandler {
         String output;
         JavaCommandBuilder newJavaCommBuild = new JavaCommandBuilder();
         String command = newJavaCommBuild.buildCommand(javaParams.getFilesPath());
-        System.out.println(command);
         Executer taskJava = new Executer(command);
         try {
             output = taskJava.run();

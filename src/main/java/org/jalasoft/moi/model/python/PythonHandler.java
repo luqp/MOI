@@ -43,7 +43,6 @@ public class PythonHandler implements IHandler {
     public String execute(Params params) {
         ICommandBuilder pythonCommandBuilder = params.getLanguage().getCommandBuilder();
         String command = pythonCommandBuilder.buildCommand(params.getFilesPath());
-        System.out.println(command);
         Executer executer = new Executer(command);
         String result;
         try {

@@ -43,7 +43,6 @@ public class CsharpHandler implements IHandler {
     public String execute(Params params) {
         CsharpCommandBuilder cSharpCommandBuilder = new CsharpCommandBuilder();
         String command = cSharpCommandBuilder.buildCommand(params.getFilesPath());
-        System.out.println(command);
         Executer executer = new Executer(command);
         String result;
         try {

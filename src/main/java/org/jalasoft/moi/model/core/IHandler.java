@@ -16,8 +16,8 @@ import java.io.IOException;
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @version 1.0
  * @author Carlos Meneses
+ * @version 1.0
  */
 public interface IHandler {
 
