@@ -26,3 +26,7 @@ dependencies {
 bootJar {
     mainClassName = 'org.jalasoft.moi.Main'
 }
+
+bootRun {
+    main = 'org.jalasoft.moi.Main'
+}
