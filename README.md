@@ -16,4 +16,4 @@ Windows 10 and Windows 8
 -	Also, you can view this tutorial: [install MINGW](https://youtu.be/bhxqI6xmsuA)
 
 ##C# Windows compiler (C# Compiler)
--	To compile C# files this project uses "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe " as default windows compiler path, this would be chage in case to use othe Operative System  
+-	To compile C# files this project uses "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe " as default windows compiler path, this would be chage in case to use other Operative System  
