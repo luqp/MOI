@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class CsharpHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "C:\\Users\\Admin\\Documents\\temp\\";
+    private static final String FILE_RELATIVE_PATH = "./temp/";
     private static final String CSHARP_EXTENSION = ".cs";
 
     /**
