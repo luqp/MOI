@@ -1,5 +1,5 @@
 # MOI
-##How Install MinGW (C++ Compiler)
+## How Install MinGW (C++ Compiler)
 -	Download The file:
 [mingw-get-inst-20110530.exe](www.rose-hulman.edu/class/csse/binaries/MinGW/mingw-get-inst-20110530.exe)
 -	Execute the file: mingw-get-inst-20110530.exe
@@ -15,5 +15,14 @@ Windows 10 and Windows 8
   
 -	Also, you can view this tutorial: [install MINGW](https://youtu.be/bhxqI6xmsuA)
 
-##C# Windows compiler (C# Compiler)
+
+## C# Windows compiler (C# Compiler)
 -	To compile C# files this project uses "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe " as default windows compiler path, this would be chage in case to use other Operative System  
+
+## To Use Python Compiler
+- Unzip the file in the same folder
+```
+thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
+```
+Now you are able to use Python language with the app.
+
