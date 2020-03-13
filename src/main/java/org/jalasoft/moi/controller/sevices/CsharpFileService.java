@@ -25,7 +25,7 @@ import java.io.IOException;
 @Service
 public class CsharpFileService {
 
-    private static final String FILE_RELATIVE_PATH = "C:\\MOI\\csharp\\";
+    private static final String FILE_RELATIVE_PATH = ".\\temp\\csharp\\";
     private static final String CSHARP_EXTENSION = ".cs";
 
     /**

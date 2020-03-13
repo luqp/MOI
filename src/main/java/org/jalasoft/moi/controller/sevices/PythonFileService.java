@@ -26,7 +26,7 @@ import java.io.IOException;
 @Service
 public class PythonFileService {
 
-    private static final String FILE_RELATIVE_PATH = "C:\\MOI\\python\\";
+    private static final String FILE_RELATIVE_PATH = ".\\temp\\python\\";
     private static final String PYTHON_EXTENSION = ".py";
 
     /**

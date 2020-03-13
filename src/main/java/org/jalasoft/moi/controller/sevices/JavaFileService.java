@@ -26,7 +26,7 @@ import java.io.IOException;
 @Service
 public class JavaFileService {
 
-    private static final String FILE_RELATIVE_PATH = "C:\\MOI\\java\\";
+    private static final String FILE_RELATIVE_PATH = ".\\temp\\java\\";
     private static final String JAVA_EXTENSION = ".java";
 
     /**
