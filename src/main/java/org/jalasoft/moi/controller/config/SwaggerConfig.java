@@ -7,7 +7,7 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.config;
+package org.jalasoft.moi.controller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
