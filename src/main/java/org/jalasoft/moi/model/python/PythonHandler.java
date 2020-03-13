@@ -31,7 +31,7 @@ import java.nio.file.Paths;
  */
 public class PythonHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "C:/Users/Admin/Documents/temp/";
+    private static final String FILE_RELATIVE_PATH = "./output/";
     private static final String PYTHON_EXTENSION = ".py";
 
     /**

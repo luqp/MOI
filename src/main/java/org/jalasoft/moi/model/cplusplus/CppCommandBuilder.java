@@ -22,7 +22,7 @@ public class CppCommandBuilder implements ICommandBuilder {
     @Override
     public String buildCommand(Path path) {
         String CPPCOMPILERPATH = "C:\\MinGW\\bin\\";
-        String OUTPUTFILEPATH = ".\\resources\\files\\test.exe";
+        String OUTPUTFILEPATH = "./temp/test.exe";
         String CPPCOMPILECOMMAND = "c++.exe ";
 
         String actualPath = System.getProperty("user.dir");
@@ -32,7 +32,6 @@ public class CppCommandBuilder implements ICommandBuilder {
                 " -o " + OUTPUTFILEPATH +
                 " && cd " + actualPath +
                 " && " + OUTPUTFILEPATH;
-        System.out.println(compileCommands);
         return (compileCommands);
     }
 }

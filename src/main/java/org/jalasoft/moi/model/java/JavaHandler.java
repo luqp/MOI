@@ -16,6 +16,9 @@ import org.jalasoft.moi.model.core.Params;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,7 +33,7 @@ import java.io.IOException;
  */
 public class JavaHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "C:/Users/Admin/Documents/temp/";
+    private static final String FILE_RELATIVE_PATH = "./output/";
     private static final String JAVA_EXTENSION = ".java";
 
     /**
