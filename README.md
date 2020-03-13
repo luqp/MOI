@@ -20,3 +20,9 @@ Windows 10 and Windows 8
 thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
 ```
 Now you are able to use Python language with the app.
+
+## To Use Java Compiler
+- Install java jdk 1.8 or unzip this file in the same folder
+```
+thirdparty/java/win/1.8.zip
+```
