@@ -33,7 +33,7 @@ import java.io.IOException;
  */
 public class JavaHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "./temp/";
+    private static final String FILE_RELATIVE_PATH = "./temp/java/";
     private static final String JAVA_EXTENSION = ".java";
 
     /**

@@ -31,7 +31,7 @@ import java.io.IOException;
  */
 public class CppHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "./temp/";
+    private static final String FILE_RELATIVE_PATH = "./temp/cplusplus/";
     private static final String CPP_EXTENSION = ".cc";
 
     /**
