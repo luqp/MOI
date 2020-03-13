@@ -44,7 +44,7 @@ public class PythonController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = pythonHandler.convertToParams(jsonRequest);
+        //codeParams = pythonHandler.convertToParams(jsonRequest);
         return pythonHandler.execute(codeParams);
     }
 }

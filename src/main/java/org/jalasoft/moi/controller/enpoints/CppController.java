@@ -43,7 +43,7 @@ public class CppController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = cppHandler.convertToParams(jsonRequest);
+        //codeParams = cppHandler.convertToParams(jsonRequest);
         return cppHandler.execute(codeParams);
     }
 }

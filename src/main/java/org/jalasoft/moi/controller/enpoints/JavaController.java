@@ -9,10 +9,12 @@
 
 package org.jalasoft.moi.controller.enpoints;
 
+import org.jalasoft.moi.controller.sevices.JavaFileService;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.java.JavaHandler;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +32,8 @@ import java.io.IOException;
 @RequestMapping(path = "/onlineCompiler/java")
 public class JavaController {
 
-    private Params codeParams;
-    private final IHandler javaHandler = new JavaHandler();
-
+    @Autowired
+    private JavaFileService fileService;
     /**
      * Returns a String that shows the output of the program.
      * A JSON serves as the input needed for
@@ -43,7 +44,7 @@ public class JavaController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = javaHandler.convertToParams(jsonRequest);
-        return javaHandler.execute(codeParams);
+        Params codeParams = fileService.convertToParams(jsonRequest);
+        return fileService.handlerExecute(codeParams);
     }
 }
