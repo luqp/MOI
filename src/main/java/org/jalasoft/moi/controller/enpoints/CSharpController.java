@@ -10,10 +10,10 @@
 package org.jalasoft.moi.controller.enpoints;
 
 import io.swagger.annotations.Api;
-import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.controller.sevices.CsharpFileService;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +32,8 @@ import java.io.IOException;
 @Api(value = "csharp", description = "Implement compile and run code in Csharp")//for Swagger
 public class CSharpController {
 
-    private Params codeParams;
-    private final IHandler csharpHandler = new CsharpHandler();
+    @Autowired
+    private CsharpFileService savefile;
 
     /**
      * Returns a String that shows the output of the program. A JSON serves as
@@ -44,7 +44,7 @@ public class CSharpController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = csharpHandler.convertToParams(jsonRequest);
-        return csharpHandler.execute(codeParams);
+        Params codeParams = savefile.convertToParams(jsonRequest);
+        return savefile.handlerExecute(codeParams);
     }
 }

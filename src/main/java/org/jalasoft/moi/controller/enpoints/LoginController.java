@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller;
+package org.jalasoft.moi.controller.enpoints;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam(value = "username")String username, @RequestParam(value = "password")String password){
         String secret = "AWT05";
