@@ -7,11 +7,12 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.cplusplus;
+package org.jalasoft.moi.controller;
 
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
+import org.jalasoft.moi.model.python.PythonHandler;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,17 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 /**
- * This class defines the controller for C++.
+ * This class defines the controller for Python.
  *
  * @author Diego Perez
  * @version 1.0
  */
 @RestController
-@RequestMapping(path = "/onlineCompiler/cpp")
-public class CppController {
+@RequestMapping(path = "/onlineCompiler/python")
+public class PythonController {
 
     private Params codeParams;
-    private final IHandler cppHandler = new CsharpHandler();
+    private final IHandler pythonHandler = new PythonHandler();
 
     /**
      * Returns a String that shows the output of the program.
@@ -43,7 +44,7 @@ public class CppController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        codeParams = cppHandler.convertToParams(jsonRequest);
-        return cppHandler.execute(codeParams);
+        codeParams = pythonHandler.convertToParams(jsonRequest);
+        return pythonHandler.execute(codeParams);
     }
 }
