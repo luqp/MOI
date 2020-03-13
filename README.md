@@ -16,13 +16,19 @@ Windows 10 and Windows 8
 -	Also, you can view this tutorial: [install MINGW](https://youtu.be/bhxqI6xmsuA)
 
 
-## C# Windows compiler (C# Compiler)
+## To Use CSharp Compiler
 -	To compile C# files this project uses "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe " as default windows compiler path, this would be chage in case to use other Operative System  
 
 ## To Use Python Compiler
-- Unzip the file in the same folder
+- Unzip the file in the same folder:
 ```
 thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
 ```
 Now you are able to use Python language with the app.
 
+## To Use Java Compiler
+- Install java jdk 1.8 or unzip this file in the same folder:
+```
+thirdparty/java/win/1.8.zip
+```
+Now you are able to use Java language with the app.
