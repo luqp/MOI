@@ -9,10 +9,12 @@
 
 package org.jalasoft.moi.controller.enpoints;
 
+import org.jalasoft.moi.controller.sevices.CppFileService;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +32,8 @@ import java.io.IOException;
 @RequestMapping(path = "/onlineCompiler/cpp")
 public class CppController {
 
-    private Params codeParams;
-    private final IHandler cppHandler = new CsharpHandler();
-
+    @Autowired
+    private CppFileService fileService;
     /**
      * Returns a String that shows the output of the program.
      * A JSON serves as the input needed for
@@ -43,7 +44,7 @@ public class CppController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        //codeParams = cppHandler.convertToParams(jsonRequest);
-        return cppHandler.execute(codeParams);
+        Params codeParams = fileService.convertToParams(jsonRequest);
+        return fileService.handlerExecute(codeParams);
     }
 }
