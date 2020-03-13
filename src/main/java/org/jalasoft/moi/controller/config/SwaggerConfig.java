@@ -30,6 +30,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     /**
+     * Docket is the primary api configuration mechanism is initialized for swagger specification 2.0.
      * @return The documentation that swagger shows on the browser.
      */
     @Bean
@@ -44,7 +45,8 @@ public class SwaggerConfig {
     }
 
     /**
-     * @return Information that we are going to show on the browser about the rest API.
+     * Information that we are going to show on the browser about the rest API.
+     * @return ApiInfo of all setted documentation.
      */
     private ApiInfo apiInfo() {
         return new ApiInfo("Multilaguage Online Ide",
