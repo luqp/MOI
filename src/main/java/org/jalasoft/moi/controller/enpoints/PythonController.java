@@ -9,11 +9,13 @@
 
 package org.jalasoft.moi.controller.enpoints;
 
+import org.jalasoft.moi.controller.sevices.PythonFileService;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.jalasoft.moi.model.python.PythonHandler;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +33,8 @@ import java.io.IOException;
 @RequestMapping(path = "/onlineCompiler/python")
 public class PythonController {
 
-    private Params codeParams;
-    private final IHandler pythonHandler = new PythonHandler();
-
+    @Autowired
+    PythonFileService fileService;
     /**
      * Returns a String that shows the output of the program.
      * A JSON serves as the input needed for
@@ -44,7 +45,7 @@ public class PythonController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        //codeParams = pythonHandler.convertToParams(jsonRequest);
-        return pythonHandler.execute(codeParams);
+        Params codeParams = fileService.convertToParams(jsonRequest);
+        return fileService.handlerExecute(codeParams);
     }
 }
