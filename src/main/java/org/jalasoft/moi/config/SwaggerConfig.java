@@ -29,7 +29,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-
     /**
      * @return The documentation that swagger shows on the browser
      */
@@ -42,7 +41,6 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
-
     }
 
     /**
