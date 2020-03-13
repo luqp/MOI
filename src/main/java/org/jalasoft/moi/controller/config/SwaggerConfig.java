@@ -1,4 +1,4 @@
-/*
+/**
  *  Copyright (c) 2020 Jalasoft.
  *
  *  This software is the confidential and proprietary information of Jalasoft.
@@ -20,17 +20,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * This class implement basic configurations to get Swagger running in our project
- * and use it for specifications and tools that help us document our APIs
+ * and use it for specifications and tools that help us document our APIs.
  *
- * @author Carlos Meneses
  * @version 1.1
+ * @author Carlos Meneses
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
     /**
-     * @return The documentation that swagger shows on the browser
+     * @return The documentation that swagger shows on the browser.
      */
     @Bean
     public Docket productApi() {
@@ -44,7 +44,7 @@ public class SwaggerConfig {
     }
 
     /**
-     * @return Information that we are going to show on the browser about the rest API
+     * @return Information that we are going to show on the browser about the rest API.
      */
     private ApiInfo apiInfo() {
         return new ApiInfo("Multilaguage Online Ide",
