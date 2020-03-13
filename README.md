@@ -15,7 +15,7 @@ Windows 10 and Windows 8
   
 -	Also, you can view this tutorial: [install MINGW](https://youtu.be/bhxqI6xmsuA)
 ## To Use Python Compiler
-- Un zip the file in the same folder
+- Unzip the file in the same folder
 ```
 thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
 ```
