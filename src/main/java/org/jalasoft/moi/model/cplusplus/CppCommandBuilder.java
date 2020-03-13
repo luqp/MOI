@@ -14,6 +14,9 @@ import java.nio.file.Path;
 
 public class CppCommandBuilder implements ICommandBuilder {
 
+    private static final String ALL_FILES = "\\*.cc";
+    private static final String CPP_COMPILE_COMMAND = "c++ ";
+
     /**
      * Build the command for C++
      * @param path contains the location of the directory or file
@@ -21,17 +24,13 @@ public class CppCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path path) {
-        String CPPCOMPILERPATH = "C:\\MinGW\\bin\\";
-        String OUTPUTFILEPATH = "./temp/test.exe";
-        String CPPCOMPILECOMMAND = "c++.exe ";
-
-        String actualPath = System.getProperty("user.dir");
+        String outputFilePath = path.toString()
+                                    .replace(".cc", ".exe");
         String compileCommands =
-                " cd " + CPPCOMPILERPATH +
-                " && " + CPPCOMPILECOMMAND + path +
-                " -o " + OUTPUTFILEPATH +
-                " && cd " + actualPath +
-                " && " + OUTPUTFILEPATH;
+                CPP_COMPILE_COMMAND + path.getParent()
+                                        .toString().concat(ALL_FILES)+
+                " -o " + outputFilePath + " && " +
+                outputFilePath;
         return (compileCommands);
     }
 }
