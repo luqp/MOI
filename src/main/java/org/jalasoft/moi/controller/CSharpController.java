@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.controller;
 
+import io.swagger.annotations.Api;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
@@ -28,6 +29,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(path = "/onlineCompiler/csharp")
+@Api(value = "csharp", description = "Implement compile and run code in Csharp")//for Swagger
 public class CSharpController {
 
     private Params codeParams;
