@@ -38,14 +38,14 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.jalasoft.moi"))
+                .apis(RequestHandlerSelectors.basePackage("org.jalasoft.moi.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
     }
 
     /**
-     * Information that we are going to show on the browser about the rest API.
+     * Information that are going to be show on the browser about the rest API.
      * @return ApiInfo of all setted documentation.
      */
     private ApiInfo apiInfo() {
