@@ -11,6 +11,7 @@ package org.jalasoft.moi.controller.enpoints;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@Api(value = "login", description = "Login a user and generates a token")
 public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam(value = "username")String username, @RequestParam(value = "password")String password){

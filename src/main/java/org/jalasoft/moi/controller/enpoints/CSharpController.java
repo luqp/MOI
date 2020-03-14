@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(path = "/onlineCompiler/csharp")
-@Api(value = "csharp", description = "Implement compile and run code in Csharp")//for Swagger
+@Api(value = "csharp", description = "Implement compile and run code in C#")//for Swagger
 public class CSharpController {
 
     @Autowired

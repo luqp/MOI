@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.controller.enpoints;
 
+import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.sevices.JavaFileService;
 import org.jalasoft.moi.model.core.Params;
 
@@ -25,6 +26,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(path = "/onlineCompiler/java")
+@Api(value = "java", description = "Implement compile and run code in Java")
 public class JavaController {
 
     @Autowired

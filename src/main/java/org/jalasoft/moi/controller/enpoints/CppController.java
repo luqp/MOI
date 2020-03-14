@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.controller.enpoints;
 
+import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.sevices.CppFileService;
 import org.jalasoft.moi.model.core.Params;
 
@@ -25,6 +26,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(path = "/onlineCompiler/cpp")
+@Api(value = "cplusplus", description = "Implement compile and run code in C++")
 public class CppController {
 
     @Autowired
