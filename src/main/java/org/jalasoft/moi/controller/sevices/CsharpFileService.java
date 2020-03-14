@@ -13,8 +13,6 @@ import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +31,9 @@ public class CsharpFileService {
      * A JSON object gets deconstructed and its data used to make a
      * Params object.
      *
-     * @param jsonRequest A string ready to be decomposed into variables.
      * @return A Params object.
      */
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        //Parses the object into different strings containing the parameters.
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
-        String fileName = (String) jsonObject.get("fileName");
-        String code = (String) jsonObject.get("code");
-        String version = (String) jsonObject.get("version");
-
+    public Params saveFile(String version, String fileName, String code) throws IOException, ParseException {
         //Creates and writes a file with the code needed.
         File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);

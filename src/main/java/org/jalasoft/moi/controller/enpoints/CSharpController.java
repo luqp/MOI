@@ -14,10 +14,7 @@ import org.jalasoft.moi.controller.sevices.CsharpFileService;
 import org.jalasoft.moi.model.core.Params;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -33,18 +30,20 @@ import java.io.IOException;
 public class CSharpController {
 
     @Autowired
-    private CsharpFileService savefile;
+    private CsharpFileService fileService;
 
     /**
      * Returns a String that shows the output of the program. A JSON serves as
      * the input needed for a next call.
      *
-     * @param jsonRequest A String representing a JSON.
+     *
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
-        Params codeParams = savefile.convertToParams(jsonRequest);
-        return savefile.handlerExecute(codeParams);
+    public String executeSingleCode(@RequestParam(value = "version")String version,
+                                    @RequestParam(value = "fileName")String fileName,
+                                    @RequestParam(value = "code")String code) throws ParseException, IOException {
+        Params codeParams = fileService.saveFile(version, fileName, code);
+        return fileService.handlerExecute(codeParams);
     }
 }
