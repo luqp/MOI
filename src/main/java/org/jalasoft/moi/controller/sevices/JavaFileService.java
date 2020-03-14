@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -12,17 +12,17 @@ package org.jalasoft.moi.controller.sevices;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.jalasoft.moi.model.java.JavaHandler;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * File service is used to manage actions that each file will need as save file or show responses.
+ */
 @Service
 public class JavaFileService {
 
@@ -30,22 +30,12 @@ public class JavaFileService {
     private static final String JAVA_EXTENSION = ".java";
 
     /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a
-     * Params object.
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file.
+     * properties in this new params object.
      *
-     * @param jsonRequest A string ready to be decomposed into variables.
-     * @return A Params object.
+     * @return A Params setted object.
      */
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        //Parses the object into different strings containing the parameters.
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
-        String fileName = (String) jsonObject.get("fileName");
-        String code = (String) jsonObject.get("code");
-        String version = (String) jsonObject.get("version");
-
-        //Creates and writes a file with the code needed.
+    public Params saveFile(String version, String fileName, String code) throws IOException{
         File codeFile = new File(FILE_RELATIVE_PATH + fileName + JAVA_EXTENSION);
         FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + JAVA_EXTENSION);
         codeWriter.write(code);
@@ -56,7 +46,13 @@ public class JavaFileService {
         return codeParams;
     }
 
-    public String handlerExecute(Params outPut) {
+    /**
+     * ShowResponse receives a Params Object and uses Ihandler to return a output an show it.
+     *
+     * @param outPut is the object params that will be needed to use execute for handler.
+     * @return is a string that will be show as an output.
+     */
+    public String showResponse(Params outPut) {
         IHandler handler = new JavaHandler();
         return handler.execute(outPut);
     }

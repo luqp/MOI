@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -13,13 +13,16 @@ import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.csharp.CsharpHandler;
-import org.json.simple.parser.ParseException;
+
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * File service is used to manage actions that each file will need as save file or show responses.
+ */
 @Service
 public class CsharpFileService {
 
@@ -27,13 +30,12 @@ public class CsharpFileService {
     private static final String CSHARP_EXTENSION = ".cs";
 
     /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a
-     * Params object.
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file.
+     * properties in this new params object.
      *
-     * @return A Params object.
+     * @return A Params setted object.
      */
-    public Params saveFile(String version, String fileName, String code) throws IOException, ParseException {
+    public Params saveFile(String version, String fileName, String code) throws IOException{
         //Creates and writes a file with the code needed.
         File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
@@ -45,7 +47,13 @@ public class CsharpFileService {
         return codeParams;
     }
 
-    public String handlerExecute(Params outPut) {
+    /**
+     * ShowResponse receives a Params Object and uses Ihandler to return a output an show it.
+     *
+     * @param outPut is the object params that will be needed to use execute for handler.
+     * @return is a string that will be show as an output.
+     */
+    public String showResponse(Params outPut) {
         IHandler handler = new CsharpHandler();
         return handler.execute(outPut);
     }

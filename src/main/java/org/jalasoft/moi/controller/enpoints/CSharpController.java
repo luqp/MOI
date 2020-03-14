@@ -10,9 +10,10 @@
 package org.jalasoft.moi.controller.enpoints;
 
 import io.swagger.annotations.Api;
+
 import org.jalasoft.moi.controller.sevices.CsharpFileService;
 import org.jalasoft.moi.model.core.Params;
-import org.json.simple.parser.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,8 +43,8 @@ public class CSharpController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public String executeSingleCode(@RequestParam(value = "version")String version,
                                     @RequestParam(value = "fileName")String fileName,
-                                    @RequestParam(value = "code")String code) throws ParseException, IOException {
+                                    @RequestParam(value = "code")String code) throws IOException {
         Params codeParams = fileService.saveFile(version, fileName, code);
-        return fileService.handlerExecute(codeParams);
+        return fileService.showResponse(codeParams);
     }
 }
