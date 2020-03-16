@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public class CsharpHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "C:\\Users\\m-a-u\\Documents\\Jala\\Git\\Pruebas cmd csharp";
+    private static final String FILE_ABSOLLUTE_PATH = "C:\\Users\\m-a-u\\Documents\\Jala\\Git\\Pruebas cmd csharp";
     private static final String CSHARP_EXTENSION = ".cs";
 
     /**
@@ -72,8 +72,8 @@ public class CsharpHandler implements IHandler {
         String version = (String) jsonObject.get("version");
 
         //Creates and writes a file with the code needed.
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        File codeFile = new File(FILE_ABSOLLUTE_PATH + fileName + CSHARP_EXTENSION);
+        FileWriter codeWriter = new FileWriter(FILE_ABSOLLUTE_PATH + fileName + CSHARP_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
         Params codeParams = new Params();

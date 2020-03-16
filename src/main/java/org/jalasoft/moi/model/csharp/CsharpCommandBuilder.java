@@ -13,10 +13,11 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 import java.nio.file.Path;
 
 /**
- * Builds a command for a c# file compilation and execution
+ * Builds a command for c# files compilation and execution
  * using the path provided by Params object
  *
  * @author Carlos Meneses
+ *         Mauricio Oroza
  * @version 1.0
  */
 public class CsharpCommandBuilder implements ICommandBuilder {
@@ -25,15 +26,15 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     private static final String COMPILE_ALL_AND_OUTPUT = "-optimize -out:Output.exe *.cs";
     private static final String RUN_OUTPUT = "Output";
     private static final String MOVE_TO = "cd ";
-    private static String folderPath;
 
     /**
+     * Builds a string with the command needed for compilation and execution of multiple files
+     *
      * @path completePath contains the location of the directory of the files
      * @return String of the command builded with the path received
      */
     @Override
     public String buildCommand(Path completePath) {
-        folderPath = completePath.toString();
-        return MOVE_TO + folderPath + " && " + COMPILER_PATH + COMPILE_ALL_AND_OUTPUT + " && " + RUN_OUTPUT;
+        return MOVE_TO + completePath.toString() + " && " + COMPILER_PATH + COMPILE_ALL_AND_OUTPUT + " && " + RUN_OUTPUT;
     }
 }
