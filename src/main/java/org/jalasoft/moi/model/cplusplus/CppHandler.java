@@ -25,8 +25,8 @@ import java.io.IOException;
 public class CppHandler implements IHandler {
 
     /**
-     * @param params contains the parameters to build a command a execute it
-     * @return a String of result from CommandBuilder and Executer handling
+     * @param params contains the parameters to build a command and execute it
+     * @return a String of result from CommandBuilder and Executer handling.
      */
     @Override
     public String execute(Params params) {

@@ -27,7 +27,7 @@ public class CppCommandBuilder implements ICommandBuilder {
     /**
      * Build the command for C++.
      *
-     * @param path contains the location of the directory or file.
+     * @param path contains the location of the directory or file
      * @return The commands to compile the code.
      */
     @Override
