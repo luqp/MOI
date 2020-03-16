@@ -16,7 +16,7 @@ import org.jalasoft.moi.model.core.Params;
 import java.io.IOException;
 
 /**
- * Handler is in charge to work with the executer and the command builder
+ * Handler is in charge to work with the executer and the command builder.
  *
  * @author Carlos Meneses
  * @version 1.0
@@ -25,7 +25,7 @@ public class CsharpHandler implements IHandler {
 
     /**
      * Create a builder witch build the c# command and then sends it command to
-     * executer to get a result
+     * executer to get a result.
      *
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling

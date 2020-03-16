@@ -14,7 +14,7 @@ import java.nio.file.Path;
 
 /**
  * Builds a command for c# files compilation and execution
- * using the path provided by Params object
+ * using the path provided by Params object.
  *
  * @author Carlos Meneses
  *         Mauricio Oroza
@@ -28,7 +28,7 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     private static final String MOVE_TO = "cd ";
 
     /**
-     * Builds a string with the command needed for compilation and execution of multiple files
+     * Builds a string with the command needed for compilation and execution of multiple files.
      *
      * @path completePath contains the location of the directory of the files
      * @return String of the command builded with the path received
