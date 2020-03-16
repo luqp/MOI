@@ -23,8 +23,8 @@ public class CsharpCommandBuilderTest {
     @Test
     public void cSharpCmdBuilderTest() {
         //given
-        String carpeta = "C:\\Users\\MauricioOroza\\Pruebas cmd csharp";
-        File codeFile = new File(carpeta);
+        String newFile = "C:\\Users\\MauricioOroza\\Pruebas cmd csharp";
+        File codeFile = new File(newFile);
         Params codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
         ICommandBuilder cppCommandBuilder = new CsharpCommandBuilder();
