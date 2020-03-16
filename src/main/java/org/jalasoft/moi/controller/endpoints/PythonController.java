@@ -57,14 +57,4 @@ public class PythonController {
         return handler.execute(codeParams);
     }
 
-    /**
-     *This method is used to save the changes in a file determined by a name.
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
-        IHandler handler = new PythonHandler();
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        System.out.println("Your code was saved successfully");
-    }
 }

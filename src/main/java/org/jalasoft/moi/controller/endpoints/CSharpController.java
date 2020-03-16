@@ -30,7 +30,7 @@ import java.io.IOException;
  * This class defines the controller for C#.
  *
  * @author Diego Perez.
- *         Carlos Meneses.
+ * Carlos Meneses.
  * @version 1.1
  */
 @RestController
@@ -55,15 +55,5 @@ public class CSharpController {
         IHandler handler = new CsharpHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
-    }
-
-    /**
-     *This method is used to save the changes in a file determined by a name.
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCode(@RequestParam(value = "fileName") String fileName,
-                         @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        System.out.println("Your code was saved successfully");
     }
 }
