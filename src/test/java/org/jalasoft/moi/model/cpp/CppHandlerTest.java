@@ -9,12 +9,10 @@
 
 package org.jalasoft.moi.model.cpp;
 
-import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.cplusplus.CppHandler;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
@@ -26,11 +24,11 @@ public class CppHandlerTest {
     @Test
     public void cppHandlerTest() {
         //given
-        Params params = getParams("C:\\AWT5\\MOI\\resources\\files\\test.cpp");
+        Params params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
         String expectedResult = "Hello, World!\n";
         //when
-        IHandler cpphabdler = new CppHandler();
-        String actualValue = cpphabdler.execute(params);
+        IHandler cppHandler = new CppHandler();
+        String actualValue = cppHandler.execute(params);
         //then
         assertEquals(expectedResult, actualValue);
     }
@@ -41,8 +39,8 @@ public class CppHandlerTest {
         Params params = getParams("");
         String expectedResult = "There has not been produced any output";
         //when
-        IHandler cpphabdler = new CppHandler();
-        String actualValue = cpphabdler.execute(params);
+        IHandler cppHandler = new CppHandler();
+        String actualValue = cppHandler.execute(params);
         //then
         assertEquals(expectedResult, actualValue);
     }
