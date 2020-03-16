@@ -1,6 +1,5 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -29,7 +28,7 @@ import java.io.IOException;
  * This class defines the controller for Python.
  *
  * @author Diego Perez.
- * Carlos Meneses.
+ *         Carlos Meneses.
  * @version 1.1
  */
 @RestController
