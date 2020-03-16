@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.sevices;
+package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
@@ -22,6 +22,9 @@ import java.io.IOException;
 
 /**
  * File service is used to manage actions that each file will need as save file or show responses.
+ *
+ * @author Carlos Meneses.
+ * @version 1.1
  */
 @Service
 public class JavaFileService {

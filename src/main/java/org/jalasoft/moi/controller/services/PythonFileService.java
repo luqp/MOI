@@ -7,12 +7,12 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.sevices;
+package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpHandler;
+import org.jalasoft.moi.model.python.PythonHandler;
 
 import org.springframework.stereotype.Service;
 
@@ -22,28 +22,29 @@ import java.io.IOException;
 
 /**
  * File service is used to manage actions that each file will need as save file or show responses.
+ *
+ * @author Carlos Meneses.
+ * @version 1.1
  */
 @Service
-public class CsharpFileService {
+public class PythonFileService {
 
-    private static final String FILE_RELATIVE_PATH = ".\\temp\\csharp\\";
-    private static final String CSHARP_EXTENSION = ".cs";
+    private static final String FILE_RELATIVE_PATH = ".\\temp\\python\\";
+    private static final String PYTHON_EXTENSION = ".py";
 
     /**
-     * SaveFile create a new file with name, extension and path, then create a object params to set the file.
-     * properties in this new params object.
+     * SaveFile create a new file with name, extension and path to set the file properties in this new params object.
      *
      * @return A Params setted object.
      */
     public Params saveFile(String version, String fileName, String code) throws IOException{
-        //Creates and writes a file with the code needed.
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        File codeFile = new File(FILE_RELATIVE_PATH + fileName + PYTHON_EXTENSION);
+        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + PYTHON_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
         Params codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(Language.CSHARP);
+        codeParams.setLanguage(Language.PYTHON_32);
         return codeParams;
     }
 
@@ -54,7 +55,7 @@ public class CsharpFileService {
      * @return is a string that will be show as an output.
      */
     public String showResponse(Params outPut) {
-        IHandler handler = new CsharpHandler();
+        IHandler handler = new PythonHandler();
         return handler.execute(outPut);
     }
 

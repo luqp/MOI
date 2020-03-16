@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -7,35 +7,38 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.enpoints;
+package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
 
-import org.jalasoft.moi.controller.sevices.CppFileService;
+import org.jalasoft.moi.controller.services.CsharpFileService;
 import org.jalasoft.moi.model.core.Params;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.io.IOException;
 
 /**
- * This class defines the controller for C++.
+ * This class defines the controller for C#.
  *
- * @author Diego Perez
- * @version 1.0
+ * @author Diego Perez & Carlos Meneses.
+ * @version 1.1
  */
 @RestController
-@RequestMapping(path = "/onlineCompiler/cpp")
-@Api(value = "cplusplus", description = "Implement compile and run code in C++")
-public class CppController {
+@RequestMapping(path = "/onlineCompiler/csharp")
+@Api(value = "csharp", description = "Implement compile and run code in C#")//for Swagger
+public class CSharpController {
 
     @Autowired
-    private CppFileService fileService;
+    private CsharpFileService fileService;
 
     /**
-     * Returns a String that shows the output of the program. A JSON serves as
-     * the input needed for a next call.
+     * Returns a String that shows the output of the program.
      *
      * @return the output from the execution.
      */

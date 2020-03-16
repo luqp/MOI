@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.sevices;
+package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
@@ -22,12 +22,15 @@ import java.io.IOException;
 
 /**
  * File service is used to manage actions that each file will need as save file or show responses.
+ *
+ * @author Carlos Meneses.
+ * @version 1.1
  */
 @Service
-public class CppFileService {
+public class CsharpFileService {
 
-    private static final String FILE_RELATIVE_PATH = ".\\temp\\cpluplus\\";
-    private static final String CPLUSPLUS_EXTENSION = ".cc";
+    private static final String FILE_RELATIVE_PATH = ".\\temp\\csharp\\";
+    private static final String CSHARP_EXTENSION = ".cs";
 
     /**
      * SaveFile create a new file with name, extension and path, then create a object params to set the file.
@@ -36,13 +39,14 @@ public class CppFileService {
      * @return A Params setted object.
      */
     public Params saveFile(String version, String fileName, String code) throws IOException{
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CPLUSPLUS_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CPLUSPLUS_EXTENSION);
+        //Creates and writes a file with the code needed.
+        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
+        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CSHARP_EXTENSION);
         codeWriter.write(code);
         codeWriter.close();
         Params codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(Language.CPP);
+        codeParams.setLanguage(Language.CSHARP);
         return codeParams;
     }
 

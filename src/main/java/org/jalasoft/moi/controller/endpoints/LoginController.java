@@ -7,7 +7,7 @@
  *   license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.controller.enpoints;
+package org.jalasoft.moi.controller.endpoints;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
