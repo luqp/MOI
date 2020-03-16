@@ -14,7 +14,6 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,8 +25,9 @@ import java.io.IOException;
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @version 1.0
  * @author Carlos Meneses
+ *         Diego Perez
+ * @version 1.0
  */
 public class CppHandler implements IHandler {
 
@@ -53,6 +53,16 @@ public class CppHandler implements IHandler {
         return result;
     }
 
+    /**
+     * Returns a Params object.
+     * A JSON object gets deconstructed and its data used to make a Params
+     * object for C++.
+     *
+     * @param jsonRequest A JSON containing the parameters.
+     * @return A Params object with the params needed for compile.
+     * @throws IOException
+     * @throws ParseException
+     */
     @Override
     public Params convertToParams(String jsonRequest) throws IOException, ParseException {
         //Parses the object into different strings containing the parameters.
