@@ -11,14 +11,8 @@ package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.IHandler;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
