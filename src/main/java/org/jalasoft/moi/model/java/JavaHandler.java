@@ -47,7 +47,7 @@ public class JavaHandler implements IHandler {
         Executer taskJava = new Executer(command);
         try {
             output = taskJava.run();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             output = "Exception ocurred";
         }

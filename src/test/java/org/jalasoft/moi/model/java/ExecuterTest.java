@@ -24,7 +24,7 @@ public class ExecuterTest {
         //when
         try {
             currentResult = testExecute.run();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             currentResult = "Algo ha fallado";
             e.printStackTrace();
         }

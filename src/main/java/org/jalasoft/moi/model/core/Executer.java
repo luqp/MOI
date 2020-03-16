@@ -9,8 +9,11 @@
 
 package org.jalasoft.moi.model.core;
 
+import jdk.nashorn.internal.runtime.Context;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -38,21 +41,14 @@ public class Executer {
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
-    public String run() throws IOException {
+    public String run() throws IOException, InterruptedException {
         StringBuilder builder = new StringBuilder();
         Process tempProcess = Runtime.getRuntime().exec(command);
-        InputStreamReader cmdEntrance = new InputStreamReader(tempProcess.getInputStream());
-        BufferedReader stdInput = new BufferedReader(cmdEntrance);
-        String output;
-        if ((output = stdInput.readLine()) != null) {
-            builder.append(output).append("\n");
-            while ((output = stdInput.readLine()) != null) {
-                builder.append(output).append("\n");
-            }
-            output = builder.toString();
-        } else {
-            output = "There has not been produced any output";
-        }
-        return output;
+        InputStream inputStream = tempProcess.getInputStream();
+        InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+        while (!cmdEntrance.ready()) {}
+        char[] charBuffer = new char[inputStream.available()];
+        cmdEntrance.read(charBuffer);
+        return new String(charBuffer);
     }
 }

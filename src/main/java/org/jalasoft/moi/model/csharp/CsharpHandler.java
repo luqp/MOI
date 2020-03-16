@@ -47,7 +47,7 @@ public class CsharpHandler implements IHandler {
         String result;
         try {
             result = executer.run();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             result = "Nothing for compile";
         }

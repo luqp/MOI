@@ -31,12 +31,13 @@ public class PythonCommandBuilderTest {
 
     @BeforeAll
     static void initAll() {
-        String python = "\\thirdparty\\python\\win\\python32\\Portable Python 3.2.5.1\\App\\python.exe";
-        String compileall = " -m compileall ";
-        directoryFile = "\\thirdparty\\python\\local\\";
+        directoryFile = "H:\\MOI\\thirdparty\\python\\local\\";
+        String space = " ";
+        String compileall = "-m compileall";
+        String python = "H:\\MOI\\thirdparty\\python\\win\\python32\\Portable_Python_3.2.5.1\\App\\python.exe";
         String concatenate = " && ";
 
-        command = python + compileall + directoryFile + "test1.py" + concatenate + python + directoryFile + "__pycache__\\test1.cpython-37.pyc";
+        command = python + space + compileall + space + directoryFile + "test1.py" + concatenate + python + space + directoryFile + "__pycache__\\test1.cpython-32.pyc";
     }
 
     @Test
@@ -53,8 +54,8 @@ public class PythonCommandBuilderTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'Hello World', test1.py",
-            "'Hello World\nHello Team\nHello you', test2"
+            "'Hello World\n', test1.py",
+            "'Hello World\nHello Team\nHello you\n', test2.py"
     })
     public void executeFileTest(String expect, String file) {
         Params params = new Params();
@@ -67,7 +68,7 @@ public class PythonCommandBuilderTest {
         String result;
         try {
             result = executer.run();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             result = e.getMessage();
         }
