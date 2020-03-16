@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller is used to generate a token.
+ *
+ * @author Carlos Meneses.
+ * @version 1.1
+ */
 @RestController
 @RequestMapping("/user")
 @Api(value = "login", description = "Login a user and generates a token")
