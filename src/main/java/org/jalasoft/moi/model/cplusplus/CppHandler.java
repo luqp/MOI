@@ -32,7 +32,7 @@ import java.io.IOException;
 public class CppHandler implements IHandler {
 
     private static final String FILE_RELATIVE_PATH = "./temp/cplusplus/";
-    private static final String CPP_EXTENSION = ".cc";
+    private static final String CPP_EXTENSION = ".cpp";
 
     /**
      * @param params contains the parameters to build a command a execute it
@@ -42,7 +42,6 @@ public class CppHandler implements IHandler {
     public String execute(Params params) {
         ICommandBuilder cpp = new CppCommandBuilder();
         String command = cpp.buildCommand(params.getFilesPath());
-        System.out.println(command);
         Executer executer = new Executer(command);
         String result;
         try {

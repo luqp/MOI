@@ -26,11 +26,11 @@ public class CppHandlerTest {
     @Test
     public void cppHandlerTest() {
         //given
-        Params params = getParams("C:\\AWT5\\MOI\\resources\\files\\test.cpp");
+        Params params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
         String expectedResult = "Hello, World!\n";
         //when
-        IHandler cpphabdler = new CppHandler();
-        String actualValue = cpphabdler.execute(params);
+        IHandler cppHandler = new CppHandler();
+        String actualValue = cppHandler.execute(params);
         //then
         assertEquals(expectedResult, actualValue);
     }
@@ -41,8 +41,8 @@ public class CppHandlerTest {
         Params params = getParams("");
         String expectedResult = "There has not been produced any output";
         //when
-        IHandler cpphabdler = new CppHandler();
-        String actualValue = cpphabdler.execute(params);
+        IHandler cppHandler = new CppHandler();
+        String actualValue = cppHandler.execute(params);
         //then
         assertEquals(expectedResult, actualValue);
     }

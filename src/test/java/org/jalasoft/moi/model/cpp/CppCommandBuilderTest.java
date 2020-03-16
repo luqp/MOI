@@ -25,11 +25,12 @@ public class CppCommandBuilderTest {
     @Test
     public void cppCommandBuilderTest() {
         //given
-        Params params = getParams("C:\\AWT5\\MOI\\resources\\files\\test.cpp");
-        ICommandBuilder cppCompliler = new CppCommandBuilder();
-        String expectedCommand = " cd C:\\MinGW\\bin\\ && c++.exe C:\\AWT5\\MOI\\resources\\files\\test.cpp -o C:\\AWT5\\MOI\\resources\\files\\test.exe && cd C:\\AWT5\\MOI && C:\\AWT5\\MOI\\resources\\files\\test.exe";
+        Params params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
+        ICommandBuilder cppCommandBuilder = new CppCommandBuilder();
+        String expectedCommand = " c++ .\\temp\\cplusplus\\test\\*.cpp -o .\\temp\\cplusplus\\test\\test.exe && " +
+                ".\\temp\\cplusplus\\test.exe";
         //when
-        String currentCommand = cppCompliler.buildCommand(params.getFilesPath());
+        String currentCommand = cppCommandBuilder.buildCommand(params.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
     }
