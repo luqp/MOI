@@ -16,7 +16,7 @@ import java.nio.file.Path;
  * Builds a command for a c# file compilation and execution
  * using the path provided by Params object
  *
- * @author Carlos Meneses & Mauricio Oroza
+ * @author Carlos Meneses
  * @version 1.0
  */
 public class CsharpCommandBuilder implements ICommandBuilder {
