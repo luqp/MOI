@@ -45,9 +45,4 @@ public class CppHandler implements IHandler {
         }
         return result;
     }
-
-    @Override
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        return null;
-    }
 }
