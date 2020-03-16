@@ -56,7 +56,7 @@ public class JavaController {
     }
 
     /**
-     *this method is used to save the changes in a file determined by a name.
+     *This method is used to save the changes in a file determined by a name.
      */
     @RequestMapping(method = RequestMethod.POST)
     public void saveCode(@RequestParam(value = "fileName") String fileName,
