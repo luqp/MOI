@@ -10,8 +10,8 @@
 package org.jalasoft.moi.controller.enpoints;
 
 import org.jalasoft.moi.model.core.IHandler;
-import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpHandler;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.jalasoft.moi.model.core.Result;
 import org.jalasoft.moi.model.python.PythonHandler;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +43,7 @@ public class PythonController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public String executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
+    public Result executeSingleCode(@RequestBody String jsonRequest) throws ParseException, IOException {
         codeParams = pythonHandler.convertToParams(jsonRequest);
         return pythonHandler.execute(codeParams);
     }

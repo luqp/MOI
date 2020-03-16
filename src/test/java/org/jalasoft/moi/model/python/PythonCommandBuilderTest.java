@@ -10,10 +10,8 @@
 package org.jalasoft.moi.model.python;
 
 
-import org.jalasoft.moi.model.core.Executer;
-import org.jalasoft.moi.model.core.ICommandBuilder;
-import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.core.*;
+import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -66,14 +64,16 @@ public class PythonCommandBuilderTest {
 
         String commandResult = pythonCommandBuilder.buildCommand(params.getFilesPath());
         Executer executer = new Executer(commandResult);
-        String result;
+        Result result;
         try {
             result = executer.run();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            result = e.getMessage();
+            result = new Result();
+            result.setPid(0);
+            result.setResult(e.getMessage());
         }
 
-        assertEquals(expect, result);
+        assertEquals(expect, result.getResult());
     }
 }

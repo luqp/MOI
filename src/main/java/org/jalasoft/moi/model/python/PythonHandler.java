@@ -9,11 +9,8 @@
 
 package org.jalasoft.moi.model.python;
 
-import org.jalasoft.moi.model.core.Executer;
-import org.jalasoft.moi.model.core.ICommandBuilder;
-import org.jalasoft.moi.model.core.IHandler;
-import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.core.*;
+import org.jalasoft.moi.model.core.parameters.Params;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,7 +18,6 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Handles the flow of the execution.
@@ -40,16 +36,18 @@ public class PythonHandler implements IHandler {
      * @param params contains files location and language
      * @return String
      */
-    public String execute(Params params) {
+    public Result execute(Params params) {
         ICommandBuilder pythonCommandBuilder = params.getLanguage().getCommandBuilder();
         String command = pythonCommandBuilder.buildCommand(params.getFilesPath());
         Executer executer = new Executer(command);
-        String result;
+        Result result;
         try {
             result = executer.run();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            result = "Nothing for compile";
+            result = new Result();
+            result.setPid(0);
+            result.setResult("Nothing for compile");
         }
         return result;
     }
