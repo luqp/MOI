@@ -4,6 +4,7 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * Builds commands to execute a python file.
@@ -35,17 +36,35 @@ public class PythonCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path path) {
-        return commandToCompile(path) + " && " + commandToRun(path);
+        return commandToCompile() + SPACE + path + " && " + commandToRun(path);
+    }
+
+    /**
+     *
+     * @param paths list of files to run
+     * @return command to compile more than one file
+     */
+    @Override
+    public String buildCommand(List<Path> paths) {
+        String command = commandToCompile();
+        for (Path path: paths) {
+            command = command + SPACE + path;
+        }
+        return command;
+    }
+
+    @Override
+    public String buildCommandFolder(Path path) {
+        return commandToCompile() + SPACE + path;
     }
 
     /**
      * Builds compilation command.
      *
-     * @param path the location of the directory or file.
      * @return compilation command.
      */
-    private String commandToCompile(Path path) {
-        return pythonPath + SPACE + "-m compileall" + SPACE + path;
+    private String commandToCompile() {
+        return pythonPath + SPACE + "-m compileall";
     }
 
     /**
@@ -54,10 +73,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
      * @param path location of the directory or file.
      * @return execution command.
      */
-    private String commandToRun(Path path) {
-        String fileName = path.getFileName().toString().replace(".py", "");
-        return pythonPath + SPACE +
-               Paths.get(path.getParent() + "/__pycache__/" +
-               fileName + ".cpython-" + version + ".pyc");
+    public String commandToRun(Path path) {
+        return pythonPath + SPACE + path.toString();
     }
 }

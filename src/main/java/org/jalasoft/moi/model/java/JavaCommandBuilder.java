@@ -11,6 +11,7 @@ package org.jalasoft.moi.model.java;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Builds a command for java compilation and execution
@@ -36,5 +37,20 @@ public class JavaCommandBuilder implements ICommandBuilder {
         folderPath = completePath.getParent().toString();
         mainName = completePath.getFileName().toString().replace(".java"," ");
         return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + mainName;
+    }
+
+    @Override
+    public String buildCommand(List<Path> paths) {
+        return null;
+    }
+
+    @Override
+    public String commandToRun(Path path) {
+        return null;
+    }
+
+    @Override
+    public String buildCommandFolder(Path path) {
+        return null;
     }
 }

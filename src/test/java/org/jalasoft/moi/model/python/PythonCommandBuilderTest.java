@@ -37,13 +37,25 @@ public class PythonCommandBuilderTest {
         directoryFile = actualParentPath + "\\thirdparty\\python\\local\\";
         String concatenate = " && ";
 
-        command = python + compileall + directoryFile + "test1.py" + concatenate + python + " " + directoryFile + "__pycache__\\test1.cpython-32.pyc";
+        command = python + compileall + directoryFile + "test1.py" + concatenate + python + " " + directoryFile + "test1.py";
     }
 
     @Test
     public void builderCommandCompileTest() {
         Params params = new Params();
         params.setFilesPath(Paths.get(directoryFile + "test1.py"));
+        params.setLanguage(Language.PYTHON_32);
+        ICommandBuilder pythonCommandBuilder = params.getLanguage().getCommandBuilder();
+
+        String commandResult = pythonCommandBuilder.buildCommand(params.getFilesPath());
+
+        assertEquals(command, commandResult);
+    }
+
+    @Test
+    public void builderCommandCompileDirectoryTest() {
+        Params params = new Params();
+        params.setFilesPath(Paths.get(directoryFile));
         params.setLanguage(Language.PYTHON_32);
         ICommandBuilder pythonCommandBuilder = params.getLanguage().getCommandBuilder();
 

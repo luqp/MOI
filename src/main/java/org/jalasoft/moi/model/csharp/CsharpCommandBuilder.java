@@ -11,6 +11,7 @@ package org.jalasoft.moi.model.csharp;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Builds a command and execute a c# file using the path provided by Params object
@@ -47,6 +48,21 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     @Override
     public String buildCommand(Path path) {
         return getFolderPath(path)+" && "+COMPILER_PATH+path.getFileName().toString()+" && "+getCompiledName(path);
+    }
+
+    @Override
+    public String buildCommand(List<Path> paths) {
+        return null;
+    }
+
+    @Override
+    public String commandToRun(Path path) {
+        return null;
+    }
+
+    @Override
+    public String buildCommandFolder(Path path) {
+        return null;
     }
 
 }

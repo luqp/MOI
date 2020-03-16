@@ -11,6 +11,7 @@ package org.jalasoft.moi.model.cplusplus;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
+import java.util.List;
 
 public class CppCommandBuilder implements ICommandBuilder {
 
@@ -34,5 +35,20 @@ public class CppCommandBuilder implements ICommandBuilder {
                 " && " + OUTPUTFILEPATH;
         System.out.println(compileCommands);
         return (compileCommands);
+    }
+
+    @Override
+    public String buildCommand(List<Path> paths) {
+        return null;
+    }
+
+    @Override
+    public String commandToRun(Path path) {
+        return null;
+    }
+
+    @Override
+    public String buildCommandFolder(Path path) {
+        return null;
     }
 }

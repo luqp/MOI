@@ -9,6 +9,7 @@
 package org.jalasoft.moi.model.core;
 
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Implemented for all class that want to build commands for a certain language.
@@ -25,4 +26,10 @@ public interface ICommandBuilder {
      * @return String
      */
     String buildCommand(Path path);
+
+    String buildCommand(List<Path> paths);
+
+    String commandToRun(Path path);
+
+    String buildCommandFolder(Path path);
 }
