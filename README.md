@@ -14,6 +14,11 @@ Windows 10 and Windows 8
   5.	Reopen Command prompt window, and run the code: 'c++ --version'.
   
 -	Also, you can view this tutorial: [install MINGW](https://youtu.be/bhxqI6xmsuA)
+
+
+## To Use CSharp Compiler
+-	To compile C# files this project uses "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe " as default windows compiler path, this would be chage in case to use other Operative System  
+
 ## To Use Python Compiler
 - Unzip the file in the same folder:
 ```

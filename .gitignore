@@ -5,6 +5,7 @@
 ### Binary Files ###
 # Files that are downloaded
 /thirdparty/python/win/python32/Portable_Python_3.2.5.1/
+/thirdparty/python/win/python32/Portable_Python_3.2.5.1/App/
 !/thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
 
 ### Git ###

@@ -12,14 +12,7 @@ package org.jalasoft.moi.model.cplusplus;
 import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -30,9 +23,6 @@ import java.io.IOException;
  * @version 1.0
  */
 public class CppHandler implements IHandler {
-
-    private static final String FILE_RELATIVE_PATH = "./temp/cplusplus/";
-    private static final String CPP_EXTENSION = ".cpp";
 
     /**
      * @param params contains the parameters to build a command a execute it
@@ -51,35 +41,5 @@ public class CppHandler implements IHandler {
             result = "Nothing for compile";
         }
         return result;
-    }
-
-    /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a Params
-     * object for C++.
-     *
-     * @param jsonRequest A JSON containing the parameters.
-     * @return A Params object with the params needed for compile.
-     * @throws IOException
-     * @throws ParseException
-     */
-    @Override
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        //Parses the object into different strings containing the parameters.
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
-        String fileName = (String) jsonObject.get("fileName");
-        String code = (String) jsonObject.get("code");
-        String version = (String) jsonObject.get("version");
-
-        //Creates and writes a file with the code needed.
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + CPP_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + CPP_EXTENSION);
-        codeWriter.write(code);
-        codeWriter.close();
-        Params codeParams = new Params();
-        codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(Language.CPP);
-        return codeParams;
     }
 }
