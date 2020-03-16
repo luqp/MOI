@@ -14,6 +14,7 @@ import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,10 +32,10 @@ public class PythonCommandBuilderTest {
 
     @BeforeAll
     static void initAll() {
-        directoryFile = "H:\\MOI\\thirdparty\\python\\local\\";
+        directoryFile = Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\local\\";
         String space = " ";
         String compileall = "-m compileall";
-        String python = "H:\\MOI\\thirdparty\\python\\win\\python32\\Portable_Python_3.2.5.1\\App\\python.exe";
+        String python = Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\win\\python32\\Portable_Python_3.2.5.1\\App\\python.exe";
         String concatenate = " && ";
 
         command = python + space + compileall + space + directoryFile + "test1.py" + concatenate + python + space + directoryFile + "__pycache__\\test1.cpython-32.pyc";
