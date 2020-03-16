@@ -27,11 +27,11 @@ public class CsharpCommandBuilderTest {
         File codeFile = new File(newFile);
         Params codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
-        ICommandBuilder cppCommandBuilder = new CsharpCommandBuilder();
+        ICommandBuilder cSharpCommBuilder = new CsharpCommandBuilder();
         String expectedCommand = "cd C:\\Users\\MauricioOroza\\Pruebas cmd csharp && " +
                 "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe -optimize -out:Output.exe *.cs && Output";
         //when
-        String currentCommand = cppCommandBuilder.buildCommand(codeParams.getFilesPath());
+        String currentCommand = cSharpCommBuilder.buildCommand(codeParams.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
     }
