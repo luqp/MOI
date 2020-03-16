@@ -9,12 +9,10 @@
 
 package org.jalasoft.moi.model.cpp;
 
-import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.cplusplus.CppHandler;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;

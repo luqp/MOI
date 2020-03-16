@@ -13,7 +13,6 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.jalasoft.moi.model.cplusplus.CppCommandBuilder;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;

@@ -18,9 +18,9 @@ import java.io.IOException;
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @author Carlos Meneses
+ * @author Carlos Camacho
  *         Diego Perez
- * @version 1.0
+ * @version 1.1
  */
 public class CppHandler implements IHandler {
 
