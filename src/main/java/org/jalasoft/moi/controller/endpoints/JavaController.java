@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -42,6 +42,7 @@ public class JavaController {
     private static final String FILE_PATH = ".\\temp\\java\\";
     private static final String EXTENSION = ".java";
     private Language language = Language.JAVA;
+
     /**
      * Returns a String that shows the output of the program.
      *
@@ -53,15 +54,5 @@ public class JavaController {
         IHandler handler = new JavaHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
-    }
-
-    /**
-     *This method is used to save the changes in a file determined by a name.
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCode(@RequestParam(value = "fileName") String fileName,
-                         @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        System.out.println("Your code was saved successfully");
     }
 }

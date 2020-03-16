@@ -1,10 +1,10 @@
 /**
- *   Copyright (c) 2020 Jalasoft.
+ * Copyright (c) 2020 Jalasoft.
  *
- *   This software is the confidential and proprietary information of Jalasoft.
- *   ("Confidential Information"). You shall not disclose such Confidential
- *   Information and shall use it only in accordance with the terms of the
- *   license agreement you entered into with Jalasoft.
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.controller.endpoints;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 import java.io.IOException;
 
@@ -49,21 +48,11 @@ public class CppController {
      *
      * @return the output from the execution.
      */
-   @RequestMapping(method = RequestMethod.POST)
-    public String executeCode(@RequestParam(value = "fileName")String fileName,
-                              @RequestParam(value = "code")String code) throws IOException {
+    @RequestMapping(method = RequestMethod.POST)
+    public String executeCode(@RequestParam(value = "fileName") String fileName,
+                              @RequestParam(value = "code") String code) throws IOException {
         IHandler handler = new CppHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
-    }
-
-    /**
-     *This method is used to save the changes in a file determined by a name.
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCode(@RequestParam(value = "fileName")String fileName,
-                              @RequestParam(value = "code")String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        System.out.println("Your code was saved successfully");
     }
 }

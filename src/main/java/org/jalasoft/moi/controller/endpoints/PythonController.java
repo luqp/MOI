@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -23,14 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import java.io.IOException;
 
 /**
  * This class defines the controller for Python.
  *
  * @author Diego Perez.
- * Carlos Meneses.
+ *         Carlos Meneses.
  * @version 1.1
  */
 @RestController
@@ -57,14 +56,4 @@ public class PythonController {
         return handler.execute(codeParams);
     }
 
-    /**
-     *This method is used to save the changes in a file determined by a name.
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
-        IHandler handler = new PythonHandler();
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        System.out.println("Your code was saved successfully");
-    }
 }
