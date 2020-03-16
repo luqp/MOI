@@ -9,7 +9,7 @@
 
 package org.jalasoft.moi.model.csharp;
 
-import org.jalasoft.moi.model.core.Language;
+
 import org.jalasoft.moi.model.core.Params;
 import org.junit.jupiter.api.Test;
 
@@ -21,17 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CsharpHandlerTest {
 
     @Test
-    public void whenHandlerReceiveParamsBuildCommandAndExecuteThenRun(){
+    public void whenHandlerReceiveParamsBuildCommandAndExecuteThenRun() {
         //given
-        String expectedResult = "Hi World line 1\nHi World line 2\nHi World line 3";
+        String expectedResult = "Hello World1\nFile 2!!!\nHello World2";
         Params params = new Params();
-        params.setFilesPath(Paths.get("C:/Users/Admin/IdeaProjects/MOI/thirdparty/csharp/hiworld.cs"));
-        params.setLanguage(Language.CSHARP);
+        params.setFilesPath(Paths.get("C:/Users/Admin/IdeaProjects/MOI/thirdparty/csharp/"));
         //when
         CsharpHandler csharpHandler = new CsharpHandler();
         String currentResult = csharpHandler.execute(params);
         //then
         assertEquals(expectedResult, currentResult);
     }
-
 }

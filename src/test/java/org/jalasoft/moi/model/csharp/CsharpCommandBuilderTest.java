@@ -10,25 +10,28 @@
 package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.junit.jupiter.api.Test;
-import java.nio.file.Paths;
+
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class CsharpCommandBuilderTest {
 
     @Test
-    public void givenPathParamsWhenBuildCommandThenReceiveTheExpectedComand(){
+    public void cSharpCmdBuilderTest() {
         //given
-        Params params = new Params();
-        params.setFilesPath(Paths.get("C:/Users/Admin/Desktop/csharp/hiworld.cs"));
-        params.setLanguage(Language.CSHARP);
-
-        ICommandBuilder compliler = params.getLanguage().getCommandBuilder();
-        String expectedCommand = "cd C:\\Users\\Admin\\Desktop\\csharp && C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe hiworld.cs && hiworld.exe";
+        String carpeta = "C:\\Users\\MauricioOroza\\Pruebas cmd csharp";
+        File codeFile = new File(carpeta);
+        Params codeParams = new Params();
+        codeParams.setFilesPath(codeFile.toPath());
+        ICommandBuilder cppCommandBuilder = new CsharpCommandBuilder();
+        String expectedCommand = "cd C:\\Users\\MauricioOroza\\Pruebas cmd csharp && " +
+                "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe -optimize -out:Output.exe *.cs && Output";
         //when
-        String currentCommand = compliler.buildCommand(params.getFilesPath());
+        String currentCommand = cppCommandBuilder.buildCommand(codeParams.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
     }
