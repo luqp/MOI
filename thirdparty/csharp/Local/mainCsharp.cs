@@ -1,7 +1,6 @@
 using System;
 using NameFile2;
 
-
 public class MainClass 
 {
     public static void Main(string[] args) 
@@ -10,6 +9,5 @@ public class MainClass
         file2 user = new file2();
         user.go();
         Console.WriteLine("Hello World2");
-        //Console.ReadKey();
     }
 }
