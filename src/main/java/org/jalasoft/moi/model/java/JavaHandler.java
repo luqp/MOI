@@ -62,7 +62,6 @@ public class JavaHandler implements IHandler {
      * @param jsonRequest A JSON containing the parameters.
      * @return A Params object with the params needed for compile.
      */
-    @Override
     public Params convertToParams(String jsonRequest) throws IOException, ParseException {
         //Parses the object into different strings containing the parameters.
         JSONParser jsonParser = new JSONParser();
