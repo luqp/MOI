@@ -30,9 +30,6 @@ import java.io.IOException;
  */
 public class JavaHandler implements IHandler {
 
-    private static final String FILE_RELATIVE_PATH = "C:/Users/Admin/Documents/temp/";
-    private static final String JAVA_EXTENSION = ".java";
-
     /**
      * Creates a java builder, builds a cmd command, runs command
      *
@@ -52,32 +49,5 @@ public class JavaHandler implements IHandler {
             output = "Exception ocurred";
         }
         return output;
-    }
-
-    /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a Params
-     * object for JAVA.
-     *
-     * @param jsonRequest A JSON containing the parameters.
-     * @return A Params object with the params needed for compile.
-     */
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        //Parses the object into different strings containing the parameters.
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
-        String fileName = (String) jsonObject.get("fileName");
-        String code = (String) jsonObject.get("code");
-        String version = (String) jsonObject.get("version");
-
-        //Creates and writes a file with the code needed.
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + JAVA_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + JAVA_EXTENSION);
-        codeWriter.write(code);
-        codeWriter.close();
-        Params codeParams = new Params();
-        codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(Language.JAVA);
-        return codeParams;
     }
 }
