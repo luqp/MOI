@@ -12,27 +12,30 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 
 import java.nio.file.Path;
 
+/**
+ * This class builds a command for C++ execution.
+ *
+ * @author Carlos Camacho
+ *         Diego Perez
+ * @version 1.1
+ */
 public class CppCommandBuilder implements ICommandBuilder {
 
+    private static final String ALL_FILES = "\\*.cpp";
+    private static final String CPP_COMPILE_COMMAND = "c++ ";
+
     /**
-     * Build the command for C++
+     * Build the command for C++.
+     *
      * @param path contains the location of the directory or file
-     * @return The commands to compile the code
+     * @return The commands to compile the code.
      */
     @Override
     public String buildCommand(Path path) {
-        String CPPCOMPILERPATH = "C:\\MinGW\\bin\\";
-        String OUTPUTFILEPATH = "C:\\AWT5\\MOI\\resources\\files\\test.exe";
-        String CPPCOMPILECOMMAND = "c++.exe ";
-
-        String actualPath = System.getProperty("user.dir");
-        String compileCommands =
-                " cd " + CPPCOMPILERPATH +
-                " && " + CPPCOMPILECOMMAND + path +
-                " -o " + OUTPUTFILEPATH +
-                " && cd " + actualPath +
-                " && " + OUTPUTFILEPATH;
-        System.out.println(compileCommands);
+        String outputFilePath = path.toString().replace(".cpp", ".exe");
+        String compileCommands = CPP_COMPILE_COMMAND +
+                path.getParent().toString().concat(ALL_FILES) +
+                " -o " + outputFilePath + " && " + outputFilePath;
         return (compileCommands);
     }
 }

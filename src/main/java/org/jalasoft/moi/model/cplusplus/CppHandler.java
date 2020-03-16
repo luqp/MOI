@@ -13,28 +13,25 @@ import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
-import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
 
 /**
  * Handler is in charge to work with the executer and the command builder
  *
- * @version 1.0
- * @author Carlos Meneses
+ * @author Carlos Camacho
+ *         Diego Perez
+ * @version 1.1
  */
 public class CppHandler implements IHandler {
 
     /**
-     * @param params contains the parameters to build a command a execute it
-     * @return a String of result from CommandBuilder and Executer handling
+     * @param params contains the parameters to build a command and execute it
+     * @return a String of result from CommandBuilder and Executer handling.
      */
     @Override
     public String execute(Params params) {
         ICommandBuilder cpp = new CppCommandBuilder();
         String command = cpp.buildCommand(params.getFilesPath());
-
         Executer executer = new Executer(command);
         String result;
         try {
