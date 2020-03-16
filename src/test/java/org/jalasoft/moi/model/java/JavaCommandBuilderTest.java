@@ -9,7 +9,6 @@
 
 package org.jalasoft.moi.model.java;
 
-import org.jalasoft.moi.model.java.JavaCommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 import org.junit.jupiter.api.Test;

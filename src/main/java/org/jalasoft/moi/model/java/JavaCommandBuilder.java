@@ -13,7 +13,7 @@ import org.jalasoft.moi.model.core.ICommandBuilder;
 import java.nio.file.Path;
 
 /**
- * Builds a command for java compilation and execution
+ * Builds a command for java compilation and execution.
  *
  * @version 1.0 03 March 2020
  * @author Mauricio Oroza
