@@ -42,6 +42,7 @@ public class CppController {
     private FileService fileService;
     private static final String FILE_PATH = ".\\temp\\cpluplus\\";
     private static final String EXTENSION = ".cc";
+    private Language language = Language.CPP;
 
     /**
      * Returns a String that shows the output of the program.
@@ -51,9 +52,18 @@ public class CppController {
    @RequestMapping(method = RequestMethod.POST)
     public String executeCode(@RequestParam(value = "fileName")String fileName,
                               @RequestParam(value = "code")String code) throws IOException {
-        Language language = Language.CPP;
         IHandler handler = new CppHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
+    }
+
+    /**
+     *this method is used to save the changes in a file determined by a name.
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public void saveCode(@RequestParam(value = "fileName")String fileName,
+                              @RequestParam(value = "code")String code) throws IOException {
+        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        System.out.println("Your code was saved successfully");
     }
 }

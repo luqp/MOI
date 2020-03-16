@@ -30,7 +30,7 @@ import java.io.IOException;
  * This class defines the controller for Python.
  *
  * @author Diego Perez.
- *         Carlos Meneses.
+ * Carlos Meneses.
  * @version 1.1
  */
 @RestController
@@ -42,6 +42,7 @@ public class PythonController {
     private FileService fileService;
     private static final String FILE_PATH = ".\\temp\\python\\";
     private static final String EXTENSION = ".py";
+    private Language language = Language.PYTHON_32;
 
     /**
      * Returns a String that shows the output of the program.
@@ -51,9 +52,19 @@ public class PythonController {
     @RequestMapping(method = RequestMethod.POST)
     public String executeCode(@RequestParam(value = "fileName") String fileName,
                               @RequestParam(value = "code") String code) throws IOException {
-        Language language = Language.PYTHON_32;
         IHandler handler = new PythonHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
+    }
+
+    /**
+     *this method is used to save the changes in a file determined by a name.
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public void saveCode(@RequestParam(value = "fileName") String fileName,
+                              @RequestParam(value = "code") String code) throws IOException {
+        IHandler handler = new PythonHandler();
+        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        System.out.println("Your code was saved successfully");
     }
 }

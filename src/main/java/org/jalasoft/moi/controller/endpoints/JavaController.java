@@ -1,10 +1,10 @@
 /**
- *   Copyright (c) 2020 Jalasoft.
- *
- *   This software is the confidential and proprietary information of Jalasoft.
- *   ("Confidential Information"). You shall not disclose such Confidential
- *   Information and shall use it only in accordance with the terms of the
- *   license agreement you entered into with Jalasoft.
+ * Copyright (c) 2020 Jalasoft.
+ * <p>
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.controller.endpoints;
@@ -41,18 +41,27 @@ public class JavaController {
     private FileService fileService;
     private static final String FILE_PATH = ".\\temp\\java\\";
     private static final String EXTENSION = ".java";
-
+    private Language language = Language.JAVA;
     /**
      * Returns a String that shows the output of the program.
      *
      * @return the output from the execution.
      */
-   @RequestMapping(method = RequestMethod.POST)
-    public String executeCode(@RequestParam(value = "fileName")String fileName,
-                              @RequestParam(value = "code")String code) throws IOException {
-        Language language = Language.JAVA;
+    @RequestMapping(method = RequestMethod.POST)
+    public String executeCode(@RequestParam(value = "fileName") String fileName,
+                              @RequestParam(value = "code") String code) throws IOException {
         IHandler handler = new JavaHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
+    }
+
+    /**
+     *this method is used to save the changes in a file determined by a name.
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public void saveCode(@RequestParam(value = "fileName") String fileName,
+                         @RequestParam(value = "code") String code) throws IOException {
+        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        System.out.println("Your code was saved successfully");
     }
 }
