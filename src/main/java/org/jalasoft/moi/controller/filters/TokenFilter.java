@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -9,16 +9,29 @@
 
 package org.jalasoft.moi.controller.filters;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/"})
+@WebFilter(urlPatterns = {"/*"})
 public class TokenFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("filter");
-        chain.doFilter(request,response);
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        String url = req.getRequestURL().toString();
+        String token =req.getHeader("Authorization");
+        if (token != null || url.contains("/login")){
+            chain.doFilter(request, response);
+        }
+        res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "access denied");
     }
 }
