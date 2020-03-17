@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -12,10 +12,11 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 
 import org.jalasoft.moi.controller.services.FileService;
+import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
 
+import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.python.PythonHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,7 @@ public class PythonController {
 
     @Autowired
     private FileService fileService;
+    private ProcessCache cache;
     private static final String FILE_PATH = ".\\temp\\python\\";
     private static final String EXTENSION = ".py";
     private Language language = Language.PYTHON_32;
@@ -51,9 +53,9 @@ public class PythonController {
     @RequestMapping(method = RequestMethod.POST)
     public String executeCode(@RequestParam(value = "fileName") String fileName,
                               @RequestParam(value = "code") String code) throws IOException {
-        IHandler handler = new PythonHandler();
+        IHandler handler = new PythonHandler(cache);
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
-        return handler.execute(codeParams);
+        return handler.execute(codeParams).getResult();
     }
 
 }

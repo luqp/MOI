@@ -1,14 +1,15 @@
-/**
- *  Copyright (c) 2020 Jalasoft.
- *
- *  This software is the confidential and proprietary information of Jalasoft.
- *  ("Confidential Information"). You shall not disclose such Confidential
- *  Information and shall use it only in accordance with the terms of the
- *  license agreement you entered into with Jalasoft.
+/*
+ * Copyright (c) 2020 Jalasoft.
+ * <p>
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.controller.config;
 
+import org.jalasoft.moi.controller.services.ProcessCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -42,6 +43,11 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
+    }
+
+    @Bean
+    public ProcessCache singletonProcessCache() {
+        return new ProcessCache();
     }
 
     /**
