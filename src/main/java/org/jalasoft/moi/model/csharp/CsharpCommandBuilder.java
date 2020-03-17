@@ -35,6 +35,6 @@ public class CsharpCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path completePath) {
-        return MOVE_TO + completePath.toString() + " && " + COMPILER_PATH + COMPILE_ALL_AND_OUTPUT + " && " + RUN_OUTPUT;
+        return MOVE_TO + completePath.getParent() + " && " + COMPILER_PATH + COMPILE_ALL_AND_OUTPUT + " && " + RUN_OUTPUT;
     }
 }
