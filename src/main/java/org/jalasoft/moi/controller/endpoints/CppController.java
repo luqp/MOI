@@ -40,7 +40,7 @@ public class CppController {
     @Autowired
     private FileService fileService;
     private static final String FILE_PATH = ".\\temp\\cplusplus\\";
-    private static final String EXTENSION = ".cc";
+    private static final String EXTENSION = ".cpp";
     private Language language = Language.CPP;
 
     /**
