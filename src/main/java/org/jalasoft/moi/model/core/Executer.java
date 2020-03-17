@@ -9,20 +9,13 @@
 
 package org.jalasoft.moi.model.core;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import org.jalasoft.moi.model.core.parameters.InputParams;
 
 import java.io.*;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 /**
- * Class recieves a string, executes it on cmd and returns output on a string
+ * Class receives a string, executes it on cmd and returns output on a string
  *
  * @author Mauricio Oroza
  * @version 1.0 03 March 2020
@@ -31,15 +24,10 @@ public class Executer {
 
     private String command;
     private Result result;
+    private ICacheProvider cache;
 
-    /**
-     * Constructor receives string command
-     *
-     * @param command command to be executed
-     */
-    public Executer(String command) {
-        String commandSlash = "\"";
-        this.command = "cmd /c " + commandSlash + command + commandSlash;
+    public Executer(ICacheProvider cache) {
+        this.cache = cache;
         this.result = new Result();
     }
 
@@ -48,22 +36,25 @@ public class Executer {
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
-    public Result run() throws IOException {
-        Process tempProcess = Runtime.getRuntime().exec(command);
-//        loaderProcess.put(tempProcess.pid(), tempProcess);
-        result.setPid(tempProcess.pid());
+    public Result execute(String command) throws IOException {
+        String builtCommand = "cmd /c \"" + command + "\"";
+        Process tempProcess = Runtime.getRuntime().exec(builtCommand);
+        long pid = getPid(tempProcess.toString());
+        cache.add(pid, tempProcess);
+        result.setPid(pid);
         result.setResult(buildResult(tempProcess));
         return result;
     }
 
     public Result setInput(InputParams input) throws IOException {
-//        Process process = loaderProcess.getIfPresent(input.getProcessPid());
-//        BufferedWriter writer = new BufferedWriter(
-//                new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
-//        writer.write(input.getInput());
-//        writer.close();
-//        result.setPid(input.getProcessPid());
-//        result.setResult(buildResult(process));
+        Process process = cache.getProcessById(input.getProcessPid());
+        BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
+        writer.write(input.getInput() + System.lineSeparator());
+        writer.flush();
+
+        result.setPid(input.getProcessPid());
+        result.setResult(buildResult(process));
         return result;
     }
 
@@ -75,5 +66,12 @@ public class Executer {
         char[] charBuffer = new char[inputStream.available()];
         cmdEntrance.read(charBuffer);
         return new String(charBuffer);
+    }
+
+    private Long getPid(String processName) {
+        return Long.parseLong(
+                processName.substring(
+                        processName.indexOf("=") + 1, processName.indexOf(",")
+                ));
     }
 }
