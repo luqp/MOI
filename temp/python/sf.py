@@ -1,0 +1,1 @@
+print("hola")%10 %09 print("hola nuevo")
