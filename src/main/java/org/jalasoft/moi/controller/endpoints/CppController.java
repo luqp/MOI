@@ -39,8 +39,8 @@ public class CppController {
 
     @Autowired
     private FileService fileService;
-    private static final String FILE_PATH = ".\\temp\\cpluplus\\";
-    private static final String EXTENSION = ".cc";
+    private static final String FILE_PATH = ".\\temp\\cplusplus\\";
+    private static final String EXTENSION = ".cpp";
     private Language language = Language.CPP;
 
     /**
@@ -48,11 +48,23 @@ public class CppController {
      *
      * @return the output from the execution.
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestParam(value = "fileName") String fileName,
                               @RequestParam(value = "code") String code) throws IOException {
         IHandler handler = new CppHandler();
         Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
+    }
+
+    /**
+     * This method is used to save the changes in a file determined by a name.
+     *
+     * @return a message of the realized action.
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/save")
+    public String saveCode(@RequestParam(value = "fileName") String fileName,
+                           @RequestParam(value = "code") String code) throws IOException {
+        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        return "Your code was successfully saved";
     }
 }
