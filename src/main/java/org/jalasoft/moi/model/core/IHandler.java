@@ -28,17 +28,5 @@ public interface IHandler {
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
-    Result execute(Params params);
-
-    /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a
-     * Params object.
-     *
-     * @param jsonRequest A string ready to be decomposed into variables.
-     * @return A Params object.
-     * @throws IOException
-     * @throws ParseException
-     */
-    Params convertToParams(String jsonRequest) throws IOException, ParseException;
+    String execute(Params params);
 }

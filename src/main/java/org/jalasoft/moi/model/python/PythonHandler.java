@@ -22,13 +22,10 @@ import java.io.IOException;
 /**
  * Handles the flow of the execution.
  *
- * @version    1.0
- * @author     Lucero Quiroga Perez
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public class PythonHandler implements IHandler {
-
-    private static final String FILE_RELATIVE_PATH = "C:/Users/Admin/Documents/temp/";
-    private static final String PYTHON_EXTENSION = ".py";
 
     /**
      * Receives the parameters and execute the program in the file.
@@ -50,33 +47,5 @@ public class PythonHandler implements IHandler {
             result.setResult("Nothing for compile");
         }
         return result;
-    }
-
-    /**
-     * Returns a Params object.
-     * A JSON object gets deconstructed and its data used to make a Params
-     * object for PYTHON.
-     *
-     * @param jsonRequest A JSON containing the parameters.
-     * @return A Params object with the params needed for compile.
-     */
-    @Override
-    public Params convertToParams(String jsonRequest) throws IOException, ParseException {
-        //Parses the object into different strings containing the parameters.
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonRequest);
-        String fileName = (String) jsonObject.get("fileName");
-        String code = (String) jsonObject.get("code");
-        String version = (String) jsonObject.get("version");
-
-        //Creates and writes a file with the code needed.
-        File codeFile = new File(FILE_RELATIVE_PATH + fileName + PYTHON_EXTENSION);
-        FileWriter codeWriter = new FileWriter(FILE_RELATIVE_PATH + fileName + PYTHON_EXTENSION);
-        codeWriter.write(code);
-        codeWriter.close();
-        Params codeParams = new Params();
-        codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(Language.PYTHON_32);
-        return codeParams;
     }
 }

@@ -22,7 +22,11 @@ import java.nio.file.Paths;
  */
 public enum Language {
 
-    PYTHON_32(new PythonCommandBuilder(Paths.get(Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\win\\python32\\Portable_Python_3.2.5.1\\App\\python.exe"), "32"));
+    PYTHON_32(new PythonCommandBuilder(Paths.get("./thirdparty/python/win" +
+            "/python32/Portable_Python_3.2.5.1/Portable_Python_3.2.5.1/App/python.exe"), "32")),
+    CSHARP(new CsharpCommandBuilder()),
+    JAVA(new JavaCommandBuilder()),
+    CPP(new CppCommandBuilder());
 
     private final ICommandBuilder commandBuilder;
 
