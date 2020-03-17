@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.InputParams;
 import org.jalasoft.moi.model.python.PythonHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,21 @@ public class LanguageController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public String processInput(@RequestParam(value = "userInput") String userInput,
-                               @RequestParam(value = "pid") Long pid) {
+                               @RequestParam(value = "pid") Long pid,
+                               @RequestParam(value = "language") Language language) {
         InputParams params = new InputParams();
         params.setInput(userInput);
         params.setProcessPid(pid);
-        IHandler handler = new PythonHandler(cache);
+        IHandler handler = getHandler(language);
         return handler.processInput(params).getResult();
+    }
+
+    private IHandler getHandler(Language language) {
+        switch (language) {
+            case PYTHON_32:
+                return new PythonHandler(cache);
+            default:
+                throw new IllegalArgumentException("Incorrect Language");
+        }
     }
 }
