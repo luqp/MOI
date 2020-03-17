@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.model.core;
 
+import org.jalasoft.moi.model.core.parameters.InputParams;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.json.simple.parser.ParseException;
 
@@ -28,5 +29,7 @@ public interface IHandler {
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
-    String execute(Params params);
+    Result execute(Params params);
+
+    Result processInput(InputParams params);
 }

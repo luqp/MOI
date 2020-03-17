@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  * <p>
  * This software is the confidential and proprietary information of Jalasoft.
@@ -10,8 +10,7 @@
 package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
-
+import org.jalasoft.moi.model.core.parameters.Params;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
