@@ -9,6 +9,7 @@
 
 package org.jalasoft.moi.controller.services;
 
+import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 
@@ -33,11 +34,11 @@ public class FileService {
      *
      * @return A Params setted object.
      */
-    public Params saveFile(String fileName, String code, String filePath, String extension, Language language) throws IOException {
+    public Params saveFile(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.
-        File codeFile = new File(filePath + fileName + extension);
-        FileWriter codeWriter = new FileWriter(filePath + fileName + extension);
-        codeWriter.write(code);
+        File codeFile = new File(filePath + fileCode.getName() + extension);
+        FileWriter codeWriter = new FileWriter(filePath + fileCode.getName() + extension);
+        codeWriter.write(fileCode.getCode());
         codeWriter.close();
         Params codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());

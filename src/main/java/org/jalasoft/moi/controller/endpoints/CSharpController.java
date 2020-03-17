@@ -12,12 +12,14 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 
 import org.jalasoft.moi.controller.services.FileService;
+import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.IHandler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.Params;
 
 import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,10 +51,9 @@ public class CSharpController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
+    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
         IHandler handler = new CsharpHandler();
-        Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        Params codeParams = fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
     }
 
@@ -62,9 +63,8 @@ public class CSharpController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestParam(value = "fileName") String fileName,
-                           @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+    public String saveCode(@RequestBody FileCode fileCode) throws IOException {
+        fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 }
