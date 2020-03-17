@@ -40,6 +40,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
     }
 
     /**
+     *Builds a commant with multiples filespaths
      *
      * @param paths list of files to run
      * @return command to compile more than one file
@@ -53,6 +54,12 @@ public class PythonCommandBuilder implements ICommandBuilder {
         return command;
     }
 
+    /**
+     * This method return the command to execute the compiled file
+     *
+     * @param path, Path of the file that should be executed
+     * @return String, return the commannd to be executed
+     */
     @Override
     public String buildCommandFolder(Path path) {
         return commandToCompile() + SPACE + path;

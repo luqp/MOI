@@ -27,9 +27,25 @@ public interface ICommandBuilder {
      */
     String buildCommand(Path path);
 
+    /**
+     * The method builds the command for a list of files.
+     *
+     * @param paths list of files
+     * @return The string with the correct command for execute
+     */
     String buildCommand(List<Path> paths);
 
+    /**
+     * This method will be used in order to add the command to execute the compiled file.
+     * @param path
+     * @return The string with the correct command for execute the compiled file
+     */
     String commandToRun(Path path);
 
+    /**
+     * This method will create a compile of an specific folder
+     * @param path
+     * @return the command for compile the folder
+     */
     String buildCommandFolder(Path path);
 }
