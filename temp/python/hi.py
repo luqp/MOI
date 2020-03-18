@@ -1,1 +1,0 @@
-import test2; t2 = test2.test2; t2.printHello(); print("hello");
