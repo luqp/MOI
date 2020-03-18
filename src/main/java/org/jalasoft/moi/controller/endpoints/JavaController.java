@@ -10,43 +10,39 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-
 import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
-import org.jalasoft.moi.model.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 /**
- * This class defines the controller for Python.
+ * This class defines the controller for Java.
  *
  * @author Diego Perez.
  *         Carlos Meneses.
  * @version 1.1
  */
 @RestController
-@RequestMapping(path = "/onlineCompiler/python")
-@Api(value = "python", description = "Implement compile and run code in Python")
-public class PythonController {
+@RequestMapping(path = "/onlineCompiler/java")
+@Api(value = "java", description = "Implement compile and run code in Java")
+public class JavaController {
 
     @Autowired
     private FileService fileService;
     @Autowired
     private ProcessCache cache;
-    private static final String FILE_PATH = Constant.ROOTPATH.getValue() + "\\temp\\python\\";
-    private static final String EXTENSION = ".py";
-    private Language language = Language.PYTHON_32;
+    private static final String FILE_PATH = ".\\temp\\java\\";
+    private static final String EXTENSION = ".java";
+    private Language language = Language.JAVA;
 
     /**
      * Returns a String that shows the output of the program.
@@ -72,7 +68,6 @@ public class PythonController {
         fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
-
 
     private String writeResult(Result result) {
         return result.getPid() + "\n" + result.getResult();

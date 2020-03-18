@@ -10,10 +10,13 @@
 package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.ICacheProvider;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+@Service
 public class ProcessCache implements ICacheProvider {
+
     HashMap<Long, Process> processMap;
 
     public ProcessCache() {

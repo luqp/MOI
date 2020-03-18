@@ -12,10 +12,11 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
-import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.parameters.InputParams;
-import org.jalasoft.moi.model.python.PythonHandler;
+import org.jalasoft.moi.model.core.parameters.Answer;
+import org.jalasoft.moi.model.core.parameters.InputParameters;
+import org.jalasoft.moi.model.core.parameters.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,21 +34,15 @@ public class LanguageController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public String processInput(@RequestParam(value = "userInput") String userInput,
-                               @RequestParam(value = "pid") Long pid,
-                               @RequestParam(value = "language") Language language) {
-        InputParams params = new InputParams();
-        params.setInput(userInput);
-        params.setProcessPid(pid);
-        IHandler handler = getHandler(language);
-        return handler.processInput(params).getResult();
+                               @RequestParam(value = "pid") Long pid) {
+        InputParameters answer = new Answer();
+        answer.setValue(userInput);
+        answer.setProcessPid(pid);
+        Handler handler = new Handler(cache);
+        return writeResult(handler.processInput(answer));
     }
 
-    private IHandler getHandler(Language language) {
-        switch (language) {
-            case PYTHON_32:
-                return new PythonHandler(cache);
-            default:
-                throw new IllegalArgumentException("Incorrect Language");
-        }
+    private String writeResult(Result processInput) {
+        return processInput.getPid() + "\n" + processInput.getResult();
     }
 }

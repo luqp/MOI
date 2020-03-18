@@ -10,6 +10,7 @@
 package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.model.core.Language;
+import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +33,13 @@ public class FileService {
      *
      * @return A Params setted object.
      */
-    public Params saveFile(String fileName, String code, String filePath, String extension, Language language) throws IOException {
+    public Parameters saveFile(String fileName, String code, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.
         File codeFile = new File(filePath + fileName + extension);
         FileWriter codeWriter = new FileWriter(filePath + fileName + extension);
         codeWriter.write(code);
         codeWriter.close();
-        Params codeParams = new Params();
+        Parameters codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
         codeParams.setLanguage(language);
         return codeParams;
