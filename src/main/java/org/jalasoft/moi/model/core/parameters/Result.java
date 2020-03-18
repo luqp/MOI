@@ -1,6 +1,6 @@
-package org.jalasoft.moi.model.core;
+package org.jalasoft.moi.model.core.parameters;
 
-public class Result {
+public abstract class Result {
     private long pid;
     private String result;
 
