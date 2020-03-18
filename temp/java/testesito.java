@@ -1,7 +1,1 @@
-public class testesito {
-
-	public void sayHello(){
-		System.out.println("hellooooooooo!!!!");
-	}
-
-}
+public class testesito {      public void sayHello(){         System.out.println("hellooooooooo!!!!");     }  }
