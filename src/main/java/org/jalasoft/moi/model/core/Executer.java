@@ -9,9 +9,15 @@
 
 package org.jalasoft.moi.model.core;
 
-import org.jalasoft.moi.model.core.parameters.InputParams;
+import org.jalasoft.moi.model.core.parameters.InputParameters;
+import org.jalasoft.moi.model.core.parameters.ProcessResult;
+import org.jalasoft.moi.model.core.parameters.Result;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Objects;
 
 /**
@@ -22,13 +28,12 @@ import java.util.Objects;
  */
 public class Executer {
 
-    private String command;
-    private Result result;
     private ICacheProvider cache;
+    private Result result;
 
     public Executer(ICacheProvider cache) {
         this.cache = cache;
-        this.result = new Result();
+        this.result = new ProcessResult();
     }
 
     /**
@@ -46,14 +51,14 @@ public class Executer {
         return result;
     }
 
-    public Result setInput(InputParams input) throws IOException {
-        Process process = cache.getProcessById(input.getProcessPid());
+    public Result processAnswer(InputParameters answer) throws IOException {
+        Process process = cache.getProcessById(answer.getProcessId());
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
-        writer.write(input.getInput() + System.lineSeparator());
+        writer.write(answer.getValue() + System.lineSeparator());
         writer.flush();
 
-        result.setPid(input.getProcessPid());
+        result.setPid(answer.getProcessId());
         result.setResult(buildResult(process));
         return result;
     }
