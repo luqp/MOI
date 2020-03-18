@@ -47,7 +47,7 @@ public class Executer {
         long pid = getPid(tempProcess.toString());
         cache.add(pid, tempProcess);
         result.setPid(pid);
-        result.setResult(buildResult(tempProcess));
+        result.setValue(buildResult(tempProcess));
         return result;
     }
 
@@ -59,7 +59,7 @@ public class Executer {
         writer.flush();
 
         result.setPid(answer.getProcessId());
-        result.setResult(buildResult(process));
+        result.setValue(buildResult(process));
         return result;
     }
 

@@ -17,7 +17,6 @@ import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
 
 import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +74,6 @@ public class PythonController {
 
 
     private String writeResult(Result result) {
-        return result.getPid() + "\n" + result.getResult();
+        return result.getPid() + "\n" + result.getValue();
     }
 }

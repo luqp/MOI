@@ -13,7 +13,6 @@ import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Result;
@@ -43,6 +42,6 @@ public class LanguageController {
     }
 
     private String writeResult(Result processInput) {
-        return processInput.getPid() + "\n" + processInput.getResult();
+        return processInput.getPid() + "\n" + processInput.getValue();
     }
 }

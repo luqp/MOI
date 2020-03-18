@@ -9,7 +9,10 @@
 
 package org.jalasoft.moi.model.core;
 
-import org.jalasoft.moi.model.core.parameters.*;
+import org.jalasoft.moi.model.core.parameters.InputParameters;
+import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.core.parameters.ProcessResult;
+import org.jalasoft.moi.model.core.parameters.Result;
 
 import java.io.IOException;
 
@@ -44,7 +47,7 @@ public class Handler {
             e.printStackTrace();
             result = new ProcessResult();
             result.setPid(0);
-            result.setResult("Nothing for compile");
+            result.setValue("Nothing for compile");
         }
         return result;
     }
@@ -58,7 +61,7 @@ public class Handler {
         } catch (IOException e) {
             e.printStackTrace();
             result = new ProcessResult();
-            result.setResult(e.getMessage());
+            result.setValue(e.getMessage());
             result.setPid(0);
         }
 

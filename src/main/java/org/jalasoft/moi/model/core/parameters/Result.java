@@ -2,7 +2,7 @@ package org.jalasoft.moi.model.core.parameters;
 
 public abstract class Result {
     private long pid;
-    private String result;
+    private String value;
 
     public long getPid() {
         return pid;
@@ -12,11 +12,11 @@ public abstract class Result {
         this.pid = pid;
     }
 
-    public String getResult() {
-        return result;
+    public String getValue() {
+        return value;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

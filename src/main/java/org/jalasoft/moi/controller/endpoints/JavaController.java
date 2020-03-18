@@ -70,6 +70,6 @@ public class JavaController {
     }
 
     private String writeResult(Result result) {
-        return result.getPid() + "\n" + result.getResult();
+        return result.getPid() + "\n" + result.getValue();
     }
 }
