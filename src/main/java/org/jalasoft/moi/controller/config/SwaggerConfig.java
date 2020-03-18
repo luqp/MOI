@@ -9,7 +9,6 @@
 
 package org.jalasoft.moi.controller.config;
 
-import org.jalasoft.moi.controller.services.ProcessCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -23,8 +22,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * This class implement basic configurations to get Swagger running in our project
  * and use it for specifications and tools that help us document our APIs.
  *
- * @version 1.1
  * @author Carlos Meneses
+ * @version 1.1
  */
 @Configuration
 @EnableSwagger2
@@ -32,6 +31,7 @@ public class SwaggerConfig {
 
     /**
      * Docket is the primary api configuration mechanism is initialized for swagger specification 2.0.
+     *
      * @return The documentation that swagger shows on the browser.
      */
     @Bean
@@ -45,13 +45,9 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false);
     }
 
-    @Bean
-    public ProcessCache singletonProcessCache() {
-        return new ProcessCache();
-    }
-
     /**
      * Information that are going to be show on the browser about the rest API.
+     *
      * @return ApiInfo of all setted documentation.
      */
     private ApiInfo apiInfo() {
