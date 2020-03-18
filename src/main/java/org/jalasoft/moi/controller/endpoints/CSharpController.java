@@ -48,9 +48,10 @@ public class CSharpController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
+    public String executeCode(@RequestParam String name,
+                              @RequestParam String code) throws IOException {
         IHandler handler = new CsharpHandler();
-        Params codeParams = fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
+        Params codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
     }
 
@@ -60,8 +61,9 @@ public class CSharpController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
+    public String saveFile(@RequestParam String name,
+                           @RequestParam String code) throws IOException {
+        fileService.saveFile(name,code, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 }

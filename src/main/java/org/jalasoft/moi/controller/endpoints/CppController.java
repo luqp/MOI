@@ -53,7 +53,7 @@ public class CppController {
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestBody FileCode fileCode) throws IOException {
         IHandler handler = new CppHandler();
-        Params codeParams = fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
+        Params codeParams = fileService.saveFilePython(fileCode, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
     }
 
@@ -64,7 +64,7 @@ public class CppController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
+        fileService.saveFilePython(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 }
