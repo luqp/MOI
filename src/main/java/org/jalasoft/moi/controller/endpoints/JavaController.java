@@ -49,10 +49,10 @@ public class JavaController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
+    public String executeCode(@RequestParam String name,
+                              @RequestParam String code) throws IOException {
         IHandler handler = new JavaHandler();
-        Params codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        Params codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
     }
 
@@ -62,9 +62,9 @@ public class JavaController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestParam(value = "fileName") String fileName,
-                           @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+    public String saveFile(@RequestParam String name,
+                           @RequestParam String code) throws IOException {
+        fileService.saveFile(name, code , FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 }
