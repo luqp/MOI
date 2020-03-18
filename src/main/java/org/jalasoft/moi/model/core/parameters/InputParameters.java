@@ -9,23 +9,49 @@
 
 package org.jalasoft.moi.model.core.parameters;
 
+/**
+ * Contains user inputs and an process id.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.1
+ */
 public abstract class InputParameters {
 
     private long pid;
     private String value;
 
+    /**
+     * Contains process id.
+     *
+     * @return pid
+     */
     public long getProcessId() {
         return pid;
     }
 
+    /**
+     * Changes process id.
+     *
+     * @param pid from a running process
+     */
     public void setProcessPid(long pid) {
         this.pid = pid;
     }
 
+    /**
+     * Contains the user input value.
+     *
+     * @return string
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * Changes the user input value.
+     *
+     * @param value user input value
+     */
     public void setValue(String value) {
         this.value = value;
     }

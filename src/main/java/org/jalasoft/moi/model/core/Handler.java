@@ -20,7 +20,8 @@ import java.io.IOException;
  * Handler is in charge to work with the executer and the command builder
  *
  * @author Carlos Meneses
- * @version 1.0
+ *         Lucero Quiroga Perez
+ * @version 1.1
  */
 public class Handler {
 
@@ -52,6 +53,12 @@ public class Handler {
         return result;
     }
 
+    /**
+     * Handles the user input to recover a result.
+     *
+     * @param params user inputs
+     * @return a result value and the process id
+     */
     public Result processInput(InputParameters params) {
         Executer executer = new Executer(cache);
         Result result;

@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+/**
+ * Contains all processes created by the model.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.1
+ */
 @Service
 public class ProcessCache implements ICacheProvider {
 
@@ -23,16 +29,33 @@ public class ProcessCache implements ICacheProvider {
         this.processMap = new HashMap<>();
     }
 
+    /**
+     * Helps to identify a specific process.
+     *
+     * @param pid process id
+     * @return a specific process
+     */
     @Override
     public Process getProcessById(long pid) {
         return processMap.get(pid);
     }
 
+    /**
+     * Adds process to cache.
+     *
+     * @param pid process id
+     * @param process specific process to add
+     */
     @Override
     public void add(long pid, Process process) {
         processMap.put(pid, process);
     }
 
+    /**
+     * Deletes a process from cache.
+     *
+     * @param pid process id
+     */
     @Override
     public void deleteProcess(long pid) {
         Process process = processMap.remove(pid);

@@ -9,6 +9,12 @@
 
 package org.jalasoft.moi.model.utils;
 
+/**
+ * Contains more used constants.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.1
+ */
 public enum Constant {
 
     ROOTPATH(System.getProperty("user.dir"));

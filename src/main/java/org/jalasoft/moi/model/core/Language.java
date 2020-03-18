@@ -21,7 +21,7 @@ import java.nio.file.Paths;
  * Represent the supported languages and give access to the appropriate command builder.
  *
  * @author Lucero Quiroga Perez
- * @version 1.0
+ * @version 1.1
  */
 public enum Language {
 

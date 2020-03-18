@@ -27,8 +27,9 @@ import java.io.IOException;
 /**
  * This class defines the controller for Java.
  *
- * @author Diego Perez.
- *         Carlos Meneses.
+ * @author Diego Perez
+ *         Carlos Meneses
+ *         Lucero Quiroga
  * @version 1.1
  */
 @RestController

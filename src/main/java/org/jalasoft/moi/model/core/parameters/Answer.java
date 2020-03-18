@@ -9,5 +9,11 @@
 
 package org.jalasoft.moi.model.core.parameters;
 
+/**
+ * Contains user inputs and an process id.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.1
+ */
 public class Answer extends InputParameters{
 }

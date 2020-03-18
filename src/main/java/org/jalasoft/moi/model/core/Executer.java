@@ -24,7 +24,8 @@ import java.util.Objects;
  * Class receives a string, executes it on cmd and returns output on a string
  *
  * @author Mauricio Oroza
- * @version 1.0 03 March 2020
+ *         Lucero Quiroga Perez
+ * @version 1.1 03 March 2020
  */
 public class Executer {
 
@@ -51,6 +52,13 @@ public class Executer {
         return result;
     }
 
+    /**
+     * Processes an input to continue the execution.
+     *
+     * @param answer user input
+     * @return a result value and the process id
+     * @throws IOException when there is a execution problem
+     */
     public Result processAnswer(InputParameters answer) throws IOException {
         Process process = cache.getProcessById(answer.getProcessId());
         BufferedWriter writer = new BufferedWriter(
@@ -63,6 +71,13 @@ public class Executer {
         return result;
     }
 
+    /**
+     * Builds the result value.
+     *
+     * @param process to obtain the result
+     * @return result value
+     * @throws IOException of system
+     */
     private String buildResult(Process process) throws IOException {
         InputStream inputStream = process.getInputStream();
         InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
@@ -73,6 +88,12 @@ public class Executer {
         return new String(charBuffer);
     }
 
+    /**
+     * Obtains the process id as long.
+     *
+     * @param processName process name
+     * @return pid
+     */
     private Long getPid(String processName) {
         return Long.parseLong(
                 processName.substring(

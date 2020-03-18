@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Contains language behavior.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.1
+ */
 @RestController
 @RequestMapping(path = "/onlineCompiler/q")
 @Api(value = "userInteraction", description = "Handle user interaction")
@@ -31,6 +37,13 @@ public class LanguageController {
     private FileService service;
     private ProcessCache cache;
 
+    /**
+     * Handles the user input and processes an result.
+     *
+     * @param userInput contains the a string
+     * @param pid contains the process id
+     * @return String with the result value
+     */
     @RequestMapping(method = RequestMethod.PUT)
     public String processInput(@RequestParam(value = "userInput") String userInput,
                                @RequestParam(value = "pid") Long pid) {
@@ -41,7 +54,13 @@ public class LanguageController {
         return writeResult(handler.processInput(answer));
     }
 
-    private String writeResult(Result processInput) {
-        return processInput.getPid() + "\n" + processInput.getValue();
+    /**
+     * Modifies the result output.
+     *
+     * @param result initial result
+     * @return String with pid + result
+     */
+    private String writeResult(Result result) {
+        return result.getPid() + "\n" + result.getValue();
     }
 }
