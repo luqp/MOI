@@ -9,6 +9,9 @@
 
 package org.jalasoft.moi.domain;
 
+/**
+ * File code defines the file that will be used for write and compile code.
+ */
 public class FileCode {
     private String name;
     private String code;

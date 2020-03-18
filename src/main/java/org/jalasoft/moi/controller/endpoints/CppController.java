@@ -63,7 +63,7 @@ public class CppController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestBody FileCode fileCode) throws IOException {
+    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
         fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }

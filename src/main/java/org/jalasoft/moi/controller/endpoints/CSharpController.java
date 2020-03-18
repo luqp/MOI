@@ -19,13 +19,10 @@ import org.jalasoft.moi.model.core.Params;
 
 import org.jalasoft.moi.model.csharp.CsharpHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This class defines the controller for C#.
@@ -63,7 +60,7 @@ public class CSharpController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestBody FileCode fileCode) throws IOException {
+    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
         fileService.saveFile(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
