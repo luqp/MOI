@@ -29,7 +29,7 @@ import java.io.IOException;
 public class FileService {
 
     /**
-     * SaveFile create a new file with name, extension and path, then create a object params to set the file.
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object.
      *
      * @return A Params setted object.
@@ -46,12 +46,12 @@ public class FileService {
         return codeParams;
     }
     /**
-     * SaveFile create a new file with name, extension and path, then create a object params to set the file.
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object.
      *
      * @return A Params setted object.
      */
-    public Params saveFilePython(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
+    public Params saveFileByBody(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.
         File codeFile = new File(filePath + fileCode.getName() + extension);
         FileWriter codeWriter = new FileWriter(filePath + fileCode.getName() + extension);

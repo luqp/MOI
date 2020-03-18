@@ -11,6 +11,9 @@ package org.jalasoft.moi.domain;
 
 /**
  * File code defines the file that will be used for write and compile code.
+ *
+ * @author Carlos Meneses.
+ * @version 1.1
  */
 public class FileCode {
     private String name;

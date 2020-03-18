@@ -52,7 +52,7 @@ public class PythonController {
     @RequestMapping(method = RequestMethod.POST, path = "/execute", consumes = "application/json")
     public String executeCode(@RequestBody FileCode fileCode) throws IOException {
         IHandler handler = new PythonHandler();
-        Params codeParams = fileService.saveFilePython(fileCode, FILE_PATH, EXTENSION, language);
+        Params codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return handler.execute(codeParams);
     }
 
@@ -63,7 +63,7 @@ public class PythonController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFilePython(fileCode, FILE_PATH, EXTENSION, language);
+        fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 }
