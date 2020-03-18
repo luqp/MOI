@@ -20,44 +20,5 @@ import java.nio.file.Path;
  * @author Lucero Quiroga Perez
  * @version 1.0
  */
-public class Params {
-
-    private Path filesPath;
-    private Language language;
-
-    /**
-     * Contains files location on the local host.
-     *
-     * @return Path
-     */
-    public Path getFilesPath() {
-        return filesPath;
-    }
-
-    /**
-     * Set files location on the local host.
-     *
-     * @param filesPath files location
-     */
-    public void setFilesPath(Path filesPath) {
-        this.filesPath = filesPath;
-    }
-
-    /**
-     * Contains the language in which files will be compiled.
-     *
-     * @return Language
-     */
-    public Language getLanguage() {
-        return language;
-    }
-
-    /**
-     * Set the language in which files will be compiled.
-     *
-     * @param language type selected by the client
-     */
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
+public class Params extends Parameters{
 }
