@@ -9,23 +9,5 @@
 
 package org.jalasoft.moi.model.core.parameters;
 
-public class InputParams {
-    private long pid;
-    private String input;
-
-    public long getProcessPid() {
-        return pid;
-    }
-
-    public void setProcessPid(long pid) {
-        this.pid = pid;
-    }
-
-    public String getInput() {
-        return input;
-    }
-
-    public void setInput(String input) {
-        this.input = input;
-    }
+public class Answer extends InputParameters{
 }
