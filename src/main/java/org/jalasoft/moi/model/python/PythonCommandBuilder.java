@@ -55,9 +55,6 @@ public class PythonCommandBuilder implements ICommandBuilder {
      * @return execution command.
      */
     private String commandToRun(Path path) {
-        String fileName = path.getFileName().toString().replace(".py", "");
-        return pythonPath + SPACE +
-               Paths.get(path.getParent() + "/__pycache__/" +
-               fileName + ".cpython-" + version + ".pyc");
+        return pythonPath + SPACE + path;
     }
 }
