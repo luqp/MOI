@@ -3,13 +3,18 @@ package org.jalasoft.moi.model.interaction;
 import org.jalasoft.moi.model.core.ICacheProvider;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class ProcessCacheTest implements ICacheProvider {
 
-    HashMap<Long, Process> processMap;
+    private HashMap<Long, Process> processMap;
 
     public ProcessCacheTest() {
         this.processMap = new HashMap<>();
+    }
+
+    public Set<Long> getKeys() {
+        return processMap.keySet();
     }
 
     @Override
