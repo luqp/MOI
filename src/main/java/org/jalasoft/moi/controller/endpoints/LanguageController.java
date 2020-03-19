@@ -10,7 +10,6 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Answer;
@@ -29,12 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.1
  */
 @RestController
-@RequestMapping(path = "/onlineCompiler/q")
+@RequestMapping(path = "/onlineCompiler/input")
 @Api(value = "userInteraction", description = "Handle user interaction")
 public class LanguageController {
 
     @Autowired
-    private FileService service;
     private ProcessCache cache;
 
     /**
@@ -44,7 +42,7 @@ public class LanguageController {
      * @param pid contains the process id
      * @return String with the result value
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT, path = "/q")
     public String processInput(@RequestParam(value = "userInput") String userInput,
                                @RequestParam(value = "pid") Long pid) {
         InputParameters answer = new Answer();

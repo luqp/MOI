@@ -21,10 +21,7 @@ import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -44,6 +41,7 @@ public class PythonController {
     private FileService fileService;
     @Autowired
     private ProcessCache cache;
+
     private static final String FILE_PATH = Constant.ROOTPATH.getValue() + "\\temp\\python\\";
     private static final String EXTENSION = ".py";
     private Language language = Language.PYTHON_32;
@@ -53,10 +51,11 @@ public class PythonController {
      *
      * @return the output from the execution.
      */
-    @RequestMapping(method = RequestMethod.POST, path = "/execute", consumes = "application/json")
-    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
+    @RequestMapping(method = RequestMethod.POST, path = "/execute")
+    public String executeCode(@RequestParam String name,
+                              @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, EXTENSION, language);
         return writeResult(handler.runProgram(codeParams));
     }
 
