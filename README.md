@@ -32,3 +32,14 @@ Now you are able to use Python language with the app.
 thirdparty/java/win/1.8.zip
 ```
 Now you are able to use Java language with the app.
+
+## To execute MOI gradle Project
+- Run this command: 
+```
+gradle clean bootrun
+```
+## To execute MOI Project from Swagger
+- Type this url address:
+```
+http://localhost:9091/api/v1/swagger-ui.html
+```

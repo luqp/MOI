@@ -12,15 +12,16 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
@@ -51,10 +52,9 @@ public class CppController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
+    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return writeResult(handler.runProgram(codeParams));
     }
 
@@ -64,9 +64,8 @@ public class CppController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestParam(value = "fileName") String fileName,
-                           @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
+        fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 

@@ -51,10 +51,10 @@ public class CSharpController {
      * @return the output from the execution.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam(value = "fileName") String fileName,
-                              @RequestParam(value = "code") String code) throws IOException {
+    public String executeCode(@RequestParam String name,
+                              @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
         return writeResult(handler.runProgram(codeParams));
     }
 
@@ -64,9 +64,9 @@ public class CSharpController {
      * @return a message of the realized action.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveCode(@RequestParam(value = "fileName") String fileName,
-                           @RequestParam(value = "code") String code) throws IOException {
-        fileService.saveFile(fileName, code, FILE_PATH, EXTENSION, language);
+    public String saveFile(@RequestParam String name,
+                           @RequestParam String code) throws IOException {
+        fileService.saveFile(name,code, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
     }
 
