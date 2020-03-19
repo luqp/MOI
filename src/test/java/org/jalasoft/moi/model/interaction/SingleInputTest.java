@@ -1,82 +1,81 @@
 package org.jalasoft.moi.model.interaction;
 
-import org.jalasoft.moi.model.core.Executer;
-import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Params;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SingleInputTest {
 
     private static ProcessCacheTest processCache;
+    private static Builder builder;
+    private static HashMap<Long, String> map;
 
     @BeforeAll
     static void initAll() {
         processCache = new ProcessCacheTest();
+        builder = new Builder(processCache);
+        map = new HashMap<>();
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "1", "15", "999"
-    })
-    public void firstResultWhenExecuteProcessTest(String userInput) {
+    @MethodSource("codeProvider")
+    @Order(1)
+    public void askForNumberTest(Path path, Language language) {
         String expected = "Insert number\r\n> ";
-        Params params = new Params();
-        params.setLanguage(Language.PYTHON_32);
-        params.setFilesPath(Paths.get(Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\local\\AskInputTest.py"));
 
-        Result result = createExecution(params);
+        Params params = new Params();
+        params.setLanguage(language);
+        params.setFilesPath(path);
+
+        Result result = builder.createExecution(params);
         assertEquals(expected, result.getValue());
+
+        map.put(result.getPid(), "100");
+    }
+
+    @ParameterizedTest
+    @MethodSource("pidProvider")
+    @Order(2)
+    public void displayNumberInsertedTest(Long pid) {
+        String userInput = map.get(pid);
+        String expected = "your number is: " + userInput + "\r\n";
 
         InputParameters input = new Answer();
-        input.setProcessPid(result.getPid());
+        input.setProcessPid(pid);
         input.setValue(userInput);
-        expected = "your number is: " + input.getValue() + "\r\n";
 
-        result = buildResultWithInput(input);
+        Result result = builder.buildResultWithInput(input);
         assertEquals(expected, result.getValue());
     }
 
-    public Result createExecution(Params params) {
-        ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
-        String command = commandBuilder.buildCommand(params.getFilesPath());
-        Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-        return result;
+    static Stream<Arguments> codeProvider() {
+        return Stream.of(
+                arguments(
+                        Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\local\\AskInputTest.py",
+                        Language.PYTHON_32
+                )
+        );
     }
 
-    public Result buildResultWithInput(InputParameters input) {
-        Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.processAnswer(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-
-        return result;
+    static Stream<Long> pidProvider() {
+        return processCache.getKeys().stream();
     }
 }

@@ -1,12 +1,9 @@
 package org.jalasoft.moi.model.interaction;
 
-import org.jalasoft.moi.model.core.Executer;
-import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Params;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +14,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,12 +26,14 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HandleInteractionTest {
 
+    private static Builder builder;
     private static ProcessCacheTest processCache;
     private static HashMap<Long, List<String>> map;
 
     @BeforeAll
     static void initAll() {
         processCache = new ProcessCacheTest();
+        builder = new Builder(processCache);
         map = new HashMap<>();
     }
 
@@ -49,7 +47,7 @@ public class HandleInteractionTest {
         params.setLanguage(language);
         params.setFilesPath(path);
 
-        Result result = createExecution(params);
+        Result result = builder.createExecution(params);
         assertEquals(expected, result.getValue());
 
         List<String> numbers = new ArrayList<>();
@@ -72,7 +70,7 @@ public class HandleInteractionTest {
         input.setProcessPid(pid);
         input.setValue(number1);
 
-        Result result = buildResultWithInput(input);
+        Result result = builder.buildResultWithInput(input);
         assertEquals(expected, result.getValue());
     }
 
@@ -88,7 +86,7 @@ public class HandleInteractionTest {
         input.setProcessPid(pid);
         input.setValue(number2);
 
-        Result result = buildResultWithInput(input);
+        Result result = builder.buildResultWithInput(input);
         assertEquals(expected, result.getValue());
     }
 
@@ -107,36 +105,5 @@ public class HandleInteractionTest {
 
     static Stream<Long> pidProvider() {
         return processCache.getKeys().stream();
-    }
-
-    public Result createExecution(Params params) {
-        ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
-        String command = commandBuilder.buildCommand(params.getFilesPath());
-        Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-        return result;
-    }
-
-    public Result buildResultWithInput(InputParameters input) {
-        Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.processAnswer(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-
-        return result;
     }
 }
