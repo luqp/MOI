@@ -33,7 +33,7 @@ public class FileService {
      * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object and code value in base 64.
      *
-     * @return A Parameters object.
+     * @return a parameters object
      */
     public Parameters saveFileB64(String name, String codeB64, String filePath, String extension, Language language) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
@@ -45,7 +45,7 @@ public class FileService {
      * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object.
      *
-     * @return A Parameters object.
+     * @return a parameters object
      */
     public Parameters saveFileByBody(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
         return saveFile(fileCode.getName(), fileCode.getCode(), filePath, extension, language);
@@ -55,7 +55,7 @@ public class FileService {
      * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object.
      *
-     * @return A Parameters object.
+     * @return a parameters object
      */
     public Parameters saveFile(String name, String code, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.

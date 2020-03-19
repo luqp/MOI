@@ -98,7 +98,7 @@ public class Executer {
      * Obtains the process id as long.
      *
      * @param processName process name
-     * @return pid
+     * @return a process id
      */
     private Long getPid(String processName) {
         return Long.parseLong(

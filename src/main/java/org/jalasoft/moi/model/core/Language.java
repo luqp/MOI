@@ -34,7 +34,7 @@ public enum Language {
     private final ICommandBuilder commandBuilder;
 
     /**
-     * Set the command builder of a specific language and version
+     * Set the command builder of a specific language and version.
      *
      * @param commandBuilder contains a ICommandBuilder
      */
@@ -45,7 +45,7 @@ public enum Language {
     /**
      * Contains the command builder specific to the language.
      *
-     * @return ICommandBuilder
+     * @return ICommandBuilder to builds commands
      */
     public ICommandBuilder getCommandBuilder() {
         return commandBuilder;

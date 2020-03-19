@@ -23,7 +23,7 @@ public abstract class InputParameters {
     /**
      * Contains process id.
      *
-     * @return pid
+     * @return process id
      */
     public long getProcessId() {
         return pid;
@@ -41,7 +41,7 @@ public abstract class InputParameters {
     /**
      * Contains the user input value.
      *
-     * @return string
+     * @return a string of user input
      */
     public String getValue() {
         return value;

@@ -48,7 +48,7 @@ public class CppController {
     /**
      * Returns a String that shows the output of the program.
      *
-     * @return the output from the execution.
+     * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestBody FileCode fileCode) throws IOException {
@@ -60,7 +60,7 @@ public class CppController {
     /**
      * This method is used to save the changes in a file determined by a name.
      *
-     * @return a message of the realized action.
+     * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {

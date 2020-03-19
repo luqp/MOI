@@ -28,9 +28,9 @@ import java.io.IOException;
 /**
  * This class defines the controller for Python.
  *
- * @author Diego Perez.
- *         Carlos Meneses.
- *         Lucero Quiroga Perez.
+ * @author Diego Perez
+ *         Carlos Meneses
+ *         Lucero Quiroga Perez
  * @version 1.1
  */
 @RestController
@@ -50,7 +50,7 @@ public class PythonController {
     /**
      * Returns a String that shows the output of the program.
      *
-     * @return the output from the execution.
+     * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestParam String name,
@@ -63,7 +63,7 @@ public class PythonController {
     /**
      * This method is used to save the changes in a file determined by a name.
      *
-     * @return a message of the realized action.
+     * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {

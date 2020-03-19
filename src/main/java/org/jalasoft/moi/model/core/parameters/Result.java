@@ -13,7 +13,7 @@ public abstract class Result {
     /**
      * Contains the process id.
      *
-     * @return pid
+     * @return process id
      */
     public long getPid() {
         return pid;
@@ -38,9 +38,9 @@ public abstract class Result {
     }
 
     /**
-     * Changes the result value
+     * Changes the result value.
      *
-     * @param value a string with the result value.
+     * @param value a string with the result value
      */
     public void setValue(String value) {
         this.value = value;

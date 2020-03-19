@@ -18,7 +18,9 @@ public class PythonCommandBuilder implements ICommandBuilder {
     private final Path pythonPath;
 
     /**
-     * @param pythonPath the location for the python file.
+     * Builds python commands.
+     *
+     * @param pythonPath the location for the python file
      */
     public PythonCommandBuilder(Path pythonPath) {
         this.pythonPath = pythonPath;
@@ -27,8 +29,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds compilation and execution commands.
      *
-     * @param path location of the directory or file.
-     * @return compilation and execution commands.
+     * @param path location of the directory or file
+     * @return compilation and execution commands
      */
     @Override
     public String buildCommand(Path path) {
@@ -38,8 +40,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds compilation command.
      *
-     * @param path the location of the directory or file.
-     * @return compilation command.
+     * @param path the location of the directory or file
+     * @return compilation command
      */
     private String commandToCompile(Path path) {
         return pythonPath + SPACE + "-m compileall" + SPACE + path;
@@ -48,8 +50,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds execution command.
      *
-     * @param path location of the directory or file.
-     * @return execution command.
+     * @param path location of the directory or file
+     * @return execution command
      */
     private String commandToRun(Path path) {
         return pythonPath + SPACE + path;

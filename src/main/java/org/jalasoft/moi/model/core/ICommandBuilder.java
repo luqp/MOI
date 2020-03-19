@@ -22,7 +22,7 @@ public interface ICommandBuilder {
      * Builds a command given the location of the directory or file.
      *
      * @param path file location
-     * @return String
+     * @return a command in a string
      */
     String buildCommand(Path path);
 }

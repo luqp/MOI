@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * This class defines the file controller.
  *
- * @author Carlos Meneses.
+ * @author Carlos Meneses
  *         Lucero Quiroga Perez
  * @version 1.1
  */
@@ -31,7 +31,7 @@ public class FileController {
     /**
      * This method get a list of all files.
      *
-     * @return a list of all saved files.
+     * @return a list of all saved files
      */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllFiles(){
@@ -41,8 +41,8 @@ public class FileController {
     /**
      * This method get a file by a id parameter.
      *
-     * @param id is the parameter to search a specific file.
-     * @return a file find by id.
+     * @param id is the parameter to search a specific file
+     * @return a file find by id
      */
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
     public String getFileById(@PathVariable Long id){
@@ -52,7 +52,7 @@ public class FileController {
     /**
      * This method update a File code and File name.
      *
-     * @param updateFile is a file to be updated by a put method.
+     * @param updateFile is a file to be updated by a put method
      */
     @RequestMapping(method = RequestMethod.PUT)
     public String updateFile(FileCode updateFile){
@@ -62,7 +62,7 @@ public class FileController {
     /**
      * This method delete a File by the parameter id.
      *
-     * @param id is the parameter to be used to delete a File.
+     * @param id is the parameter to be used to delete a File
      */
     @RequestMapping(path = "/{id}",method = RequestMethod.DELETE)
     public String deleteFileById(@PathVariable Long id){

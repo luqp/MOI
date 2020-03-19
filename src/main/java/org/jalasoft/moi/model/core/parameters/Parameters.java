@@ -46,7 +46,7 @@ public abstract class Parameters {
     /**
      * Contains the language in which files will be compiled.
      *
-     * @return Language
+     * @return a specific language
      */
     public Language getLanguage() {
         return language;
@@ -55,7 +55,7 @@ public abstract class Parameters {
     /**
      * Set the language in which files will be compiled.
      *
-     * @param language type selected by the client
+     * @param language selected by the client
      */
     public void setLanguage(Language language) {
         this.language = language;
