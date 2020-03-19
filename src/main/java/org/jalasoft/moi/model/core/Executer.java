@@ -81,7 +81,13 @@ public class Executer {
     private String buildResult(Process process) throws IOException {
         InputStream inputStream = process.getInputStream();
         InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+        int count = 0;
         while (!cmdEntrance.ready()) {
+            if (count >= Integer.MAX_VALUE) {
+                cache.deleteProcess(getPid(process.toString()));
+                return "Code was not Executed";
+            }
+            count ++;
         }
         char[] charBuffer = new char[inputStream.available()];
         cmdEntrance.read(charBuffer);
