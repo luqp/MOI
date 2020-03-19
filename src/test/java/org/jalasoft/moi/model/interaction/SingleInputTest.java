@@ -25,13 +25,13 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class SingleInputTest {
 
     private static ProcessCacheTest processCache;
-    private static Builder builder;
+    private static BuilderTest builder;
     private static HashMap<Long, String> map;
 
     @BeforeAll
     static void initAll() {
         processCache = new ProcessCacheTest();
-        builder = new Builder(processCache);
+        builder = new BuilderTest(processCache);
         map = new HashMap<>();
     }
 

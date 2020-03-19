@@ -87,7 +87,7 @@ public class Executer {
                 cache.deleteProcess(getPid(process.toString()));
                 return "Code was not Executed";
             }
-            count ++;
+            count++;
         }
         char[] charBuffer = new char[inputStream.available()];
         cmdEntrance.read(charBuffer);

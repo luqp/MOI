@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This class defines the file controller.
  *
  * @author Carlos Meneses.
+ *         Lucero Quiroga Perez
  * @version 1.1
  */
 @Controller

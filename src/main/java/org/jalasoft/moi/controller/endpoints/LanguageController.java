@@ -14,7 +14,6 @@ import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
-import org.jalasoft.moi.model.core.parameters.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,7 +38,7 @@ public class LanguageController {
      * Handles the user input and processes an result.
      *
      * @param userInput contains the a string
-     * @param pid contains the process id
+     * @param pid       contains the process id
      * @return String with the result value
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/q")
@@ -49,16 +48,6 @@ public class LanguageController {
         answer.setValue(userInput);
         answer.setProcessPid(pid);
         Handler handler = new Handler(cache);
-        return writeResult(handler.processInput(answer));
-    }
-
-    /**
-     * Modifies the result output.
-     *
-     * @param result initial result
-     * @return String with pid + result
-     */
-    private String writeResult(Result result) {
-        return result.getPid() + "\n" + result.getValue();
+        return handler.processInput(answer).wrappedResult();
     }
 }

@@ -26,14 +26,14 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class HandleInteractionTest {
 
-    private static Builder builder;
+    private static BuilderTest builder;
     private static ProcessCacheTest processCache;
     private static HashMap<Long, List<String>> map;
 
     @BeforeAll
     static void initAll() {
         processCache = new ProcessCacheTest();
-        builder = new Builder(processCache);
+        builder = new BuilderTest(processCache);
         map = new HashMap<>();
     }
 

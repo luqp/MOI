@@ -30,6 +30,7 @@ import java.io.IOException;
  *
  * @author Diego Perez.
  *         Carlos Meneses.
+ *         Lucero Quiroga Perez.
  * @version 1.1
  */
 @RestController
@@ -56,7 +57,7 @@ public class PythonController {
                               @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, EXTENSION, language);
-        return writeResult(handler.runProgram(codeParams));
+        return handler.runProgram(codeParams).wrappedResult();
     }
 
     /**
@@ -68,10 +69,5 @@ public class PythonController {
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
         fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return "Your code was successfully saved";
-    }
-
-
-    private String writeResult(Result result) {
-        return result.getPid() + "\n" + result.getValue();
     }
 }

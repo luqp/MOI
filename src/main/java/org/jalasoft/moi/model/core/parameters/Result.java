@@ -45,4 +45,13 @@ public abstract class Result {
     public void setValue(String value) {
         this.value = value;
     }
+
+    /**
+     * Modifies the result output.
+     *
+     * @return String with pid + result
+     */
+    public String wrappedResult() {
+        return this.getPid() + "\n" + this.getValue();
+    }
 }

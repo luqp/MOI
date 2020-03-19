@@ -10,11 +10,11 @@ import org.jalasoft.moi.model.core.parameters.Result;
 
 import java.io.IOException;
 
-public class Builder {
+public class BuilderTest {
 
     private ICacheProvider processCache;
 
-    public Builder(ICacheProvider processCache) {
+    public BuilderTest(ICacheProvider processCache) {
 
         this.processCache = processCache;
     }

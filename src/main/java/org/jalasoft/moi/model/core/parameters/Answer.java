@@ -15,5 +15,5 @@ package org.jalasoft.moi.model.core.parameters;
  * @author Lucero Quiroga Perez
  * @version 1.1
  */
-public class Answer extends InputParameters{
+public class Answer extends InputParameters {
 }
