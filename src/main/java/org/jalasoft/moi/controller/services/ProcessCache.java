@@ -23,7 +23,7 @@ import java.util.HashMap;
 @Service
 public class ProcessCache implements ICacheProvider {
 
-    HashMap<Long, Process> processMap;
+    private HashMap<Long, Process> processMap;
 
     public ProcessCache() {
         this.processMap = new HashMap<>();
