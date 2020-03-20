@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -30,7 +30,7 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     /**
      * Builds a string with the command needed for compilation and execution of multiple files.
      *
-     * @path completePath contains the location of the directory of the files
+     * @param  completePath contains the location of the directory of the files
      * @return String of the command builded with the path received
      */
     @Override

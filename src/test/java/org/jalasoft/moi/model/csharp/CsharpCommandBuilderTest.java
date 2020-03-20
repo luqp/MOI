@@ -10,7 +10,8 @@
 package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
-import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class CsharpCommandBuilderTest {
         //given
         String newFile = "C:\\Users\\MauricioOroza\\Pruebas cmd csharp";
         File codeFile = new File(newFile);
-        Params codeParams = new Params();
+        Parameters codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
         ICommandBuilder cSharpCommBuilder = new CsharpCommandBuilder();
         String expectedCommand = "cd C:\\Users\\MauricioOroza\\Pruebas cmd csharp && " +
