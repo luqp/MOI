@@ -1,4 +1,4 @@
-package org.jalasoft.moi.controller.sevices;
+package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.domain.User;
 import org.jalasoft.moi.repository.UserRepository;
@@ -20,12 +20,12 @@ public class UserService {
 
     }
 
-    public void addNewUser(User newUser) {
-        repository.save(newUser);
+    public User addNewUser(User newUser) {
+        return repository.save(newUser);
     }
 
-    public void updateUser(User updateUser) {
-        repository.save(updateUser);
+    public User updateUser(User updateUser) {
+        return repository.save(updateUser);
     }
 
     public void deleteUser(Long id) {

@@ -1,18 +1,28 @@
-package org.jalasoft.moi.controller.enpoints;
+/**
+ * Copyright (c) 2020 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
+ */
+package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-import org.jalasoft.moi.controller.sevices.UserService;
+
+import org.jalasoft.moi.controller.services.UserService;
 import org.jalasoft.moi.domain.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
-@RequestMapping("/user")
+@RestController
+@RequestMapping(path = "/user")
 @Api(value = "user", description = "Operations pertaining to manage users")
 public class UserController {
 
@@ -46,9 +56,10 @@ public class UserController {
      * @param newUser is a user to be added by a post method.
      */
     @RequestMapping(method = RequestMethod.POST)
-    public void addNewUser(@RequestBody User newUser) {
+    public User addNewUser(@RequestBody User newUser) {
         System.out.println("The new user is: " + newUser);
         userService.addNewUser(newUser);
+        return userService.addNewUser(newUser);
     }
 
     /**
@@ -57,8 +68,8 @@ public class UserController {
      * @param updateUser is a user to be updated by a put method.
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public void updateUser(User updateUser) {
-        userService.updateUser(updateUser);
+    public User updateUser(@RequestBody User updateUser) {
+        return userService.updateUser(updateUser);
     }
 
     /**
