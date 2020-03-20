@@ -21,7 +21,7 @@ import java.io.OutputStreamWriter;
 import java.util.Objects;
 
 /**
- * Class receives a string, executes it on cmd and returns output on a string
+ * Class receives a string, executes it on cmd and returns output on a string.
  *
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
@@ -38,7 +38,7 @@ public class Executer {
     }
 
     /**
-     * Executes command in cmd
+     * Executes command in cmd.
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
