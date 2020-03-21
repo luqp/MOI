@@ -9,28 +9,41 @@
 
 package org.jalasoft.moi.model.java;
 
-import org.jalasoft.moi.model.java.JavaHandler;
+import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.interaction.ProcessCacheTest;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JavaHandlerTest {
+
+    private static ProcessCacheTest processCache;
+
+    @BeforeAll
+    static void initAll() {
+        processCache = new ProcessCacheTest();
+    }
 
     @Test
     public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() {
         //given
         String expectedResult = "Hey! estoy en el main1!/nhellooooooooo!!!!/nHey! estoy en el main2!";
-        String currentResult;
-        Params testParam = new Params();
+        Result currentResult;
+        Parameters testParam = new Params();
         testParam.setFilesPath(Paths.get("C:/Users/Admin/Documents/temp/wea"));
         testParam.setLanguage(Language.JAVA);
-        JavaHandler JH = new JavaHandler();
+        Handler JH = new Handler(processCache);
         //when
-        currentResult = JH.execute(testParam);
+        currentResult = JH.runProgram(testParam);
         //then
-        assertEquals(expectedResult, currentResult);
+        assertEquals(expectedResult, currentResult.getValue());
     }
 
 }

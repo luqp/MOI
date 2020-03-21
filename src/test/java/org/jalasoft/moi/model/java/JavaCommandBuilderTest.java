@@ -10,7 +10,8 @@
 package org.jalasoft.moi.model.java;
 
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
@@ -22,7 +23,7 @@ public class JavaCommandBuilderTest {
     @Test
     public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand() {
         //given
-        Params testParam = new Params();
+        Parameters testParam = new Params();
         testParam.setFilesPath(Paths.get("C:/Users/MauricioOroza/com/MainClass"));
         testParam.setLanguage(Language.JAVA);
         JavaCommandBuilder buildThisCommand = new JavaCommandBuilder();

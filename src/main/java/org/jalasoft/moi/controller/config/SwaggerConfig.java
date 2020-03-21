@@ -1,10 +1,10 @@
-/**
- *  Copyright (c) 2020 Jalasoft.
+/*
+ * Copyright (c) 2020 Jalasoft.
  *
- *  This software is the confidential and proprietary information of Jalasoft.
- *  ("Confidential Information"). You shall not disclose such Confidential
- *  Information and shall use it only in accordance with the terms of the
- *  license agreement you entered into with Jalasoft.
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.controller.config;
@@ -22,8 +22,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * This class implement basic configurations to get Swagger running in our project
  * and use it for specifications and tools that help us document our APIs.
  *
- * @version 1.1
  * @author Carlos Meneses
+ * @version 1.1
  */
 @Configuration
 @EnableSwagger2
@@ -31,6 +31,7 @@ public class SwaggerConfig {
 
     /**
      * Docket is the primary api configuration mechanism is initialized for swagger specification 2.0.
+     *
      * @return The documentation that swagger shows on the browser.
      */
     @Bean
@@ -46,6 +47,7 @@ public class SwaggerConfig {
 
     /**
      * Information that are going to be show on the browser about the rest API.
+     *
      * @return ApiInfo of all setted documentation.
      */
     private ApiInfo apiInfo() {

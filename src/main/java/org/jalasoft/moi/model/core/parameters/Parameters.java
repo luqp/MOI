@@ -1,13 +1,15 @@
 /*
- *   Copyright (c) 2020 Jalasoft.
+ * Copyright (c) 2020 Jalasoft.
  *
- *   This software is the confidential and proprietary information of Jalasoft.
- *   ("Confidential Information"). You shall not disclose such Confidential
- *   Information and shall use it only in accordance with the terms of the
- *   license agreement you entered into with Jalasoft.
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.model.core;
+package org.jalasoft.moi.model.core.parameters;
+
+import org.jalasoft.moi.model.core.Language;
 
 import java.nio.file.Path;
 
@@ -16,9 +18,9 @@ import java.nio.file.Path;
  * version and files location will be used to compile.
  *
  * @author Lucero Quiroga Perez
- * @version 1.0
+ * @version 1.1
  */
-public class Params {
+public abstract class Parameters {
 
     private Path filesPath;
     private Language language;
@@ -44,7 +46,7 @@ public class Params {
     /**
      * Contains the language in which files will be compiled.
      *
-     * @return Language
+     * @return a specific language
      */
     public Language getLanguage() {
         return language;
@@ -53,7 +55,7 @@ public class Params {
     /**
      * Set the language in which files will be compiled.
      *
-     * @param language type selected by the client
+     * @param language selected by the client
      */
     public void setLanguage(Language language) {
         this.language = language;

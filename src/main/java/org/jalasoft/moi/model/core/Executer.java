@@ -9,50 +9,101 @@
 
 package org.jalasoft.moi.model.core;
 
-import java.io.BufferedReader;
+import org.jalasoft.moi.model.core.parameters.InputParameters;
+import org.jalasoft.moi.model.core.parameters.ProcessResult;
+import org.jalasoft.moi.model.core.parameters.Result;
+
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Objects;
 
 /**
- * Class recieves a string, executes it on cmd and returns output on a string
+ * Class receives a string, executes it on cmd and returns output on a string.
  *
  * @author Mauricio Oroza
- * @version 1.0 03 March 2020
+ *         Lucero Quiroga Perez
+ * @version 1.1 03 March 2020
  */
 public class Executer {
 
-    private String command;
+    private ICacheProvider cache;
+    private Result result;
 
-    /**
-     * Constructor receives string command
-     *
-     * @param command command to be executed
-     */
-    public Executer(String command) {
-        String commandSlash = "\"";
-        this.command = "cmd /c " + commandSlash + command + commandSlash;
+    public Executer(ICacheProvider cache) {
+        this.cache = cache;
+        this.result = new ProcessResult();
     }
 
     /**
-     * Executes command in cmd
+     * Executes command in cmd.
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
-    public String run() throws IOException {
-        StringBuilder builder = new StringBuilder();
-        Process tempProcess = Runtime.getRuntime().exec(command);
-        InputStreamReader cmdEntrance = new InputStreamReader(tempProcess.getInputStream());
-        BufferedReader stdInput = new BufferedReader(cmdEntrance);
-        String output;
-        if ((output = stdInput.readLine()) != null) {
-            builder.append(output).append("\n");
-            while ((output = stdInput.readLine()) != null) {
-                builder.append(output).append("\n");
+    public Result execute(String command) throws IOException {
+        String builtCommand = "cmd /c \"" + command + "\"";
+        Process tempProcess = Runtime.getRuntime().exec(builtCommand);
+        long pid = getPid(tempProcess.toString());
+        cache.add(pid, tempProcess);
+        result.setPid(pid);
+        result.setValue(buildResult(tempProcess));
+        return result;
+    }
+
+    /**
+     * Processes an input to continue the execution.
+     *
+     * @param answer user input
+     * @return a result value and the process id
+     * @throws IOException when there is a execution problem
+     */
+    public Result processAnswer(InputParameters answer) throws IOException {
+        Process process = cache.getProcessById(answer.getProcessId());
+        BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
+        writer.write(answer.getValue() + System.lineSeparator());
+        writer.flush();
+
+        result.setPid(answer.getProcessId());
+        result.setValue(buildResult(process));
+        return result;
+    }
+
+    /**
+     * Builds the result value.
+     *
+     * @param process to obtain the result
+     * @return result value
+     * @throws IOException of system
+     */
+    private String buildResult(Process process) throws IOException {
+        InputStream inputStream = process.getInputStream();
+        InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+        int count = 0;
+        while (!cmdEntrance.ready()) {
+            if (count >= Integer.MAX_VALUE) {
+                cache.deleteProcess(getPid(process.toString()));
+                return "Code was not Executed";
             }
-            output = builder.toString();
-        } else {
-            output = "There has not been produced any output";
+            count++;
         }
-        return output;
+        char[] charBuffer = new char[inputStream.available()];
+        cmdEntrance.read(charBuffer);
+        return new String(charBuffer);
+    }
+
+    /**
+     * Obtains the process id as long.
+     *
+     * @param processName process name
+     * @return a process id
+     */
+    private Long getPid(String processName) {
+        return Long.parseLong(
+                processName.substring(
+                        processName.indexOf("=") + 1, processName.indexOf(",")
+                ));
     }
 }

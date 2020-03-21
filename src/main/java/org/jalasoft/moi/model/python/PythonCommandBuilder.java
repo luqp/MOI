@@ -8,30 +8,29 @@ import java.nio.file.Paths;
 /**
  * Builds commands to execute a python file.
  *
- * @version    1.0
- * @author     Lucero Quiroga Perez
+ * @author Lucero Quiroga Perez
+ * @version 1.0
  */
 public class PythonCommandBuilder implements ICommandBuilder {
 
     private static final String SPACE = " ";
 
     private final Path pythonPath;
-    private final String version;
 
     /**
-     * @param pythonPath the location for the python file.
-     * @param version language version, required to locate the .pyc file.
+     * Builds python commands.
+     *
+     * @param pythonPath the location for the python file
      */
-    public PythonCommandBuilder(Path pythonPath, String version) {
+    public PythonCommandBuilder(Path pythonPath) {
         this.pythonPath = pythonPath;
-        this.version = version;
     }
 
     /**
      * Builds compilation and execution commands.
      *
-     * @param path location of the directory or file.
-     * @return compilation and execution commands.
+     * @param path location of the directory or file
+     * @return compilation and execution commands
      */
     @Override
     public String buildCommand(Path path) {
@@ -41,8 +40,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds compilation command.
      *
-     * @param path the location of the directory or file.
-     * @return compilation command.
+     * @param path the location of the directory or file
+     * @return compilation command
      */
     private String commandToCompile(Path path) {
         return pythonPath + SPACE + "-m compileall" + SPACE + path;
@@ -51,8 +50,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
     /**
      * Builds execution command.
      *
-     * @param path location of the directory or file.
-     * @return execution command.
+     * @param path location of the directory or file
+     * @return execution command
      */
     private String commandToRun(Path path) {
         return pythonPath + SPACE + path;
