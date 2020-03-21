@@ -4,5 +4,5 @@ import org.jalasoft.moi.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    User findUserById(Long id);
+    //User findUserById(Long id);
 }

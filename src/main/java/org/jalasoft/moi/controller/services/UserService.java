@@ -15,9 +15,13 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User getUserById(Long id) {
-        return repository.findUserById(id);
+//    public User getUserById(Long id) {
+//        return repository.findUserById(id);
+//
+//    }
 
+    public User getUserById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     public User addNewUser(User newUser) {

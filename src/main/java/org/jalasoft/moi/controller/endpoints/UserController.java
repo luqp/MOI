@@ -9,10 +9,8 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-
 import org.jalasoft.moi.controller.services.UserService;
 import org.jalasoft.moi.domain.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,7 +55,6 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public User addNewUser(@RequestBody User newUser) {
-        System.out.println("The new user is: " + newUser);
         userService.addNewUser(newUser);
         return userService.addNewUser(newUser);
     }
@@ -79,7 +76,6 @@ public class UserController {
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void deleteUserById(@PathVariable Long id) {
-        System.out.println("The id teacher deleted is " + id);
         userService.deleteUser(id);
     }
 
