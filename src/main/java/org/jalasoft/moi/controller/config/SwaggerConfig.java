@@ -25,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implements basic configurations to get Swagger running in our project and use it
- * for specifications and tools that help us document our APIs.
+ * Implements basic configurations and documentations on Swagger user interface.
  *
  * @author Carlos Meneses
  * @version 1.1
