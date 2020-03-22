@@ -30,8 +30,8 @@ public class Project {
     private Long id;
 
     private String projectName;
-    private String description;
     private String language;
+    private String description;
     private String path;
 
     public Long getId() {
@@ -58,19 +58,19 @@ public class Project {
         this.description = description;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
