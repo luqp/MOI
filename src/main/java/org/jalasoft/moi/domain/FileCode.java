@@ -9,15 +9,40 @@
 
 package org.jalasoft.moi.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
- * File code defines the file that will be used for write and compile code.
+ * Defines the file that will be used for write and compile code.
  *
- * @author Carlos Meneses.
+ * @author Carlos Meneses
  * @version 1.1
  */
+@Entity
+@Table(name = "File")
 public class FileCode {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+/*    @ManyToOne
+    private Project projectId;*/
+
     private String name;
     private String code;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

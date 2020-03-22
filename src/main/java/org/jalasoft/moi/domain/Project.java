@@ -1,11 +1,28 @@
+/**
+ * Copyright (c) 2020 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
+ */
+
 package org.jalasoft.moi.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Defines the Project attributes that will save the files.
+ *
+ * @author Carlos Meneses
+ * @version 1.1
+ */
 @Entity
 @Table(name = "Project")
 public class Project {
@@ -13,9 +30,17 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+//    @ManyToOne
+//    private User userId;
+//
+//    @OneToMany
+//    private  FileCode fileId;
+
     private String projectName;
     private String description;
     private String language;
+    private String path;
 
     public Long getId() {
         return id;
@@ -47,5 +72,13 @@ public class Project {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
