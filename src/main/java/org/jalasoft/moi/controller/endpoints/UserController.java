@@ -88,7 +88,7 @@ public class UserController {
      * @return contains the updated user information
      */
     @PutMapping(path = "/info/{id}")
-    public User updateUserInfo(@RequestParam Long id,
+    public User updateUserInfo(@PathVariable Long id,
                                @RequestParam(value = "Fist Name") String firstName,
                                @RequestParam(value = "LastName", required = false) String lastName,
                                @RequestParam(value = "E-mail",required = false) String email) {
@@ -104,10 +104,23 @@ public class UserController {
      * @return contains the updated user information
      */
     @PutMapping(path = "/credentials/{id}")
-    public User updateUserCredentials(@RequestParam(value = "User Id") Long id,
+    public User updateUserCredentials(@PathVariable Long id,
                                       @RequestParam(value = "Username") String userName,
                                       @RequestParam(value = "Password") String pass) {
         return userService.updateUserCredentials(id, userName, pass);
+    }
+
+    /**
+     * Updates a user rol inside the data base.
+     *
+     * @param id finds a user to be updated
+     * @param rol updates the user rol field
+     * @return contains the updated user information
+     */
+    @PutMapping(path = "/rol/{id}")
+    public User updateUserRol(@PathVariable Long id,
+                              @RequestParam(value = "Rol", defaultValue = "user") String rol) {
+        return userService.updateUserRol(id, rol);
     }
 
     /**

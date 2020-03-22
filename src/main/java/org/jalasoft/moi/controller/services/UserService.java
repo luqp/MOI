@@ -11,6 +11,7 @@ package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.domain.User;
 import org.jalasoft.moi.controller.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,6 +81,19 @@ public class UserService {
         userToUpdate.setFirstName(name);
         userToUpdate.setLastName(lastName);
         userToUpdate.setEmail(email);
+        return repository.save(userToUpdate);
+    }
+
+    /**
+     * Updates a user rol inside the data base.
+     *
+     * @param id finds a user to be updated
+     * @param rol updates the name field
+     * @return contains the updated user information
+     */
+    public User updateUserRol(Long id, String rol) {
+        User userToUpdate = repository.findById(id).get();
+        userToUpdate.setRol(rol);
         return repository.save(userToUpdate);
     }
 
