@@ -60,16 +60,18 @@ public class ProjectController {
     /**
      * Inserts a new user in to data base.
      *
-     * @param name inserts the new project name
-     * @param desc inserts the new project description
-     * @param lang inserts the new project language
+     * @param name   inserts the new project name
+     * @param desc   inserts the new project description
+     * @param lang   inserts the new project language
+     * @param userId assigns a user the new project
      * @return contains the inserted project information
      */
     @PostMapping
     public Project addNewProject(@RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
-                                 @RequestParam(value = "Language") String lang) {
-        return service.addNewProject(name, desc, lang);
+                                 @RequestParam(value = "Language") String lang,
+                                 @RequestParam(value = "User Id") Long userId) {
+        return service.addNewProject(name, desc, lang, userId);
     }
 
     /**

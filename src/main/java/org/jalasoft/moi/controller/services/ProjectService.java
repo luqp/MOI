@@ -10,6 +10,7 @@
 package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.controller.repository.ProjectRepository;
+import org.jalasoft.moi.controller.repository.UserRepository;
 import org.jalasoft.moi.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,9 @@ import org.springframework.stereotype.Service;
 public class ProjectService {
 
     @Autowired
-    private ProjectRepository repository;
+    private ProjectRepository projectRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Gets a list of all projects.
@@ -32,7 +35,7 @@ public class ProjectService {
      * @return a list of projects
      */
     public Iterable<Project> getAllProjects() {
-        return repository.findAll();
+        return projectRepository.findAll();
     }
 
     /**
@@ -42,7 +45,7 @@ public class ProjectService {
      * @return contains a user found by id
      */
     public Project getProjectById(Long id) {
-        return repository.findById(id).get();
+        return projectRepository.findById(id).get();
     }
 
     /**
@@ -53,12 +56,13 @@ public class ProjectService {
      * @param lang inserts the new project language
      * @return contains the inserted project information
      */
-    public Project addNewProject(String name, String desc, String lang) {
+    public Project addNewProject(String name, String desc, String lang, Long userId) {
         Project newProject = new Project();
         newProject.setProjectName(name);
         newProject.setDescription(desc);
         newProject.setLanguage(lang);
-        return repository.save(newProject);
+        newProject.setUser(userRepository.findById(userId).get());
+        return projectRepository.save(newProject);
     }
 
     /**
@@ -70,10 +74,10 @@ public class ProjectService {
      * @return contains the updated project information
      */
     public Project updateProjectInfo(Long id, String name, String desc) {
-        Project projectToUpdate = repository.findById(id).get();
+        Project projectToUpdate = projectRepository.findById(id).get();
         projectToUpdate.setProjectName(name);
         projectToUpdate.setDescription(desc);
-        return repository.save(projectToUpdate);
+        return projectRepository.save(projectToUpdate);
     }
 
     /**
@@ -82,7 +86,7 @@ public class ProjectService {
      * @param id to search for the project to delete.
      */
     public void deleteProject(Long id) {
-        repository.deleteById(id);
+        projectRepository.deleteById(id);
     }
 
 
