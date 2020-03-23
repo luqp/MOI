@@ -15,6 +15,8 @@ import org.jalasoft.moi.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+
 /**
  * Provides to project controller the CRUD basic operations.
  *
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectService {
 
+    private static final String BASE_PATH = System.getenv().get("basepath");
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
@@ -61,6 +64,7 @@ public class ProjectService {
         newProject.setProjectName(name);
         newProject.setDescription(desc);
         newProject.setLanguage(lang);
+        newProject.setPath(pathBuilder(userId, lang, name));
         newProject.setUser(userRepository.findById(userId).get());
         return projectRepository.save(newProject);
     }
@@ -90,4 +94,20 @@ public class ProjectService {
     }
 
 
+    /**
+     * Builds a project path using user id, language and project name.
+     *
+     * @param userId to build a folder name whit user id
+     * @param lang to build a folder with a language
+     * @param projectName to build a folder with project name
+     * @return a string with the built path
+     */
+    private String pathBuilder(Long userId, String lang, String projectName){
+        //String basePath = "D:\\MOI";
+        String user = "user_"+userId+"_projects";
+        String projectPath = BASE_PATH+"\\"+user+"\\"+lang+"\\"+projectName;
+        File path = new File(projectPath);
+        path.mkdirs();
+        return projectPath;
+    }
 }
