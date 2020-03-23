@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -10,27 +10,28 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-
 import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 /**
- * This class defines the controller for Python.
+ * Defines the management of controller for Python.
  *
  * @author Diego Perez
- *         Carlos Meneses
- *         Lucero Quiroga Perez
+ * Carlos Meneses
+ * Lucero Quiroga Perez
  * @version 1.1
  */
 @RestController
@@ -44,7 +45,6 @@ public class PythonController {
     private ProcessCache cache;
 
     private static final String FILE_PATH = Constant.ROOTPATH.getValue() + "\\temp\\python\\";
-    private static final String EXTENSION = ".py";
     private Language language = Language.PYTHON_32;
 
     /**
@@ -56,18 +56,18 @@ public class PythonController {
     public String executeCode(@RequestParam String name,
                               @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, language);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
     /**
-     * This method is used to save the changes in a file determined by a name.
+     * Save changes in a file determined by a name.
      *
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
+        fileService.saveFileByBody(fileCode, FILE_PATH, language);
         return "Your code was successfully saved";
     }
 }

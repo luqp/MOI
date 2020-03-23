@@ -35,10 +35,10 @@ public class FileService {
      *
      * @return a parameters object
      */
-    public Parameters saveFileB64(String name, String codeB64, String filePath, String extension, Language language) throws IOException {
+    public Parameters saveFileB64(String name, String codeB64, String filePath, Language language) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        return saveFile(name, code, filePath, extension, language);
+        return saveFile(name, code, filePath, language);
     }
 
     /**
@@ -47,8 +47,8 @@ public class FileService {
      *
      * @return a parameters object
      */
-    public Parameters saveFileByBody(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
-        return saveFile(fileCode.getName(), fileCode.getCode(), filePath, extension, language);
+    public Parameters saveFileByBody(FileCode fileCode, String filePath, Language language) throws IOException {
+        return saveFile(fileCode.getName(), fileCode.getCode(), filePath, language);
     }
 
     /**
@@ -57,10 +57,10 @@ public class FileService {
      *
      * @return a parameters object
      */
-    public Parameters saveFile(String name, String code, String filePath, String extension, Language language) throws IOException {
+    public Parameters saveFile(String name, String code, String filePath, Language language) throws IOException {
         //Creates and writes a file with the code needed.
-        File codeFile = new File(filePath + name + extension);
-        FileWriter codeWriter = new FileWriter(filePath + name + extension);
+        File codeFile = new File(filePath + name + language.getFileExtention());
+        FileWriter codeWriter = new FileWriter(filePath + name + language.getFileExtention());
         codeWriter.write(code);
         codeWriter.close();
         Parameters codeParams = new Params();
