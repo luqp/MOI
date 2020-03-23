@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2020 Jalasoft.
+ *
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
+ */
+
 package org.jalasoft.moi.domain;
 
 import javax.persistence.Entity;
@@ -6,6 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Defines the user attributes that will be saved.
+ *
+ * @author Carlos Meneses
+ * @version 1.1
+ */
 @Entity
 @Table(name = "User")
 public class User {
@@ -13,8 +28,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String userLastName;
+
+    private String FirstName;
+    private String lastName;
     private String userName;
     private String password;
     private String email;
@@ -36,12 +52,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUserLastName() {
-        return userLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -68,11 +84,11 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 }

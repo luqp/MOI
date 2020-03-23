@@ -11,25 +11,36 @@ package org.jalasoft.moi.controller.endpoints;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import io.swagger.annotations.Api;
 
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This controller is used to generate a token.
+ * Handles the login whit correct credentials and generates a token.
  *
- * @author Carlos Meneses.
+ * @author Carlos Meneses
  * @version 1.1
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/login")
 @Api(value = "login", description = "Login a user and generates a token")
 public class LoginController {
-    @PostMapping("/login")
-    public String login(@RequestParam(value = "username")String username, @RequestParam(value = "password")String password){
+
+
+    /**
+     * Builds a token whit the correct credentials.
+     *
+     * @param username from the data base
+     * @param password from the data base
+     * @return token
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public String login(@RequestParam(value = "username")String username,
+                        @RequestParam(value = "password")String password){
         String secret = "AWT05";
         String token = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, secret.getBytes())

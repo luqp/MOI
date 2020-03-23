@@ -43,3 +43,16 @@ gradle clean bootrun
 ```
 http://localhost:9091/api/v1/swagger-ui.html
 ```
+## To execute MOI whit MySql DataBase
+- Install Docker:
+```
+https://hub.docker.com/editions/community/docker-ce-desktop-windows/
+```
+- Open CMD console and execute:
+```
+docker version
+```
+- On CMD console execute this command:
+```
+docker run -d -p 33061:3306 --name moi-mysql -e MYSQL_ROOT_PASSWORD=root mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```

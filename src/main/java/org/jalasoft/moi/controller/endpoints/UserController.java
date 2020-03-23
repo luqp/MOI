@@ -6,6 +6,7 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with Jalasoft.
  */
+
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
@@ -14,13 +15,21 @@ import org.jalasoft.moi.controller.services.UserService;
 import org.jalasoft.moi.domain.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * Handles the CRUD basic operations.
+ *
+ * @author Carlos Meneses
+ * @version 1.1
+ */
 @RestController
 @RequestMapping(path = "/user")
 @Api(value = "user", description = "Operations pertaining to manage users")
@@ -30,56 +39,97 @@ public class UserController {
     UserService userService;
 
     /**
-     * This method get a list of all users.
+     * Gets a list of all users.
      *
-     * @return a list of registered users.
+     * @return a list of users
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public Iterable<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     /**
-     * This method get a user by a id parameter.
+     * Gets a user by a id parameter.
      *
-     * @param id is the parameter to search a specific user.
-     * @return a user find by id.
+     * @param id to search a specific user
+     * @return contains a user found by id
      */
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @GetMapping(path = "/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     /**
-     * This method insert a new user in to data base.
+     * Inserts a new user in to data base.
      *
-     * @param newUser is a user to be added by a post method.
+     * @param firstName inserts the new user name
+     * @param lastName inserts the new user last name
+     * @param email inserts the new user email
+     * @param userName inserts the new user username
+     * @param pass inserts the new user password
+     * @return contains the inserted user information
      */
-    @RequestMapping(method = RequestMethod.POST)
-    public User addNewUser(@RequestBody User newUser) {
-        System.out.println("The new user is: " + newUser);
-        userService.addNewUser(newUser);
-        return userService.addNewUser(newUser);
+    @PostMapping
+    public User addNewUser(@RequestParam(value = "First Name") String firstName,
+                           @RequestParam(value = "Last Name", required = false) String lastName,
+                           @RequestParam(value = "E-mail", required = false) String email,
+                           @RequestParam(value = "Username") String userName,
+                           @RequestParam(value = "Password") String pass) {
+        return userService.addNewUser(firstName, lastName, email, userName, pass);
     }
 
     /**
-     * This method update a user in to data base.
+     * Updates a user information in the data base.
      *
-     * @param updateUser is a user to be updated by a put method.
+     * @param id finds a user to be updated
+     * @param firstName updates the name field
+     * @param lastName updates the last name field
+     * @param email updates the email field
+     * @return contains the updated user information
      */
-    @RequestMapping(method = RequestMethod.PUT)
-    public User updateUser(@RequestBody User updateUser) {
-        return userService.updateUser(updateUser);
+    @PutMapping(path = "/info/{id}")
+    public User updateUserInfo(@PathVariable Long id,
+                               @RequestParam(value = "Fist Name") String firstName,
+                               @RequestParam(value = "LastName", required = false) String lastName,
+                               @RequestParam(value = "E-mail",required = false) String email) {
+        return userService.updateUserInfo(id, firstName, lastName, email);
     }
 
     /**
-     * This method delete a user by the parameter id.
+     * Updates a user credentials in the data base.
      *
-     * @param id is the parameter to be used to delete a user.
+     * @param id finds a user to be updated
+     * @param userName updates the username field
+     * @param pass updates the password field
+     * @return contains the updated user information
      */
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @PutMapping(path = "/credentials/{id}")
+    public User updateUserCredentials(@PathVariable Long id,
+                                      @RequestParam(value = "Username") String userName,
+                                      @RequestParam(value = "Password") String pass) {
+        return userService.updateUserCredentials(id, userName, pass);
+    }
+
+    /**
+     * Updates a user rol inside the data base.
+     *
+     * @param id finds a user to be updated
+     * @param rol updates the user rol field
+     * @return contains the updated user information
+     */
+    @PutMapping(path = "/rol/{id}")
+    public User updateUserRol(@PathVariable Long id,
+                              @RequestParam(value = "Rol", defaultValue = "user") String rol) {
+        return userService.updateUserRol(id, rol);
+    }
+
+    /**
+     * Deletes a user by the parameter id.
+     *
+     * @param id to search for the user to delete.
+     */
+    @DeleteMapping(path = "/{id}")
     public void deleteUserById(@PathVariable Long id) {
-        System.out.println("The id teacher deleted is " + id);
         userService.deleteUser(id);
     }
 
