@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 /**
- * This class defines the controller for Java.
+ * TDefines the management of controller for Java.
  *
  * @author Diego Perez
- *         Carlos Meneses
- *         Lucero Quiroga
+ * Carlos Meneses
+ * Lucero Quiroga
  * @version 1.1
  */
 @RestController
@@ -41,7 +41,6 @@ public class JavaController {
     @Autowired
     private ProcessCache cache;
     private static final String FILE_PATH = ".\\temp\\java\\";
-    private static final String EXTENSION = ".java";
     private Language language = Language.JAVA;
 
     /**
@@ -53,19 +52,19 @@ public class JavaController {
     public String executeCode(@RequestParam String name,
                               @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, language);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
     /**
-     * This method is used to save the changes in a file determined by a name.
+     * Save changes in a file determined by a name.
      *
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestParam String name,
                            @RequestParam String code) throws IOException {
-        fileService.saveFile(name, code , FILE_PATH, EXTENSION, language);
+        fileService.saveFile(name, code, FILE_PATH, language);
         return "Your code was successfully saved";
     }
 }

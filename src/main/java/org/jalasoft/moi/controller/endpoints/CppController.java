@@ -18,18 +18,18 @@ import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 /**
- * This class defines the controller for C++.
+ * Defines the management of controller for C++.
  *
  * @author Diego Perez
- *         Carlos Meneses
- *         Lucero Quiroga
+ * Carlos Meneses
+ * Lucero Quiroga
  * @version 1.1
  */
 @RestController
@@ -42,7 +42,6 @@ public class CppController {
     @Autowired
     private ProcessCache cache;
     private static final String FILE_PATH = ".\\temp\\cplusplus\\";
-    private static final String EXTENSION = ".cpp";
     private Language language = Language.CPP;
 
     /**
@@ -53,18 +52,18 @@ public class CppController {
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestBody FileCode fileCode) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
+        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, language);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
     /**
-     * This method is used to save the changes in a file determined by a name.
+     * Save changes in a file determined by a name.
      *
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
+        fileService.saveFileByBody(fileCode, FILE_PATH, language);
         return "Your code was successfully saved";
     }
 }
