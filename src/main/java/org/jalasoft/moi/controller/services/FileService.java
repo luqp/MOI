@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  * <p>
  * This software is the confidential and proprietary information of Jalasoft.
@@ -9,10 +9,11 @@
 
 package org.jalasoft.moi.controller.services;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
-
+import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.core.parameters.Params;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -30,34 +31,39 @@ public class FileService {
 
     /**
      * SaveFile create a new file with name, extension and path, then create a object params to set the file
+     * properties in this new params object and code value in base 64.
+     *
+     * @return a parameters object
+     */
+    public Parameters saveFileB64(String name, String codeB64, String filePath, String extension, Language language) throws IOException {
+        byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
+        String code = new String(byteArray);
+        return saveFile(name, code, filePath, extension, language);
+    }
+
+    /**
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file
      * properties in this new params object.
      *
-     * @return A Params setted object.
+     * @return a parameters object
      */
-    public Params saveFile(String name, String code, String filePath, String extension, Language language) throws IOException {
+    public Parameters saveFileByBody(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
+        return saveFile(fileCode.getName(), fileCode.getCode(), filePath, extension, language);
+    }
+
+    /**
+     * SaveFile create a new file with name, extension and path, then create a object params to set the file
+     * properties in this new params object.
+     *
+     * @return a parameters object
+     */
+    public Parameters saveFile(String name, String code, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.
         File codeFile = new File(filePath + name + extension);
         FileWriter codeWriter = new FileWriter(filePath + name + extension);
         codeWriter.write(code);
         codeWriter.close();
-        Params codeParams = new Params();
-        codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(language);
-        return codeParams;
-    }
-    /**
-     * SaveFile create a new file with name, extension and path, then create a object params to set the file
-     * properties in this new params object.
-     *
-     * @return A Params setted object.
-     */
-    public Params saveFileByBody(FileCode fileCode, String filePath, String extension, Language language) throws IOException {
-        //Creates and writes a file with the code needed.
-        File codeFile = new File(filePath + fileCode.getName() + extension);
-        FileWriter codeWriter = new FileWriter(filePath + fileCode.getName() + extension);
-        codeWriter.write(fileCode.getCode());
-        codeWriter.close();
-        Params codeParams = new Params();
+        Parameters codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
         codeParams.setLanguage(language);
         return codeParams;

@@ -2,12 +2,6 @@
 # Created by https://www.gitignore.io/api/git,java,gradle,intellij
 # Edit at https://www.gitignore.io/?templates=git,java,gradle,intellij
 
-### Binary Files ###
-# Files that are downloaded
-/thirdparty/python/win/python32/Portable_Python_3.2.5.1/
-/thirdparty/python/win/python32/Portable_Python_3.2.5.1/App/
-!/thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
-
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
@@ -155,5 +149,17 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+### Binary Files ###
+# Files that are downloaded
+/thirdparty/python/win/python32/Portable_Python_3.2.5.1/
+/thirdparty/python/win/python32/Portable_Python_3.2.5.1/App/
+!/thirdparty/python/win/python32/Portable_Python_3.2.5.1.zip
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
 
 # End of https://www.gitignore.io/api/git,java,gradle,intellij

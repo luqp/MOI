@@ -8,6 +8,10 @@
  */
 
 package org.jalasoft.moi.model.java;import org.jalasoft.moi.model.core.Executer;
+import org.jalasoft.moi.model.core.parameters.ProcessResult;
+import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.interaction.ProcessCacheTest;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -15,20 +19,29 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExecuterTest {
+    private static ProcessCacheTest processCache;
+
+    @BeforeAll
+    static void initAll() {
+        processCache = new ProcessCacheTest();
+    }
+
     @Test
     public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() {
         //given
         String expectedResult = "Microsoft Windows [Version 10.0.17763.678]";
-        String currentResult;
-        Executer testExecute = new Executer("VER");
+        Result currentResult;
+        Executer testExecute = new Executer(processCache);
         //when
         try {
-            currentResult = testExecute.run();
+            currentResult = testExecute.execute("VER");
         } catch (IOException e) {
-            currentResult = "Algo ha fallado";
             e.printStackTrace();
+            currentResult = new ProcessResult();
+            currentResult.setValue("Algo ha fallado");
+            currentResult.setPid(0);
         }
         //then
-        assertEquals(expectedResult, currentResult);
+        assertEquals(expectedResult, currentResult.getValue());
     }
 }

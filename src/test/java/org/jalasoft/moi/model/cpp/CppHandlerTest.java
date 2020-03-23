@@ -9,10 +9,13 @@
 
 package org.jalasoft.moi.model.cpp;
 
-import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
-import org.jalasoft.moi.model.cplusplus.CppHandler;
+import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.interaction.ProcessCacheTest;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
@@ -21,16 +24,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CppHandlerTest {
 
+    private static ProcessCacheTest processCache;
+
+    @BeforeAll
+    static void initAll() {
+        processCache = new ProcessCacheTest();
+    }
+
     @Test
     public void cppHandlerTest() {
         //given
-        Params params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
+        Parameters params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
         String expectedResult = "Hello, World!\n";
         //when
-        IHandler cppHandler = new CppHandler();
-        String actualValue = cppHandler.execute(params);
+        Handler cppHandler = new Handler(processCache);
+        Result actualValue = cppHandler.runProgram(params);
         //then
-        assertEquals(expectedResult, actualValue);
+        assertEquals(expectedResult, actualValue.getValue());
     }
 
     @Test
@@ -39,10 +49,10 @@ public class CppHandlerTest {
         Params params = getParams("");
         String expectedResult = "There has not been produced any output";
         //when
-        IHandler cppHandler = new CppHandler();
-        String actualValue = cppHandler.execute(params);
+        Handler cppHandler = new Handler(processCache);
+        Result actualValue = cppHandler.runProgram(params);
         //then
-        assertEquals(expectedResult, actualValue);
+        assertEquals(expectedResult, actualValue.getValue());
     }
 
     private Params getParams(String paramTest) {

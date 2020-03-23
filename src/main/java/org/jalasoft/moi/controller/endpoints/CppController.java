@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -10,14 +10,12 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-
 import org.jalasoft.moi.controller.services.FileService;
+import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.domain.FileCode;
-import org.jalasoft.moi.model.core.IHandler;
+import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
-import org.jalasoft.moi.model.core.Params;
-
-import org.jalasoft.moi.model.cplusplus.CppHandler;
+import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +27,9 @@ import java.io.IOException;
 /**
  * This class defines the controller for C++.
  *
- * @author Diego Perez.
- *         Carlos Meneses.
+ * @author Diego Perez
+ *         Carlos Meneses
+ *         Lucero Quiroga
  * @version 1.1
  */
 @RestController
@@ -40,6 +39,8 @@ public class CppController {
 
     @Autowired
     private FileService fileService;
+    @Autowired
+    private ProcessCache cache;
     private static final String FILE_PATH = ".\\temp\\cplusplus\\";
     private static final String EXTENSION = ".cpp";
     private Language language = Language.CPP;
@@ -47,19 +48,19 @@ public class CppController {
     /**
      * Returns a String that shows the output of the program.
      *
-     * @return the output from the execution.
+     * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestBody FileCode fileCode) throws IOException {
-        IHandler handler = new CppHandler();
-        Params codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
-        return handler.execute(codeParams);
+        Handler handler = new Handler(cache);
+        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
+        return handler.runProgram(codeParams).wrappedResult();
     }
 
     /**
      * This method is used to save the changes in a file determined by a name.
      *
-     * @return a message of the realized action.
+     * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
     public String saveFile(@RequestBody FileCode fileCode) throws IOException {
