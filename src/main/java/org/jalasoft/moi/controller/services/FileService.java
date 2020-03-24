@@ -1,6 +1,6 @@
-/*
+/**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -25,7 +25,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * File service is used to manage actions that each file will need as save file or show responses.
+ * Manages actions that each file will need as save file or show responses.
  *
  * @author Carlos Meneses.
  * @version 1.1

@@ -27,8 +27,8 @@ import java.io.IOException;
  * Defines the management of controller for C#.
  *
  * @author Diego Perez
- * Carlos Meneses
- * Lucero Quiroga
+ *         Carlos Meneses
+ *         Lucero Quiroga
  * @version 1.1
  */
 @RestController

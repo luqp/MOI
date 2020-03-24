@@ -10,14 +10,13 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
+import java.io.IOException;
+
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.domain.FileCode;
-import org.jalasoft.moi.domain.Project;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * This class defines the file controller.

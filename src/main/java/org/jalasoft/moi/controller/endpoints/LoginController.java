@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "login", description = "Login a user and generates a token")
 public class LoginController {
 
-
     /**
      * Builds a token whit the correct credentials.
      *

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -10,23 +10,22 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
+import java.io.IOException;
+
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
-import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Handler;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 /**
  * Defines the management of controller for C++.
  *
  * @author Diego Perez
- * Carlos Meneses
- * Lucero Quiroga
+ *         Carlos Meneses
+ *         Lucero Quiroga
  * @version 1.1
  */
 @RestController

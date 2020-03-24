@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -12,6 +12,7 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.ProjectService;
 import org.jalasoft.moi.domain.Project;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
