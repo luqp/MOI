@@ -23,18 +23,18 @@ public class FileCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long fileId;
     @ManyToOne
     private Project project;
     private String name;
     private String code;
 
-    public Long getId() {
-        return id;
+    public Long getFileId() {
+        return fileId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
     }
 
     public String getName() {
