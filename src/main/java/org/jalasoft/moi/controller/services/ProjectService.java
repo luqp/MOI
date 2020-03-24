@@ -13,6 +13,7 @@ import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.controller.repository.UserRepository;
 import org.jalasoft.moi.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -26,11 +27,12 @@ import java.io.File;
 @Service
 public class ProjectService {
 
-    private static final String BASE_PATH = System.getenv().get("basepath");
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Environment environment;
 
     /**
      * Gets a list of all projects.
@@ -103,9 +105,9 @@ public class ProjectService {
      * @return a string with the built path
      */
     private String pathBuilder(Long userId, String lang, String projectName){
-        //String basePath = "D:\\MOI";
+        String basePath = environment.getProperty("file.path");
         String user = "user_"+userId+"_projects";
-        String projectPath = BASE_PATH+"\\"+user+"\\"+lang+"\\"+projectName;
+        String projectPath = basePath+"/"+user+"/"+lang+"/"+projectName;
         File path = new File(projectPath);
         path.mkdirs();
         return projectPath;
