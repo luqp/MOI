@@ -9,17 +9,21 @@
 
 package org.jalasoft.moi.model.exceptions;
 
+import java.nio.file.Path;
+
+/**
+ * The CommandBuildException wraps Java Standard exception.
+ *
+ * @author Diego Perez
+ * @version 1.1
+ */
 public class CommandBuildException extends Exception {
 
-    public CommandBuildException() {
-        super();
+    public CommandBuildException(String msg, Path path) {
+        super(msg + path.getClass().getName());
     }
 
-    public CommandBuildException(String msg) {
-        super(msg);
-    }
-
-    public CommandBuildException(String msg, String command) {
-        super(msg.concat(command));
+    public CommandBuildException(String command) {
+        super("Command built was not correct." + command);
     }
 }

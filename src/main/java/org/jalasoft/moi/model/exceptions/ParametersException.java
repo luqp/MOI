@@ -13,14 +13,6 @@ import org.jalasoft.moi.model.core.parameters.Params;
 
 public class ParametersException extends Exception {
 
-    public ParametersException() {
-        super();
-    }
-
-    public ParametersException(String msg) {
-        super(msg);
-    }
-
     public ParametersException(String msg, Params parameters) {
         super(msg.concat(parameters.getFilesPath().toString()));
     }

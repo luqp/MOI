@@ -16,6 +16,8 @@ import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +53,7 @@ public class CppController {
      * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
+    public String executeCode(@RequestBody FileCode fileCode) throws IOException, ResultException, CommandBuildException {
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, EXTENSION, language);
         return handler.runProgram(codeParams).wrappedResult();

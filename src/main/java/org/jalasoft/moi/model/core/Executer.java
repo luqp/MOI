@@ -12,6 +12,9 @@ package org.jalasoft.moi.model.core;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -42,13 +45,22 @@ public class Executer {
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
-    public Result execute(String command) throws IOException {
+    public Result execute(String command) throws CommandBuildException, ResultException {
         String builtCommand = "cmd /c \"" + command + "\"";
-        Process tempProcess = Runtime.getRuntime().exec(builtCommand);
+        Process tempProcess;
+        try {
+            tempProcess = Runtime.getRuntime().exec(builtCommand);
+        } catch (IOException e) {
+            throw new CommandBuildException(command);
+        }
         long pid = getPid(tempProcess.toString());
         cache.add(pid, tempProcess);
         result.setPid(pid);
-        result.setValue(buildResult(tempProcess));
+        try {
+            result.setValue(buildResult(tempProcess));
+        } catch (IOException e) {
+            throw new ResultException(result);
+        }
         return result;
     }
 
@@ -59,15 +71,23 @@ public class Executer {
      * @return a result value and the process id
      * @throws IOException when there is a execution problem
      */
-    public Result processAnswer(InputParameters answer) throws IOException {
+    public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
         Process process = cache.getProcessById(answer.getProcessId());
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
-        writer.write(answer.getValue() + System.lineSeparator());
-        writer.flush();
+        try {
+            writer.write(answer.getValue() + System.lineSeparator());
+            writer.flush();
+        } catch (IOException e) {
+            throw new InputParametersException(answer);
+        }
 
-        result.setPid(answer.getProcessId());
-        result.setValue(buildResult(process));
+        try {
+            result.setPid(answer.getProcessId());
+            result.setValue(buildResult(process));
+        } catch (IOException e) {
+            throw new ResultException(e);
+        }
         return result;
     }
 

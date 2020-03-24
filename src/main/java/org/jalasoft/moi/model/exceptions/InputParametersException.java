@@ -13,15 +13,7 @@ import org.jalasoft.moi.model.core.parameters.InputParameters;
 
 public class InputParametersException extends Exception {
 
-    public InputParametersException() {
-        super();
-    }
-
-    public InputParametersException(String msg) {
-        super(msg);
-    }
-
-    public InputParametersException(String msg, InputParameters inputParameters) {
-        super(msg.concat(inputParameters.getValue()));
+    public InputParametersException(InputParameters inputParameters) {
+        super("Invalid parameters. ".concat(inputParameters.getClass().getName()));
     }
 }

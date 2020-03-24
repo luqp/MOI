@@ -19,6 +19,8 @@ import org.jalasoft.moi.model.core.Language;
 
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +56,7 @@ public class PythonController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestParam String name,
-                              @RequestParam String code) throws IOException {
+                              @RequestParam String code) throws IOException, ResultException, CommandBuildException {
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, EXTENSION, language);
         return handler.runProgram(codeParams).wrappedResult();

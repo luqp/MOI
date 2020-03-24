@@ -13,6 +13,9 @@ import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 
 import java.io.IOException;
 
@@ -37,20 +40,11 @@ public class Handler {
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
-    public Result runProgram(Parameters params) {
+    public Result runProgram(Parameters params) throws ResultException, CommandBuildException {
         ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
         String command = commandBuilder.buildCommand(params.getFilesPath());
         Executer executer = new Executer(cache);
-        Result result;
-        try {
-            result = executer.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setPid(0);
-            result.setValue("Nothing for compile");
-        }
-        return result;
+        return executer.execute(command);
     }
 
     /**
@@ -59,19 +53,8 @@ public class Handler {
      * @param params user inputs
      * @return a result value and the process id
      */
-    public Result processInput(InputParameters params) {
+    public Result processInput(InputParameters params) throws InputParametersException, ResultException {
         Executer executer = new Executer(cache);
-        Result result;
-
-        try {
-            result = executer.processAnswer(params);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-
-        return result;
+        return executer.processAnswer(params);
     }
 }

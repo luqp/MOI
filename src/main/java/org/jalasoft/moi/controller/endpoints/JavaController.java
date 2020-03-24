@@ -15,6 +15,8 @@ import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +53,7 @@ public class JavaController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestParam String name,
-                              @RequestParam String code) throws IOException {
+                              @RequestParam String code) throws IOException, ResultException, CommandBuildException {
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
         return handler.runProgram(codeParams).wrappedResult();

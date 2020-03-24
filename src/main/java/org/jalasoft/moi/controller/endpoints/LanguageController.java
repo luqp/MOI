@@ -14,6 +14,7 @@ import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +44,7 @@ public class LanguageController {
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/q")
     public String processInput(@RequestParam(value = "userInput") String userInput,
-                               @RequestParam(value = "pid") Long pid) {
+                               @RequestParam(value = "pid") Long pid) throws ResultException {
         InputParameters answer = new Answer();
         answer.setValue(userInput);
         answer.setProcessPid(pid);
