@@ -12,6 +12,7 @@ package org.jalasoft.moi.controller.services;
 import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.controller.repository.UserRepository;
 import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.model.core.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class ProjectService {
         Project newProject = new Project();
         newProject.setProjectName(name);
         newProject.setDescription(desc);
-        newProject.setLanguage(lang);
+        newProject.setLanguage(setProjectLang(lang));
         newProject.setPath(pathBuilder(userId, lang, name));
         newProject.setUser(userRepository.findById(userId).get());
         return projectRepository.save(newProject);
@@ -111,5 +112,27 @@ public class ProjectService {
         File path = new File(projectPath);
         path.mkdirs();
         return projectPath;
+    }
+
+    /**
+     * Defines a specific language to be setted in the project.
+     *
+     * @param lang to sets the project language
+     * @return a specific language
+     */
+    private Language setProjectLang(String lang){
+        Language projectLang;
+        switch (lang){
+            case "java": projectLang = Language.JAVA;
+                break;
+            case "python": projectLang = Language.PYTHON_32;
+                break;
+            case "csharp": projectLang = Language.CSHARP;
+                break;
+            case "cplusplus": projectLang = Language.CPP;
+                break;
+            default: throw new IllegalArgumentException("Invalid Language: " + lang);
+        }
+        return projectLang;
     }
 }

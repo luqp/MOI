@@ -42,7 +42,7 @@ public class ProjectController {
      * @return a list of projects
      */
     @GetMapping
-    public Iterable<Project> getAllUsers() {
+    public Iterable<Project> getAllPorjects() {
         return service.getAllProjects();
     }
 

@@ -9,6 +9,8 @@
 
 package org.jalasoft.moi.domain;
 
+import org.jalasoft.moi.model.core.Language;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +34,7 @@ public class Project {
     @ManyToOne
     private User user;
     private String projectName;
-    private String language;
+    private Language language;
     private String description;
     private String path;
 
@@ -68,11 +70,11 @@ public class Project {
         this.path = path;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
