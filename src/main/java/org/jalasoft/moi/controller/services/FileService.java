@@ -14,6 +14,8 @@ import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Params;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -28,6 +30,8 @@ import java.io.IOException;
  */
 @Service
 public class FileService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
     /**
      * SaveFile create a new file with name, extension and path, then create a object params to set the file
@@ -59,10 +63,15 @@ public class FileService {
      */
     public Parameters saveFile(String name, String code, String filePath, String extension, Language language) throws IOException {
         //Creates and writes a file with the code needed.
+        LOGGER.info("Creating a File");
+
         File codeFile = new File(filePath + name + extension);
         FileWriter codeWriter = new FileWriter(filePath + name + extension);
         codeWriter.write(code);
         codeWriter.close();
+
+        LOGGER.info("File [path={}, language={}]", codeFile, language);
+
         Parameters codeParams = new Params();
         codeParams.setFilesPath(codeFile.toPath());
         codeParams.setLanguage(language);
