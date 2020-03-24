@@ -9,11 +9,7 @@
 
 package org.jalasoft.moi.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Defines the file that will be used for write and compile code.
@@ -28,7 +24,8 @@ public class FileCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @ManyToOne
+    private Project project;
     private String name;
     private String code;
 
@@ -54,5 +51,13 @@ public class FileCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
