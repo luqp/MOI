@@ -14,6 +14,7 @@ import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,6 +30,7 @@ import java.util.Objects;
  */
 public class Executer {
 
+    private final int MAXIMUM_WAITING_VALUE = 1000000;
     private ICacheProvider cache;
     private Result result;
 
@@ -48,7 +50,7 @@ public class Executer {
         long pid = getPid(tempProcess.toString());
         cache.add(pid, tempProcess);
         result.setPid(pid);
-        result.setValue(buildResult(tempProcess));
+        result.setValue(buildResult(tempProcess.getInputStream()));
         return result;
     }
 
@@ -67,31 +69,32 @@ public class Executer {
         writer.flush();
 
         result.setPid(answer.getProcessId());
-        result.setValue(buildResult(process));
+        result.setValue(buildResult(process.getInputStream()));
         return result;
     }
 
     /**
      * Builds the result value.
      *
-     * @param process to obtain the result
+     * @param inputStream to obtain the result
      * @return result value
      * @throws IOException of system
      */
-    private String buildResult(Process process) throws IOException {
-        InputStream inputStream = process.getInputStream();
-        InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+    private String buildResult(InputStream inputStream) throws IOException {
+        InputStreamReader streamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(streamReader);
+        StringBuilder builder = new StringBuilder();
+        boolean isReady;
         int count = 0;
-        while (!cmdEntrance.ready()) {
-            if (count >= Integer.MAX_VALUE) {
-                cache.deleteProcess(getPid(process.toString()));
-                return "Code was not Executed";
+        while ((isReady = reader.ready()) || count < MAXIMUM_WAITING_VALUE) {
+            if (isReady) {
+                builder.append((char)reader.read());
             }
-            count++;
+            else {
+                count++;
+            }
         }
-        char[] charBuffer = new char[inputStream.available()];
-        cmdEntrance.read(charBuffer);
-        return new String(charBuffer);
+        return builder.toString();
     }
 
     /**
