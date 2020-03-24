@@ -109,15 +109,6 @@ public class FileService {
     }
 
     /**
-     * Creates a new file using a body request from controller.
-     *
-     * @return a parameters object
-     */
-    public Parameters saveFileByBody(FileCode fileCode, Long projectId) throws IOException {
-        return saveFile(fileCode.getName(), fileCode.getCode(), projectId);
-    }
-
-    /**
      * Create a new file with name and code to set the file properties in a new params object.
      *
      * @return a parameters object
@@ -125,10 +116,9 @@ public class FileService {
     public Parameters saveFile(String name, String code, Long projectId) throws IOException {
         //Creates and writes a file with the code needed.
         Project projInfo = projectRepository.findById(projectId).get();
-        File codeFile = new File(projInfo.getPath()
-                +name+projInfo.getLanguage().getFileExtention());
-        FileWriter codeWriter = new FileWriter(projInfo.getPath()
-                +name+projInfo.getLanguage().getFileExtention());
+        String pathFile = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
+        File codeFile = new File(pathFile);
+        FileWriter codeWriter = new FileWriter(pathFile);
         codeWriter.write(code);
         codeWriter.close();
         Parameters codeParams = new Params();

@@ -13,8 +13,8 @@ import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
-import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,6 +50,7 @@ public class CSharpController {
     public String executeCode(@RequestParam(value = "File Name")String name,
                               @RequestParam(value = "Code") String code,
                               @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.addNewFile(name, code, projectID);
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.saveFileB64(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
@@ -64,6 +65,7 @@ public class CSharpController {
     public String saveFile(@RequestParam(value = "File Name")String name,
                            @RequestParam(value = "Code") String code,
                            @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.addNewFile(name, code, projectID);
         fileService.saveFileB64(name, code, projectID);
         return "Your code was successfully saved";
     }
