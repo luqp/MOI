@@ -67,7 +67,7 @@ public class PythonController {
     public String saveFile(@RequestParam(value = "File Name")String name,
                            @RequestParam(value = "Code") String code,
                            @RequestParam(value = "Project Id") Long projectID) throws IOException {
-        fileService.saveFile(name, code, projectID);
+        fileService.saveFileB64(name, code, projectID);
         return "Your code was successfully saved";
     }
 }
