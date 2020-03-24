@@ -10,62 +10,88 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
+import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.domain.FileCode;
+import org.jalasoft.moi.domain.Project;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * This class defines the file controller.
  *
  * @author Carlos Meneses
- *         Lucero Quiroga Perez
  * @version 1.1
  */
-@Controller
+@RestController
 @RequestMapping("/file")
 @Api(value = "file", description = "Operations pertaining to manage files")
 public class FileController {
 
+    @Autowired
+    private FileService fileService;
+
     /**
-     * This method get a list of all files.
+     * Gets a list of all files.
      *
-     * @return a list of all saved files
+     * @return a list of files
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public String getAllFiles(){
-        return "//TO DO";
+    @GetMapping
+    public Iterable<FileCode> getAllFiles() {
+        return fileService.getAllFiles();
     }
 
     /**
-     * This method get a file by a id parameter.
+     * Gets a file by a id parameter.
      *
-     * @param id is the parameter to search a specific file
-     * @return a file find by id
+     * @param id to search a specific file
+     * @return contains a file found by id
      */
-    @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public String getFileById(@PathVariable Long id){
-        return "//TO DO";
+    @GetMapping(path = "/{id}")
+    public FileCode getFiletById(@PathVariable Long id) {
+        return fileService.getFileById(id);
     }
 
     /**
-     * This method update a File code and File name.
+     * Inserts a new file in to data base and creates a file inside the project path.
      *
-     * @param updateFile is a file to be updated by a put method
+     * @param name inserts the new file name
+     * @param code inserts the new file code
+     * @param projectID assigns a user the new project
+     * @return contains the inserted project information
      */
-    @RequestMapping(method = RequestMethod.PUT)
-    public String updateFile(FileCode updateFile){
-        return "//TO DO";
+    @PostMapping
+    public FileCode addNewFile(@RequestParam(value = "File Name")String name,
+                           @RequestParam(value = "Code") String code,
+                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.saveFileB64(name, code, projectID);
+        return fileService.addNewFile(name, code, projectID);
     }
 
     /**
-     * This method delete a File by the parameter id.
+     * Updates a file parameters in the data base and in the prject path.
      *
-     * @param id is the parameter to be used to delete a File
+     * @param id finds a file to be updated
+     * @param name updates the file name field
+     * @param code updates the file code field
+     * @return contains the updated file information
      */
-    @RequestMapping(path = "/{id}",method = RequestMethod.DELETE)
-    public String deleteFileById(@PathVariable Long id){
-        return "//TO DO";
+    @PutMapping(path = "/info/{id}")
+    public FileCode updateFileInfo(@PathVariable Long id,
+                                     @RequestParam(value = "File name") String name,
+                                     @RequestParam(value = "Code") String code) {
+        return fileService.updateFileInfo(id, name, code);
+    }
+
+    /**
+     * Deletes a file by the parameter id.
+     *
+     * @param id to search for the file to delete.
+     */
+    @DeleteMapping(path = "/{id}")
+    public void deleteFileById(@PathVariable Long id) {
+        fileService.deleteFile(id);
     }
 }

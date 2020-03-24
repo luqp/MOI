@@ -57,17 +57,4 @@ public class PythonController {
         Parameters codeParams = fileService.saveFileB64(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
     }
-
-    /**
-     * Save changes in a file determined by a name.
-     *
-     * @return a message of the realized action
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestParam(value = "File Name")String name,
-                           @RequestParam(value = "Code") String code,
-                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
-        fileService.saveFileB64(name, code, projectID);
-        return "Your code was successfully saved";
-    }
 }

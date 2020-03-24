@@ -18,7 +18,7 @@ import javax.persistence.*;
  * @version 1.1
  */
 @Entity
-@Table(name = "File")
+@Table(name = "FileCode")
 public class FileCode {
 
     @Id

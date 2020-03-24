@@ -53,16 +53,4 @@ public class CppController {
         return handler.runProgram(codeParams).wrappedResult();
     }
 
-    /**
-     * Save changes in a file determined by a name.
-     *
-     * @return a message of the realized action
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestParam(value = "File Name")String name,
-                           @RequestParam(value = "Code") String code,
-                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
-        fileService.saveFile(name, code, projectID);
-        return "Your code was successfully saved";
-    }
 }

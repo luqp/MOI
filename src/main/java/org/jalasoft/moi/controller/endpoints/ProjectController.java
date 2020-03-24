@@ -82,7 +82,7 @@ public class ProjectController {
      * @param desc updates the project description field
      * @return contains the updated user information
      */
-    @PutMapping(path = "/info/{id}")
+    @PutMapping(path = "/{id}")
     public Project updateProjectInfo(@PathVariable Long id,
                                      @RequestParam(value = "Project name") String name,
                                      @RequestParam(value = "Description", required = false) String desc) {
