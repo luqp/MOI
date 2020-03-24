@@ -23,7 +23,7 @@ public class CommandBuildException extends Exception {
         super(msg + path.getClass().getName());
     }
 
-    public CommandBuildException(String command) {
-        super("Command built was not correct." + command);
+    public CommandBuildException(Throwable cause) {
+        super("Command built was not correct.", cause);
     }
 }

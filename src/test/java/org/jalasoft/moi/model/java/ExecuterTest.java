@@ -10,6 +10,8 @@
 package org.jalasoft.moi.model.java;import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,7 +37,7 @@ public class ExecuterTest {
         //when
         try {
             currentResult = testExecute.execute("VER");
-        } catch (IOException e) {
+        } catch (CommandBuildException | ResultException e) {
             e.printStackTrace();
             currentResult = new ProcessResult();
             currentResult.setValue("Algo ha fallado");

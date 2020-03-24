@@ -13,12 +13,8 @@ import org.jalasoft.moi.model.core.parameters.Result;
 
 public class ResultException extends Exception {
 
-    public ResultException(Throwable cause) {
-        super("Result cannot be generated", cause);
+    public ResultException(Result result, Throwable cause) {
+        super("Result cannot be generated " + result.getValue(), cause);
 
-    }
-
-    public ResultException(Result result) {
-        super("Result cannot be generated" + result.getValue());
     }
 }

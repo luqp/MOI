@@ -5,6 +5,9 @@ import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -40,7 +43,7 @@ public class HandleInteractionTest {
     @ParameterizedTest
     @MethodSource("codeProvider")
     @Order(1)
-    public void executeProcessForTwoDigitsSumTest(Path path, Language language) {
+    public void executeProcessForTwoDigitsSumTest(Path path, Language language) throws ResultException, CommandBuildException {
         String expected = "Insert number1\r\n> ";
 
         Params params = new Params();
@@ -62,7 +65,7 @@ public class HandleInteractionTest {
     @ParameterizedTest
     @MethodSource("pidProvider")
     @Order(2)
-    public void firstInsertDataToExecutedProcessTest(Long pid) {
+    public void firstInsertDataToExecutedProcessTest(Long pid) throws InputParametersException, ResultException {
         String expected = "Insert number2\r\n> ";
         String number1 = map.get(pid).get(0);
 
@@ -77,7 +80,7 @@ public class HandleInteractionTest {
     @ParameterizedTest
     @MethodSource("pidProvider")
     @Order(3)
-    public void secondInsertDataToExecutedProcessTest(Long pid) {
+    public void secondInsertDataToExecutedProcessTest(Long pid) throws InputParametersException, ResultException {
         String number2 = map.get(pid).get(1);
         String sum = map.get(pid).get(2);
         String expected = "Sum: " + sum + "\r\n";

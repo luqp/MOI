@@ -14,6 +14,8 @@ import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,7 +34,7 @@ public class CppHandlerTest {
     }
 
     @Test
-    public void cppHandlerTest() {
+    public void cppHandlerTest() throws ResultException, CommandBuildException {
         //given
         Parameters params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
         String expectedResult = "Hello, World!\n";
@@ -44,7 +46,7 @@ public class CppHandlerTest {
     }
 
     @Test
-    public void cppHandlerTestEmptyPath() {
+    public void cppHandlerTestEmptyPath() throws ResultException, CommandBuildException {
         //given
         Params params = getParams("");
         String expectedResult = "There has not been produced any output";
