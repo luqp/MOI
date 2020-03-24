@@ -96,7 +96,6 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-
     /**
      * Builds a project path using user id, language and project name.
      *

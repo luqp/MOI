@@ -44,19 +44,17 @@ public class PythonController {
     @Autowired
     private ProcessCache cache;
 
-    private static final String FILE_PATH = Constant.ROOTPATH.getValue() + "\\temp\\python\\";
-    private Language language = Language.PYTHON_32;
-
     /**
      * Returns a String that shows the output of the program.
      *
      * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam String name,
-                              @RequestParam String code) throws IOException {
+    public String executeCode(@RequestParam(value = "File Name")String name,
+                              @RequestParam(value = "Code") String code,
+                              @RequestParam(value = "Project Id") Long projectID) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFileB64(name, code, FILE_PATH, language);
+        Parameters codeParams = fileService.saveFileB64(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
@@ -66,8 +64,10 @@ public class PythonController {
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFileByBody(fileCode, FILE_PATH, language);
+    public String saveFile(@RequestParam(value = "File Name")String name,
+                           @RequestParam(value = "Code") String code,
+                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.saveFile(name, code, projectID);
         return "Your code was successfully saved";
     }
 }

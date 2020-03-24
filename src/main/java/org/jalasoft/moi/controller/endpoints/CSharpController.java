@@ -40,8 +40,6 @@ public class CSharpController {
     private FileService fileService;
     @Autowired
     private ProcessCache cache;
-    private static final String FILE_PATH = ".\\temp\\csharp\\";
-    private Language language = Language.CSHARP;
 
     /**
      * Returns a String that shows the output of the program.
@@ -49,10 +47,11 @@ public class CSharpController {
      * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestParam String name,
-                              @RequestParam String code) throws IOException {
+    public String executeCode(@RequestParam(value = "File Name")String name,
+                              @RequestParam(value = "Code") String code,
+                              @RequestParam(value = "Project Id") Long projectID) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, language);
+        Parameters codeParams = fileService.saveFile(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
@@ -62,9 +61,10 @@ public class CSharpController {
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestParam String name,
-                           @RequestParam String code) throws IOException {
-        fileService.saveFile(name, code, FILE_PATH, language);
+    public String saveFile(@RequestParam(value = "File Name")String name,
+                           @RequestParam(value = "Code") String code,
+                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.saveFile(name, code, projectID);
         return "Your code was successfully saved";
     }
 }

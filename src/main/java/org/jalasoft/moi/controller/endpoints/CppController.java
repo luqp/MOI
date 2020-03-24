@@ -17,10 +17,7 @@ import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -34,15 +31,13 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(path = "/onlineCompiler/cpp")
-@Api(value = "cplusplus", description = "Implement compile and run code in C++")
+@Api(value = "cplusplus", description = "WIP:Implement compile and run code in C++")
 public class CppController {
 
     @Autowired
     private FileService fileService;
     @Autowired
     private ProcessCache cache;
-    private static final String FILE_PATH = ".\\temp\\cplusplus\\";
-    private Language language = Language.CPP;
 
     /**
      * Returns a String that shows the output of the program.
@@ -50,9 +45,11 @@ public class CppController {
      * @return the output from the execution
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
-    public String executeCode(@RequestBody FileCode fileCode) throws IOException {
+    public String executeCode(@RequestParam(value = "File Name")String name,
+                              @RequestParam(value = "Code") String code,
+                              @RequestParam(value = "Project Id") Long projectID) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFileByBody(fileCode, FILE_PATH, language);
+        Parameters codeParams = fileService.saveFile(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
     }
 
@@ -62,8 +59,10 @@ public class CppController {
      * @return a message of the realized action
      */
     @RequestMapping(method = RequestMethod.POST, path = "/save")
-    public String saveFile(@RequestBody FileCode fileCode) throws IOException {
-        fileService.saveFileByBody(fileCode, FILE_PATH, language);
+    public String saveFile(@RequestParam(value = "File Name")String name,
+                           @RequestParam(value = "Code") String code,
+                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
+        fileService.saveFile(name, code, projectID);
         return "Your code was successfully saved";
     }
 }
