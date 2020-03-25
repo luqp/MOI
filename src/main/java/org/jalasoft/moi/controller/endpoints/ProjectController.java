@@ -75,10 +75,10 @@ public class ProjectController {
      * @return contains the inserted project information
      */
     @PostMapping(path = "/user/{userId}")
-    public Project addNewProject(@RequestParam(value = "Project Name") String name,
+    public Project addNewProject(@PathVariable Long userId,
+                                 @RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
-                                 @RequestParam(value = "Language") String lang,
-                                 @PathVariable Long userId) {
+                                 @RequestParam(value = "Language") String lang) {
         LOGGER.info("User id retrieved from URL: {}", userId);
         return service.addNewProject(name, desc, lang, userId);
     }
