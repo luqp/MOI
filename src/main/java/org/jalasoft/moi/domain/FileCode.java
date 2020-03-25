@@ -9,15 +9,33 @@
 
 package org.jalasoft.moi.domain;
 
+import javax.persistence.*;
+
 /**
- * File code defines the file that will be used for write and compile code.
+ * Defines the file that will be used for write and compile code.
  *
- * @author Carlos Meneses.
+ * @author Carlos Meneses
  * @version 1.1
  */
+@Entity
+@Table(name = "FileCode")
 public class FileCode {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long fileId;
+    @ManyToOne
+    private Project project;
     private String name;
     private String code;
+
+    public Long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
+    }
 
     public String getName() {
         return name;
@@ -33,5 +51,13 @@ public class FileCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
