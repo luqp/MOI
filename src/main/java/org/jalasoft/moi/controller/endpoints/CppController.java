@@ -48,7 +48,7 @@ public class CppController {
                               @RequestParam(value = "Code") String code,
                               @RequestParam(value = "Project Id") Long projectID) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(name, code, projectID);
+        Parameters codeParams = fileService.saveFileB64(name, code, projectID);
         return handler.runProgram(codeParams).wrappedResult();
     }
 

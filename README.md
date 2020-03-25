@@ -67,3 +67,8 @@ Client: Docker Engine - Community
 ```
 docker run -d -p 33061:3306 --name moi-mysql -e MYSQL_ROOT_PASSWORD=root mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
+- Example of expected result:
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
+4c2623959deb        mysql:5.7           "docker-entrypoint.s…"   4 days ago          Up 4 days           33060/tcp, 0.0.0.0:33061->3306/tcp   moi-mysql
+```

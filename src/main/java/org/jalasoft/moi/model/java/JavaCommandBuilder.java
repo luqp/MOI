@@ -33,7 +33,7 @@ public class JavaCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path completePath) {
-        folderPath = completePath.getParent().toString();
+        folderPath = completePath.toString();
         mainName = completePath.getFileName().toString().replace(".java"," ");
         return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + mainName;
     }

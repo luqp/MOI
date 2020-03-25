@@ -105,7 +105,8 @@ public class FileService {
     public Parameters saveFileB64(String name, String codeB64, Long projectId) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        return saveFile(name, code, projectId);
+        saveFile(name, code, projectId);
+        return setParams(projectId);
     }
 
     /**
@@ -113,15 +114,18 @@ public class FileService {
      *
      * @return a parameters object
      */
-    public Parameters saveFile(String name, String code, Long projectId) throws IOException {
-        //Creates and writes a file with the code needed.
+    public void saveFile(String name, String code, Long projectId) throws IOException {
         Project projInfo = projectRepository.findById(projectId).get();
-        String pathFile = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
-        File codeFile = new File(pathFile);
-        FileWriter codeWriter = new FileWriter(pathFile);
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
+        FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
+    }
+
+    public Parameters setParams(Long projectId){
+        Project projInfo = projectRepository.findById(projectId).get();
         Parameters codeParams = new Params();
+        File codeFile = new File(projInfo.getPath());
         codeParams.setFilesPath(codeFile.toPath());
         codeParams.setLanguage(projInfo.getLanguage());
         return codeParams;

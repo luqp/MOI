@@ -13,8 +13,11 @@ import io.swagger.annotations.Api;
 import java.io.IOException;
 
 import org.jalasoft.moi.controller.services.FileService;
+import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.domain.FileCode;
 
+import org.jalasoft.moi.model.core.Handler;
+import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +34,8 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+    @Autowired
+    private ProcessCache cache;
 
     /**
      * Gets a list of all files.
@@ -92,5 +97,17 @@ public class FileController {
     @DeleteMapping(path = "/{id}")
     public void deleteFileById(@PathVariable Long id) {
         fileService.deleteFile(id);
+    }
+
+    /**
+     * Returns a String that shows the output of the program.
+     *
+     * @return the output from the execution
+     */
+    @PostMapping(path = "/execute")
+    public String executeCode(@RequestParam(value = "Project Id") Long projectID){
+        Handler handler = new Handler(cache);
+        Parameters codeParams = fileService.setParams(projectID);
+        return handler.runProgram(codeParams).wrappedResult();
     }
 }
