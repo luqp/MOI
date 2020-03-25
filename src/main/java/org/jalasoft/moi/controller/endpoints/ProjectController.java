@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the projects CRUD basic operations.
  *
  * @author Carlos Meneses
+ *         Mauricio Oroza
  * @version 1.2
  */
 @RestController
@@ -59,12 +60,13 @@ public class ProjectController {
     }
 
     /**
-     * Inserts a new user in to data base.
+     * Inserts a new project assigned to a user in to data base.
      *
+     * @param userId URL param that assign a user the new project being created
      * @param name   inserts the new project name
      * @param desc   inserts the new project description
      * @param lang   inserts the new project language
-     * @param userId assigns a user the new project
+     *
      * @return contains the inserted project information
      */
     @PostMapping(path = "/user/{userId}")

@@ -10,6 +10,7 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
+
 import java.io.IOException;
 
 import org.jalasoft.moi.controller.services.FileService;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
  * This class defines the file controller.
  *
  * @author Carlos Meneses
+ *         Mauricio Oroza
  * @version 1.2
  */
 @RestController
@@ -63,15 +65,16 @@ public class FileController {
      *
      * @param name inserts the new file name
      * @param code inserts the new file code
-     * @param projectID assigns a user the new project
+     * @param projectId assigns a user the new project
      * @return contains the inserted project information
      */
-    @PostMapping
-    public FileCode addNewFile(@RequestParam(value = "File Name")String name,
-                           @RequestParam(value = "Code") String code,
-                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
-        fileService.saveFileB64(name, code, projectID);
-        return fileService.addNewFile(name, code, projectID);
+    @PostMapping(path = "/project/{projectId}")
+    public FileCode addNewFile(@RequestParam(value = "File Name") String name,
+                               @RequestParam(value = "Code") String code,
+                               @PathVariable Long projectId) throws IOException {
+        System.out.println(projectId);
+        fileService.saveFileB64(name, code, projectId);
+        return fileService.addNewFile(name, code, projectId);
     }
 
     /**
@@ -84,8 +87,8 @@ public class FileController {
      */
     @PutMapping(path = "/info/{id}")
     public FileCode updateFileInfo(@PathVariable Long id,
-                                     @RequestParam(value = "File name") String name,
-                                     @RequestParam(value = "Code") String code) {
+                                   @RequestParam(value = "File name") String name,
+                                   @RequestParam(value = "Code") String code) {
         return fileService.updateFileInfo(id, name, code);
     }
 
@@ -105,7 +108,7 @@ public class FileController {
      * @return the output from the execution
      */
     @PostMapping(path = "/execute")
-    public String executeCode(@RequestParam(value = "Project Id") Long projectID){
+    public String executeCode(@RequestParam(value = "Project Id") Long projectID) {
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.setParams(projectID);
         return handler.runProgram(codeParams).wrappedResult();
