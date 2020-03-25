@@ -72,7 +72,6 @@ public class FileController {
     public FileCode addNewFile(@RequestParam(value = "File Name") String name,
                                @RequestParam(value = "Code") String code,
                                @PathVariable Long projectId) throws IOException {
-        System.out.println(projectId);
         fileService.saveFileB64(name, code, projectId);
         return fileService.addNewFile(name, code, projectId);
     }
@@ -110,7 +109,6 @@ public class FileController {
      */
     @PostMapping(path = "/execute/project/{projectId}")
     public String executeCode(@PathVariable Long projectId) {
-        System.out.println(projectId);
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.setParams(projectId);
         return handler.runProgram(codeParams).wrappedResult();

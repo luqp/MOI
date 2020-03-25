@@ -74,7 +74,6 @@ public class ProjectController {
                                  @RequestParam(value = "Description", required = false) String desc,
                                  @RequestParam(value = "Language") String lang,
                                  @PathVariable Long userId) {
-        System.out.println(userId);
         return service.addNewProject(name, desc, lang, userId);
     }
 
