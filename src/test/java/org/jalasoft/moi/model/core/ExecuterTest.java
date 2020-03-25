@@ -7,7 +7,7 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.model.java;
+package org.jalasoft.moi.model.core;
 
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Executer;
