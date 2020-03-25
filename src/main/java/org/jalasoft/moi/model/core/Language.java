@@ -14,6 +14,8 @@ import org.jalasoft.moi.model.csharp.CsharpCommandBuilder;
 import org.jalasoft.moi.model.java.JavaCommandBuilder;
 import org.jalasoft.moi.model.python.PythonCommandBuilder;
 import org.jalasoft.moi.model.utils.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Paths;
 
@@ -31,6 +33,7 @@ public enum Language {
     JAVA(new JavaCommandBuilder(), ".java"),
     CPP(new CppCommandBuilder(), ".cpp");
 
+    private static Logger LOGGER = LoggerFactory.getLogger(Language.class);
     private final ICommandBuilder commandBuilder;
     private final String fileExtention;
 
@@ -50,6 +53,7 @@ public enum Language {
      * @return ICommandBuilder to builds commands
      */
     public ICommandBuilder getCommandBuilder() {
+        LOGGER.info("Use {}", this.commandBuilder.toString());
         return commandBuilder;
     }
 

@@ -16,6 +16,8 @@ import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -33,6 +35,8 @@ import java.util.Objects;
  * @version 1.1 03 March 2020
  */
 public class Executer {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     private ICacheProvider cache;
     private Result result;
@@ -55,16 +59,19 @@ public class Executer {
         Process tempProcess;
         long pid;
         try {
+            LOGGER.info("Running process with the next command: {}", builtCommand);
             tempProcess = Runtime.getRuntime().exec(builtCommand);
         } catch (IOException e) {
             throw new CommandBuildException(e);
         }
         try {
+            LOGGER.info("Process running: {}", tempProcess.toString());
             pid = getPid(tempProcess.toString());
         }catch (StringIndexOutOfBoundsException e) {
             throw new ProcessIDException(e);
         }
         cache.add(pid, tempProcess);
+        LOGGER.info("Filling result");
         result.setPid(pid);
         try {
             result.setValue(buildResult(tempProcess));
@@ -85,6 +92,8 @@ public class Executer {
     public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
         Process process;
         try {
+            LOGGER.info("Process in use: pid={}",answer.getProcessId());
+            LOGGER.info("User input={}", answer.getValue());
             process = cache.getProcessById(answer.getProcessId());
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
@@ -95,6 +104,7 @@ public class Executer {
         }
 
         try {
+            LOGGER.info("Filling result");
             result.setPid(answer.getProcessId());
             result.setValue(buildResult(process));
         } catch (IOException e) {
@@ -117,12 +127,14 @@ public class Executer {
         while (!cmdEntrance.ready()) {
             if (count >= Integer.MAX_VALUE) {
                 cache.deleteProcess(getPid(process.toString()));
+                LOGGER.debug("Process {} deleted", process.toString());
                 return "Code was not Executed";
             }
             count++;
         }
         char[] charBuffer = new char[inputStream.available()];
         cmdEntrance.read(charBuffer);
+        LOGGER.info("Result value created");
         return new String(charBuffer);
     }
 
