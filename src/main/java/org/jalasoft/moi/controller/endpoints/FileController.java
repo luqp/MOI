@@ -19,6 +19,7 @@ import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ParametersException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -119,6 +120,9 @@ public class FileController {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return e.getMessage();
         } catch (CommandBuildException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return e.getMessage();
+        } catch (ParametersException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return e.getMessage();
         }

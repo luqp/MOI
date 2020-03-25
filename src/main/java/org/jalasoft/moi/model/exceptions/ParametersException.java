@@ -11,9 +11,22 @@ package org.jalasoft.moi.model.exceptions;
 
 import org.jalasoft.moi.model.core.parameters.Params;
 
+import java.nio.file.Path;
+
 public class ParametersException extends Exception {
 
-    public ParametersException(String msg, Params parameters) {
-        super(msg.concat(parameters.getFilesPath().toString()));
+    private static Path path;
+
+    public ParametersException(Throwable cause) {
+        super("Invalid or Null parameters gere generated.", cause);
+    }
+
+    public ParametersException(Throwable cause, Path path) {
+        super("Invalid or Null parameters gere generated.", cause);
+        this.path = path;
+    }
+
+    public static Path getPath() {
+        return path;
     }
 }

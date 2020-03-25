@@ -15,8 +15,10 @@ import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ParametersException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -34,9 +36,9 @@ public class CppHandlerTest {
     }
 
     @Test
-    public void cppHandlerTest() throws ResultException, CommandBuildException {
+    public void cppHandlerTest() throws ResultException, CommandBuildException, ParametersException {
         //given
-        Parameters params = getParams(".\\temp\\cplusplus\\test\\test.cpp");
+        Parameters params = getParams(".\\temp\\cplusplus\\test\\single.cpp");
         String expectedResult = "Hello, World!\n";
         //when
         Handler cppHandler = new Handler(processCache);
@@ -46,15 +48,16 @@ public class CppHandlerTest {
     }
 
     @Test
-    public void cppHandlerTestEmptyPath() throws ResultException, CommandBuildException {
+    public void cppHandlerTestEmptyPath() {
         //given
-        Params params = getParams("");
-        String expectedResult = "There has not been produced any output";
-        //when
         Handler cppHandler = new Handler(processCache);
-        Result actualValue = cppHandler.runProgram(params);
+        Exception exception = assertThrows(ParametersException.class, () -> {
+            cppHandler.runProgram(getParams(""));
+        });
+        //when
+        String expected = "Invalid or Null parameters gere generated.";
         //then
-        assertEquals(expectedResult, actualValue.getValue());
+        assertEquals(expected, exception.getMessage());
     }
 
     private Params getParams(String paramTest) {

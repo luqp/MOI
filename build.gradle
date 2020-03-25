@@ -32,8 +32,8 @@ dependencies {
     )
     testRuntime(
             'org.junit.jupiter:junit-jupiter-engine:5.4.2',
-            'org.junit.vintage:junit-vintage-engine:5.4.2',
-            'org.junit.jupiter:junit-jupiter-params:5.4.2'
+            'org.junit.jupiter:junit-jupiter-params:5.4.2',
+            'org.junit.vintage:junit-vintage-engine:5.4.2'
     )
 }
 

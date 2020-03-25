@@ -53,7 +53,9 @@ public class Executer {
         try {
             tempProcess = Runtime.getRuntime().exec(builtCommand);
             pid = getPid(tempProcess.toString());
-        } catch (IOException | StringIndexOutOfBoundsException e) {
+        } catch (IOException e) {
+            throw new CommandBuildException(e);
+        } catch (StringIndexOutOfBoundsException e) {
             throw new CommandBuildException(e);
         }
         cache.add(pid, tempProcess);
