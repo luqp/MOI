@@ -10,11 +10,14 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
+
 import java.io.IOException;
 
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.domain.FileCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Parameters;
@@ -25,12 +28,15 @@ import org.springframework.web.bind.annotation.*;
  * This class defines the file controller.
  *
  * @author Carlos Meneses
+ *         Mauricio Oroza
  * @version 1.2
  */
 @RestController
 @RequestMapping("/file")
 @Api(value = "file", description = "Operations pertaining to manage files")
 public class FileController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     @Autowired
     private FileService fileService;
@@ -61,17 +67,18 @@ public class FileController {
     /**
      * Inserts a new file in to data base and creates a file inside the project path.
      *
+     * @param projectId URL param that points to the project id where the new file will be created
      * @param name inserts the new file name
      * @param code inserts the new file code
-     * @param projectID assigns a user the new project
      * @return contains the inserted project information
      */
-    @PostMapping
-    public FileCode addNewFile(@RequestParam(value = "File Name")String name,
-                           @RequestParam(value = "Code") String code,
-                           @RequestParam(value = "Project Id") Long projectID) throws IOException {
-        fileService.saveFileB64(name, code, projectID);
-        return fileService.addNewFile(name, code, projectID);
+    @PostMapping(path = "/project/{projectId}")
+    public FileCode addNewFile(@RequestParam(value = "File Name") String name,
+                               @RequestParam(value = "Code") String code,
+                               @PathVariable Long projectId) throws IOException {
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
+        fileService.saveFileB64(name, code, projectId);
+        return fileService.addNewFile(name, code, projectId);
     }
 
     /**
@@ -103,12 +110,14 @@ public class FileController {
     /**
      * Returns a String that shows the output of the program.
      *
+     * @param projectId URL param that points to the project id that will be executed
      * @return the output from the execution
      */
-    @PostMapping(path = "/execute")
-    public String executeCode(@RequestParam(value = "Project Id") Long projectID){
+    @PostMapping(path = "/execute/project/{projectId}")
+    public String executeCode(@PathVariable Long projectId) {
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.setParams(projectID);
+        Parameters codeParams = fileService.setParams(projectId);
         return handler.runProgram(codeParams).wrappedResult();
     }
 }
