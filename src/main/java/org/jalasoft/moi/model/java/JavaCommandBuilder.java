@@ -22,7 +22,7 @@ import java.nio.file.Path;
 public class JavaCommandBuilder implements ICommandBuilder {
 
     private static final String MOVE_TO = "cd ";
-    private static final String JAVA_COMPLILE_ALL = "javac *.java";
+    private static final String JAVA_COMPLILE_ALL = "javac ";
     private static final String JAVA_RUN = "java ";
     private static String mainName;
     private static String folderPath;
@@ -35,6 +35,8 @@ public class JavaCommandBuilder implements ICommandBuilder {
     public String buildCommand(Path completePath) {
         folderPath = completePath.toString();
         mainName = completePath.getFileName().toString().replace(".java"," ");
-        return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + "MainClass";
+        String allFiles = "\\*.java";
+        String fileMain = " MainClass";
+        return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + folderPath + allFiles + " && " + JAVA_RUN + "-cp " + folderPath + fileMain;
     }
 }

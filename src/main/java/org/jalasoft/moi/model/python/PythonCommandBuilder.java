@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- *
+ * <p>
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -20,8 +20,6 @@ import java.nio.file.Path;
  * @version 1.0
  */
 public class PythonCommandBuilder implements ICommandBuilder {
-
-    private static final String SPACE = " ";
 
     private final Path pythonPath;
 
@@ -52,7 +50,7 @@ public class PythonCommandBuilder implements ICommandBuilder {
      * @return compilation command
      */
     private String commandToCompile(Path path) {
-        return pythonPath + SPACE + "-m compileall" + SPACE + path;
+        return pythonPath + " -m compileall " + path;
     }
 
     /**
@@ -62,7 +60,8 @@ public class PythonCommandBuilder implements ICommandBuilder {
      * @return execution command
      */
     private String commandToRun(Path path) {
-        return pythonPath + SPACE + path;
+        String fileMain = "\\MainClass.py";
+        return pythonPath + " " + path + fileMain;
     }
 
     @Override

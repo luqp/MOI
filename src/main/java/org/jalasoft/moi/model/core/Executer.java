@@ -48,15 +48,15 @@ public class Executer {
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
     public Result execute(String command) throws IOException {
-        String builtCommand = "cmd /c \"" + command + "\"";
-        LOGGER.info("Running process with the next command: {}", builtCommand);
-        Process tempProcess = Runtime.getRuntime().exec(builtCommand);
-        LOGGER.info("Process running: {}", tempProcess.toString());
-        long pid = getPid(tempProcess.toString());
-        cache.add(pid, tempProcess);
+        ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        LOGGER.info("Process running: {}", process.toString());
+        long pid = getPid(process.toString());
+        cache.add(pid, process);
         LOGGER.info("Filling result");
         result.setPid(pid);
-        result.setValue(buildResult(tempProcess.getInputStream()));
+        result.setValue(buildResult(process.getInputStream()));
         return result;
     }
 
