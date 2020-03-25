@@ -9,7 +9,6 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-
 /**
  * The ProcessIDException wraps an exception related to the process id.
  *
