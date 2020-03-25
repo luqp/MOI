@@ -17,6 +17,8 @@ import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ParametersException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handler is in charge to work with the executer and the command builder
@@ -27,6 +29,8 @@ import org.jalasoft.moi.model.exceptions.ResultException;
  * @version 1.1
  */
 public class Handler {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     private ICacheProvider cache;
 
@@ -50,6 +54,7 @@ public class Handler {
             ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
             command = commandBuilder.buildCommand(params.getFilesPath());
         } catch (NullPointerException e) {
+            LOGGER.error(e.getMessage());
             throw new ParametersException(e);
         }
         Executer executer = new Executer(cache);

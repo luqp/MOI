@@ -63,12 +63,14 @@ public class Executer {
             LOGGER.info("Running process with the next command: {}", builtCommand);
             tempProcess = Runtime.getRuntime().exec(builtCommand);
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             throw new CommandBuildException(e);
         }
         try {
             LOGGER.info("Process running: {}", tempProcess.toString());
             pid = getPid(tempProcess.toString());
         }catch (StringIndexOutOfBoundsException e) {
+            LOGGER.error(e.getMessage());
             throw new ProcessIDException(e);
         }
         cache.add(pid, tempProcess);
@@ -77,6 +79,7 @@ public class Executer {
         try {
             result.setValue(buildResult(tempProcess.getInputStream()));
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             throw new ResultException(result, e);
         }
         return result;
@@ -101,6 +104,7 @@ public class Executer {
             writer.write(answer.getValue() + System.lineSeparator());
             writer.flush();
         } catch (IOException | NullPointerException e) {
+            LOGGER.error(e.getMessage());
             throw new InputParametersException(e);
         }
 
@@ -109,6 +113,7 @@ public class Executer {
             result.setPid(answer.getProcessId());
             result.setValue(buildResult(process.getInputStream()));
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             throw new ResultException(result, e);
         }
         return result;

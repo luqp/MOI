@@ -129,6 +129,7 @@ public class FileController {
             return e.getMessage();
         } catch (ProcessIDException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-            return e.getMessage();        }
+            return e.getMessage();
+        }
     }
 }
