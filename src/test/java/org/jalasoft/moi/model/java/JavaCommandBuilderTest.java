@@ -23,7 +23,7 @@ public class JavaCommandBuilderTest {
     @Test
     public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand() {
         //given
-        Parameters testParam = getParams(".\\temp\\java\\test\\MainClass");
+        Parameters testParam = getParams(".\\temp\\java\\test");
         JavaCommandBuilder buildThisCommand = new JavaCommandBuilder();
         String expectedCommand = "cd .\\temp\\java\\test && javac *.java && java MainClass";
         //when

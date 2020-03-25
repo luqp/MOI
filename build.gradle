@@ -7,7 +7,7 @@ plugins {
 group 'org.jalasoft.moi'
 version '1.0-SNAPSHOT'
 
-//sourceCompatibility = 1.8
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -15,8 +15,10 @@ repositories {
 
 dependencies {
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     implementation 'org.springframework.boot:spring-boot-dependencies:2.2.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'io.jsonwebtoken:jjwt:0.2'
@@ -26,7 +28,7 @@ dependencies {
 
     testImplementation(
             'junit:junit:4.12',
-            'org.junit.jupiter:junit-jupiter:5.6.0',
+            'org.junit.jupiter:junit-jupiter:5.4.2',
     )
     testRuntime(
             'org.junit.jupiter:junit-jupiter-engine:5.4.2',

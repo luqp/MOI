@@ -25,7 +25,7 @@ public class CsharpCommandBuilderTest {
     @Test
     public void cSharpCmdBuilderTest() {
         //given
-        Parameters codeParams = getParams(".\\temp\\cplusplus\\test\\test.cpp");
+        Parameters codeParams = getParams(".\\temp\\cplusplus\\test");
         ICommandBuilder cSharpCommBuilder = new CsharpCommandBuilder();
         String expectedCommand = "cd .\\temp\\cplusplus\\test && " +
                 "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe -optimize -out:Output.exe *.cs && Output";
