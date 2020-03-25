@@ -17,6 +17,7 @@ import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.ParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
 import org.junit.jupiter.api.BeforeAll;
@@ -37,7 +38,7 @@ public class CsharpHandlerTest {
     }
 
     @Test
-    public void whenHandlerReceiveParamsBuildCommandAndExecuteThenRun() throws ResultException, CommandBuildException, ParametersException {
+    public void whenHandlerReceiveParamsBuildCommandAndExecuteThenRun() throws ResultException, CommandBuildException, ParametersException, ProcessIDException {
         //given
         String expectedResult = "Hello World1\nFile 2!!!\nHello World2";
         Parameters params = new Params();

@@ -15,6 +15,7 @@ import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class Handler {
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
      */
-    public Result runProgram(Parameters params) throws ResultException, CommandBuildException, ParametersException {
+    public Result runProgram(Parameters params) throws ResultException, CommandBuildException, ParametersException, ProcessIDException {
         String command;
         try {
             ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();

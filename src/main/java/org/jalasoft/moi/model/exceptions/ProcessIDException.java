@@ -9,15 +9,14 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-import org.jalasoft.moi.model.core.ICacheProvider;
 
-public class CacheException extends Exception {
+/**
+ *
+ */
+public class ProcessIDException extends Exception {
 
-    public CacheException() {
-        super();
+    public ProcessIDException(Throwable cause) {
+        super("Invalid process ID; id could not be captured.", cause);
     }
 
-    public CacheException(String msg) {
-        super(msg);
-    }
 }

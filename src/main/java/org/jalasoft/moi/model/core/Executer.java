@@ -14,6 +14,7 @@ import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 
 import javax.validation.constraints.Null;
@@ -46,17 +47,19 @@ public class Executer {
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
      */
-    public Result execute(String command) throws CommandBuildException, ResultException {
+    public Result execute(String command) throws CommandBuildException, ResultException, ProcessIDException {
         String builtCommand = "cmd /c \"" + command + "\"";
         Process tempProcess;
         long pid;
         try {
             tempProcess = Runtime.getRuntime().exec(builtCommand);
-            pid = getPid(tempProcess.toString());
         } catch (IOException e) {
             throw new CommandBuildException(e);
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new CommandBuildException(e);
+        }
+        try {
+            pid = getPid(tempProcess.toString());
+        }catch (StringIndexOutOfBoundsException e) {
+            throw new ProcessIDException(e);
         }
         cache.add(pid, tempProcess);
         result.setPid(pid);

@@ -9,6 +9,7 @@ import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class BuilderTest {
         this.processCache = processCache;
     }
 
-    public Result createExecution(Params params) throws ResultException, CommandBuildException {
+    public Result createExecution(Params params) throws ResultException, CommandBuildException, ProcessIDException {
         ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
         String command = commandBuilder.buildCommand(params.getFilesPath());
         System.out.println(command);

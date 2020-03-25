@@ -9,8 +9,6 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-import org.jalasoft.moi.model.core.parameters.Params;
-
 import java.nio.file.Path;
 
 public class ParametersException extends Exception {

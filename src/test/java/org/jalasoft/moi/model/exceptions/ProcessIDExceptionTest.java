@@ -13,16 +13,16 @@ import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Executer;
 import org.junit.Test;
 
-public class CommandBuildExceptionTest {
+public class ProcessIDExceptionTest {
 
-    @Test(expected = CommandBuildException.class)
-    public void throwsExceptionWhenCommandNullTest() throws CommandBuildException, ResultException {
+    @Test(expected = ProcessIDException.class)
+    public void throwsExceptionWhenCommandNullTest() throws CommandBuildException, ResultException, ProcessIDException {
         Executer executer = new Executer(new ProcessCache());
         executer.execute(null);
     }
 
-    @Test(expected = CommandBuildException.class)
-    public void throwsExceptionWhenCommandInvalidTest() throws CommandBuildException, ResultException {
+    @Test(expected = ProcessIDException.class)
+    public void throwsExceptionWhenCommandInvalidTest() throws CommandBuildException, ResultException, ProcessIDException {
         Executer executer = new Executer(new ProcessCache());
         executer.execute("wrong");
     }

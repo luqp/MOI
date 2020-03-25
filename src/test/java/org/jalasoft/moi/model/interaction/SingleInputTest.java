@@ -7,6 +7,7 @@ import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
@@ -41,7 +42,7 @@ public class SingleInputTest {
     @ParameterizedTest
     @MethodSource("codeProvider")
     @Order(1)
-    public void askForNumberTest(Path path, Language language) throws ResultException, CommandBuildException {
+    public void askForNumberTest(Path path, Language language) throws ResultException, CommandBuildException, ProcessIDException {
         String expected = "Insert number\r\n> ";
 
         Params params = new Params();

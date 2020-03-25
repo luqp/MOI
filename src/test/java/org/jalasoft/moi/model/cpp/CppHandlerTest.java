@@ -16,6 +16,7 @@ import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.ParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,10 +37,10 @@ public class CppHandlerTest {
     }
 
     @Test
-    public void cppHandlerTest() throws ResultException, CommandBuildException, ParametersException {
+    public void cppHandlerTest() throws ResultException, CommandBuildException, ParametersException, ProcessIDException {
         //given
         Parameters params = getParams(".\\temp\\cplusplus\\test\\single.cpp");
-        String expectedResult = "Hello, World!\n";
+        String expectedResult = "Hello, World\n";
         //when
         Handler cppHandler = new Handler(processCache);
         Result actualValue = cppHandler.runProgram(params);
