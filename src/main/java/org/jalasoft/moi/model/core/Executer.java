@@ -30,7 +30,6 @@ import java.util.Objects;
  */
 public class Executer {
 
-    private final int MAXIMUM_WAITING_VALUE = 1000000;
     private ICacheProvider cache;
     private Result result;
 
@@ -86,6 +85,7 @@ public class Executer {
         StringBuilder builder = new StringBuilder();
         boolean isReady;
         int count = 0;
+        int MAXIMUM_WAITING_VALUE = 1000000;
         while ((isReady = reader.ready()) || count < MAXIMUM_WAITING_VALUE) {
             if (isReady) {
                 builder.append((char)reader.read());
