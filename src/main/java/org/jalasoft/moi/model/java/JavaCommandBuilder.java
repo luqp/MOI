@@ -35,6 +35,6 @@ public class JavaCommandBuilder implements ICommandBuilder {
     public String buildCommand(Path completePath) {
         folderPath = completePath.toString();
         mainName = completePath.getFileName().toString().replace(".java"," ");
-        return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + mainName;
+        return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + "MainClass";
     }
 }
