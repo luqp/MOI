@@ -23,13 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the login whit correct credentials and generates a token.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @RestController
 @RequestMapping("/login")
 @Api(value = "login", description = "Login a user and generates a token")
 public class LoginController {
-
 
     /**
      * Builds a token whit the correct credentials.

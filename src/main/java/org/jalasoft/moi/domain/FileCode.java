@@ -9,11 +9,7 @@
 
 package org.jalasoft.moi.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Defines the file that will be used for write and compile code.
@@ -22,22 +18,23 @@ import javax.persistence.Table;
  * @version 1.1
  */
 @Entity
-@Table(name = "File")
+@Table(name = "FileCode")
 public class FileCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long fileId;
+    @ManyToOne
+    private Project project;
     private String name;
     private String code;
 
-    public Long getId() {
-        return id;
+    public Long getFileId() {
+        return fileId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
     }
 
     public String getName() {
@@ -54,5 +51,13 @@ public class FileCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

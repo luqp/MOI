@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * Provides to controller the CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @Service
 public class UserService {

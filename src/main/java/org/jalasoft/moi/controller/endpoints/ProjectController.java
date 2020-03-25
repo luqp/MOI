@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -12,6 +12,7 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.ProjectService;
 import org.jalasoft.moi.domain.Project;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the projects CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @RestController
 @RequestMapping(path = "/project")
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProjectController {
 
     @Autowired
-    ProjectService service;
+    private ProjectService service;
 
     /**
      * Gets a list of all projects.
@@ -42,7 +43,7 @@ public class ProjectController {
      * @return a list of projects
      */
     @GetMapping
-    public Iterable<Project> getAllUsers() {
+    public Iterable<Project> getAllPorjects() {
         return service.getAllProjects();
     }
 
@@ -83,7 +84,7 @@ public class ProjectController {
      * @param desc updates the project description field
      * @return contains the updated user information
      */
-    @PutMapping(path = "/info/{id}")
+    @PutMapping(path = "/{id}")
     public Project updateProjectInfo(@PathVariable Long id,
                                      @RequestParam(value = "Project name") String name,
                                      @RequestParam(value = "Description", required = false) String desc) {

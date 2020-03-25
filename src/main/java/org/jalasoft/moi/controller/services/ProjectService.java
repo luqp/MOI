@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2020 Jalasoft.
- * <p>
+ *
  * This software is the confidential and proprietary information of Jalasoft.
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
@@ -9,20 +9,21 @@
 
 package org.jalasoft.moi.controller.services;
 
+import java.io.File;
+
 import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.controller.repository.UserRepository;
 import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.model.core.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
 
 /**
  * Provides to project controller the CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @Service
 public class ProjectService {
@@ -65,7 +66,7 @@ public class ProjectService {
         Project newProject = new Project();
         newProject.setProjectName(name);
         newProject.setDescription(desc);
-        newProject.setLanguage(lang);
+        newProject.setLanguage(setProjectLang(lang));
         newProject.setPath(pathBuilder(userId, lang, name));
         newProject.setUser(userRepository.findById(userId).get());
         return projectRepository.save(newProject);
@@ -95,7 +96,6 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-
     /**
      * Builds a project path using user id, language and project name.
      *
@@ -111,5 +111,27 @@ public class ProjectService {
         File path = new File(projectPath);
         path.mkdirs();
         return projectPath;
+    }
+
+    /**
+     * Defines a specific language to be setted in the project.
+     *
+     * @param lang to sets the project language
+     * @return a specific language
+     */
+    private Language setProjectLang(String lang){
+        Language projectLang;
+        switch (lang){
+            case "java": projectLang = Language.JAVA;
+                break;
+            case "python": projectLang = Language.PYTHON_32;
+                break;
+            case "csharp": projectLang = Language.CSHARP;
+                break;
+            case "cplusplus": projectLang = Language.CPP;
+                break;
+            default: throw new IllegalArgumentException("Invalid Language: " + lang);
+        }
+        return projectLang;
     }
 }

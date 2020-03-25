@@ -9,14 +9,14 @@
 
 package org.jalasoft.moi.controller.repository;
 
-import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.domain.FileCode;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * Defines the project CRUD repository.
+ * Defines the file CRUD repository.
  *
  * @author Carlos Meneses
  * @version 1.2
  */
-public interface ProjectRepository extends CrudRepository<Project, Long> {
+public interface FileRepository extends CrudRepository<FileCode, Long> {
 }
