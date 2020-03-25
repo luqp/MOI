@@ -91,8 +91,9 @@ public class FileController {
      */
     @PutMapping(path = "/info/{id}")
     public FileCode updateFileInfo(@PathVariable Long id,
-                                   @RequestParam(value = "File name") String name,
-                                   @RequestParam(value = "Code") String code) {
+                                     @RequestParam(value = "File name") String name,
+                                     @RequestParam(value = "Code") String code) throws IOException {
+        fileService.updateFileB64(id, name, code);
         return fileService.updateFileInfo(id, name, code);
     }
 
@@ -102,8 +103,8 @@ public class FileController {
      * @param id to search for the file to delete.
      */
     @DeleteMapping(path = "/{id}")
-    public void deleteFileById(@PathVariable Long id) {
-        fileService.deleteFile(id);
+    public void deleteFileById(@PathVariable Long id) throws IOException {
+        fileService.deleteFileInfo(id);
     }
 
     /**
