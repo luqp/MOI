@@ -21,14 +21,24 @@ import org.slf4j.LoggerFactory;
 
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.ParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class defines the file controller.
  *
  * @author Carlos Meneses
+<<<<<<< HEAD
+ *         Diego Perez
+=======
  *         Mauricio Oroza
+>>>>>>> 513f98ec8929353d8fa4e6b5adce455803989144
  * @version 1.2
  */
 @RestController
@@ -113,11 +123,26 @@ public class FileController {
      * @param projectId URL param that points to the project id that will be executed
      * @return the output from the execution
      */
-    @PostMapping(path = "/execute/project/{projectId}")
-    public String executeCode(@PathVariable Long projectId) {
+    @PostMapping(path = "/execute")
+    public String executeCode(@PathVariable Long projectId) throws IOException {
         LOGGER.info("Project id retrieved from URL: {}", projectId);
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.setParams(projectId);
-        return handler.runProgram(codeParams).wrappedResult();
+        HttpServletResponse response = null;
+        try {
+            return handler.runProgram(codeParams).wrappedResult();
+        } catch (ResultException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return e.getMessage();
+        } catch (CommandBuildException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return e.getMessage();
+        } catch (ParametersException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return e.getMessage();
+        } catch (ProcessIDException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return e.getMessage();
+        }
     }
 }

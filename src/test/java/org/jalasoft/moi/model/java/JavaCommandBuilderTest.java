@@ -23,14 +23,19 @@ public class JavaCommandBuilderTest {
     @Test
     public void givenParamsWhenBuildCommandThenReceiveTheExpectedComand() {
         //given
-        Parameters testParam = new Params();
-        testParam.setFilesPath(Paths.get("C:/Users/MauricioOroza/com/MainClass"));
-        testParam.setLanguage(Language.JAVA);
+        Parameters testParam = getParams(".\\temp\\java\\test");
         JavaCommandBuilder buildThisCommand = new JavaCommandBuilder();
-        String expectedCommand = "cd C:/Users/MauricioOroza/com && javac *.java && java MainClass";
+        String expectedCommand = "cd .\\temp\\java\\test && javac *.java && java MainClass";
         //when
         String currentCommand = buildThisCommand.buildCommand(testParam.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
+    }
+
+    private Parameters getParams(String paramTest) {
+        Parameters params = new Params();
+        params.setFilesPath(Paths.get(paramTest));
+        params.setLanguage(Language.JAVA);
+        return params;
     }
 }
