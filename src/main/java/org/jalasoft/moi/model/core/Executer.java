@@ -12,6 +12,8 @@ package org.jalasoft.moi.model.core;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
@@ -30,6 +32,8 @@ import java.util.Objects;
  */
 public class Executer {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
+
     private ICacheProvider cache;
     private Result result;
 
@@ -45,9 +49,12 @@ public class Executer {
      */
     public Result execute(String command) throws IOException {
         String builtCommand = "cmd /c \"" + command + "\"";
+        LOGGER.info("Running process with the next command: {}", builtCommand);
         Process tempProcess = Runtime.getRuntime().exec(builtCommand);
+        LOGGER.info("Process running: {}", tempProcess.toString());
         long pid = getPid(tempProcess.toString());
         cache.add(pid, tempProcess);
+        LOGGER.info("Filling result");
         result.setPid(pid);
         result.setValue(buildResult(tempProcess.getInputStream()));
         return result;
@@ -62,11 +69,13 @@ public class Executer {
      */
     public Result processAnswer(InputParameters answer) throws IOException {
         Process process = cache.getProcessById(answer.getProcessId());
+        LOGGER.info("Process in use: pid={}",answer.getProcessId());
+        LOGGER.info("User input={}", answer.getValue());
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
         writer.write(answer.getValue() + System.lineSeparator());
         writer.flush();
-
+        LOGGER.info("Filling result");
         result.setPid(answer.getProcessId());
         result.setValue(buildResult(process.getInputStream()));
         return result;

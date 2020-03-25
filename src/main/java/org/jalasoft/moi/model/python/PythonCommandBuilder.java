@@ -64,4 +64,11 @@ public class PythonCommandBuilder implements ICommandBuilder {
     private String commandToRun(Path path) {
         return pythonPath + SPACE + path;
     }
+
+    @Override
+    public String toString() {
+        return "PythonCommandBuilder{ " +
+                pythonPath +
+                " }";
+    }
 }
