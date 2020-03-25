@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @RestController
 @RequestMapping(path = "/user")
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * Gets a list of all users.

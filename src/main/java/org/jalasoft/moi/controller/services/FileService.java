@@ -27,8 +27,8 @@ import java.io.IOException;
 /**
  * Manages actions that each file will need as save file or show responses.
  *
- * @author Carlos Meneses.
- * @version 1.1
+ * @author Carlos Meneses
+ * @version 1.2
  */
 @Service
 public class FileService {
@@ -91,7 +91,7 @@ public class FileService {
     /**
      * Deletes a file by the parameter id.
      *
-     * @param id to search for the file to delete.
+     * @param id to search for the file to delete
      */
     public void deleteFile(Long id) {
         fileRepository.deleteById(id);
@@ -100,6 +100,9 @@ public class FileService {
     /**
      * Creates a new file with name and code to set the file properties in base 64.
      *
+     * @param name saves the file name in the project
+     * @param codeB64 saves the code inside the file in base 64
+     * @param projectId gets the project path by project id
      * @return a parameters object
      */
     public Parameters saveFileB64(String name, String codeB64, Long projectId) throws IOException {
@@ -112,9 +115,11 @@ public class FileService {
     /**
      * Create a new file with name and code to set the file properties in a new params object.
      *
-     * @return a parameters object
+     * @param name saves the file name in the project path
+     * @param code saves the code inside the file
+     * @param projectId gets the project path by project id
      */
-    public void saveFile(String name, String code, Long projectId) throws IOException {
+    private void saveFile(String name, String code, Long projectId) throws IOException {
         Project projInfo = projectRepository.findById(projectId).get();
         String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         FileWriter codeWriter = new FileWriter(filePath);
@@ -122,6 +127,12 @@ public class FileService {
         codeWriter.close();
     }
 
+    /**
+     * Create a new file with name and code to set the file properties in a new params object.
+     *
+     * @param projectId gets the project path by project id
+     * @return the parameters setted object
+     */
     public Parameters setParams(Long projectId){
         Project projInfo = projectRepository.findById(projectId).get();
         Parameters codeParams = new Params();

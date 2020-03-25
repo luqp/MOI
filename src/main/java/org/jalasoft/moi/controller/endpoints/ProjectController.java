@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the projects CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @RestController
 @RequestMapping(path = "/project")
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProjectController {
 
     @Autowired
-    ProjectService service;
+    private ProjectService service;
 
     /**
      * Gets a list of all projects.

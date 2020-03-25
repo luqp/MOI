@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * This class defines the file controller.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @RestController
 @RequestMapping("/file")

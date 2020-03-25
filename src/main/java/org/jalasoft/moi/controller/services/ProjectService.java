@@ -9,6 +9,8 @@
 
 package org.jalasoft.moi.controller.services;
 
+import java.io.File;
+
 import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.controller.repository.UserRepository;
 import org.jalasoft.moi.domain.Project;
@@ -17,13 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-
 /**
  * Provides to project controller the CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 @Service
 public class ProjectService {

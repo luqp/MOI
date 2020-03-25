@@ -16,7 +16,7 @@ import org.springframework.data.repository.CrudRepository;
  * Defines the file CRUD repository.
  *
  * @author Carlos Meneses
- * @version 1.1
+ * @version 1.2
  */
 public interface FileRepository extends CrudRepository<FileCode, Long> {
 }
