@@ -26,7 +26,7 @@ import java.util.Objects;
  *
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
- * @version 1.1 03 March 2020
+ * @version 1.2
  */
 public class Executer {
 
