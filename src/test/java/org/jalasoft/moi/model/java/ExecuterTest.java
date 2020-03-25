@@ -7,18 +7,20 @@
  *  license agreement you entered into with Jalasoft.
  */
 
-package org.jalasoft.moi.model.java;import org.jalasoft.moi.model.core.Executer;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
+package org.jalasoft.moi.model.java;
+
+import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.model.core.Executer;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 import org.jalasoft.moi.model.interaction.ProcessCacheTest;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExecuterTest {
     private static ProcessCacheTest processCache;
@@ -29,21 +31,27 @@ public class ExecuterTest {
     }
 
     @Test
-    public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() {
+    public void givenTestParamAndHandlerWhenExecuteParamThenReceiveTheExpectedOutput() throws CommandBuildException, ResultException {
         //given
-        String expectedResult = "Microsoft Windows [Version 10.0.17763.678]";
+        String expectedResult = "Microsoft Windows [Versión 10.0.18363.720]";
         Result currentResult;
         Executer testExecute = new Executer(processCache);
         //when
-        try {
-            currentResult = testExecute.execute("VER");
-        } catch (CommandBuildException | ResultException e) {
-            e.printStackTrace();
-            currentResult = new ProcessResult();
-            currentResult.setValue("Algo ha fallado");
-            currentResult.setPid(0);
-        }
+        currentResult = testExecute.execute("VER");
         //then
         assertEquals(expectedResult, currentResult.getValue());
+    }
+
+    @Test
+    public void throwsExceptionWhenCommandNullTest() {
+        Executer executer = new Executer(new ProcessCache());
+        Exception exception = assertThrows(CommandBuildException.class, () -> {
+            executer.execute(null);;
+        });
+
+        String expected = "Command built was not correct.";
+        String actual = exception.getMessage();
+
+        assertEquals(expected, actual);
     }
 }

@@ -11,6 +11,7 @@ package org.jalasoft.moi.model.csharp;
 
 
 import org.jalasoft.moi.model.core.Handler;
+import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Result;
@@ -39,7 +40,9 @@ public class CsharpHandlerTest {
         //given
         String expectedResult = "Hello World1\nFile 2!!!\nHello World2";
         Parameters params = new Params();
-        params.setFilesPath(Paths.get("C:/Users/Admin/IdeaProjects/MOI/thirdparty/csharp/"));
+        params.setFilesPath(Paths.get(".\\temp\\csharp\\test\\test.cs"));
+        params.setLanguage(Language.CSHARP);
+        params.setFilesPath(Paths.get(".\\thirdparty\\csharp\\"));
         //when
         Handler csharpHandler = new Handler(processCache);
         Result currentResult = csharpHandler.runProgram(params);

@@ -25,6 +25,7 @@ public class BuilderTest {
     public Result createExecution(Params params) throws ResultException, CommandBuildException {
         ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
         String command = commandBuilder.buildCommand(params.getFilesPath());
+        System.out.println(command);
         Executer executer = new Executer(processCache);
         return executer.execute(command);
     }

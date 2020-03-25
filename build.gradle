@@ -7,16 +7,16 @@ plugins {
 group 'org.jalasoft.moi'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+//sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
     implementation 'org.springframework.boot:spring-boot-dependencies:2.2.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'io.jsonwebtoken:jjwt:0.2'
@@ -24,7 +24,19 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    testCompile 'org.junit.jupiter:junit-jupiter:5.6.0'
+    testImplementation(
+            'junit:junit:4.12',
+            'org.junit.jupiter:junit-jupiter:5.6.0',
+    )
+    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.4.2',
+            'org.junit.vintage:junit-vintage-engine:5.4.2',
+            'org.junit.jupiter:junit-jupiter-params:5.4.2'
+    )
+}
+
+test {
+    useJUnitPlatform()
 }
 
 bootJar {

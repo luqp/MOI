@@ -8,7 +8,6 @@ import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ResultException;
-import org.jalasoft.moi.model.utils.Constant;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -93,14 +92,14 @@ public class HandleInteractionTest {
         assertEquals(expected, result.getValue());
     }
 
-    static Stream<Arguments> codeProvider() {
+    private static Stream<Arguments> codeProvider() {
         return Stream.of(
                 arguments(
-                        Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\local\\SumInputsTest.py",
+                        ".\\thirdparty\\python\\local\\SumInputsTest.py",
                         Language.PYTHON_32
                 ),
                 arguments(
-                        Constant.ROOTPATH.getValue() + "\\thirdparty\\java\\local\\SumInputsTest.java",
+                        ".\\thirdparty\\java\\local\\SumInputsTest.java",
                         Language.JAVA
                 )
         );

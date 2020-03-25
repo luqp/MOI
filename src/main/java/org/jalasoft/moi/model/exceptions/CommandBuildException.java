@@ -24,6 +24,6 @@ public class CommandBuildException extends Exception {
     }
 
     public CommandBuildException(Throwable cause) {
-        super("Command built was not correct.", cause);
+            super("Command built was not correct.", cause);
     }
 }

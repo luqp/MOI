@@ -11,7 +11,6 @@ package org.jalasoft.moi.model.core;
 
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;

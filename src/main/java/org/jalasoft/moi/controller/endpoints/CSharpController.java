@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -53,10 +55,25 @@ public class CSharpController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/execute")
     public String executeCode(@RequestParam String name,
-                              @RequestParam String code) throws IOException, ResultException, CommandBuildException {
+                              @RequestParam String code) throws IOException {
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
-        return handler.runProgram(codeParams).wrappedResult();
+        Parameters codeParams;
+        HttpServletResponse response = null;
+        String resp;
+        try {
+            codeParams = fileService.saveFile(name, code, FILE_PATH, EXTENSION, language);
+            resp = handler.runProgram(codeParams).wrappedResult();
+        } catch (CommandBuildException e) {
+            e.printStackTrace();
+            resp = "Bad request.";
+        } catch (ResultException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            resp = "Bad request.";
+        } catch (IOException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            resp = "Bad request.";
+        }
+        return resp;
     }
 
     /**

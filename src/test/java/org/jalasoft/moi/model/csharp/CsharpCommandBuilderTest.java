@@ -10,11 +10,12 @@
 package org.jalasoft.moi.model.csharp;
 
 import org.jalasoft.moi.model.core.ICommandBuilder;
+import org.jalasoft.moi.model.core.Language;
 import org.jalasoft.moi.model.core.parameters.Params;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,16 +25,20 @@ public class CsharpCommandBuilderTest {
     @Test
     public void cSharpCmdBuilderTest() {
         //given
-        String newFile = "C:\\Users\\MauricioOroza\\Pruebas cmd csharp";
-        File codeFile = new File(newFile);
-        Parameters codeParams = new Params();
-        codeParams.setFilesPath(codeFile.toPath());
+        Parameters codeParams = getParams(".\\temp\\cplusplus\\test\\test.cpp");
         ICommandBuilder cSharpCommBuilder = new CsharpCommandBuilder();
-        String expectedCommand = "cd C:\\Users\\MauricioOroza\\Pruebas cmd csharp && " +
+        String expectedCommand = "cd .\\temp\\cplusplus\\test && " +
                 "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe -optimize -out:Output.exe *.cs && Output";
         //when
         String currentCommand = cSharpCommBuilder.buildCommand(codeParams.getFilesPath());
         //then
         assertEquals(expectedCommand, currentCommand);
+    }
+
+    private Parameters getParams(String paramTest) {
+        Parameters params = new Params();
+        params.setFilesPath(Paths.get(paramTest));
+        params.setLanguage(Language.CSHARP);
+        return params;
     }
 }

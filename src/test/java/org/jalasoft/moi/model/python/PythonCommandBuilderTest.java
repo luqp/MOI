@@ -36,7 +36,7 @@ public class PythonCommandBuilderTest {
         String python = Constant.ROOTPATH.getValue() + "\\thirdparty\\python\\win\\python32\\Portable_Python_3.2.5.1\\App\\python.exe";
         String concatenate = " && ";
 
-        command = python + space + compileall + space + directoryFile + "test1.py" + concatenate + python + space + directoryFile + "__pycache__\\test1.cpython-32.pyc";
+        command = python + space + compileall + space + directoryFile + "test1.py" + concatenate + python + space + directoryFile + "test1.py";
     }
 
     @Test
