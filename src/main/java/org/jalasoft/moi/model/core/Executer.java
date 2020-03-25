@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,7 +33,7 @@ import java.util.Objects;
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
  *         Diego Perez
- * @version 1.1 03 March 2020
+ * @version 1.2
  */
 public class Executer {
 
@@ -74,7 +75,7 @@ public class Executer {
         LOGGER.info("Filling result");
         result.setPid(pid);
         try {
-            result.setValue(buildResult(tempProcess));
+            result.setValue(buildResult(tempProcess.getInputStream()));
         } catch (IOException e) {
             throw new ResultException(result, e);
         }
@@ -106,7 +107,7 @@ public class Executer {
         try {
             LOGGER.info("Filling result");
             result.setPid(answer.getProcessId());
-            result.setValue(buildResult(process));
+            result.setValue(buildResult(process.getInputStream()));
         } catch (IOException e) {
             throw new ResultException(result, e);
         }
@@ -116,26 +117,25 @@ public class Executer {
     /**
      * Builds the result value.
      *
-     * @param process to obtain the result
+     * @param inputStream to obtain the result
      * @return result value
      * @throws IOException of system
      */
-    private String buildResult(Process process) throws IOException {
-        InputStream inputStream = process.getInputStream();
-        InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+    private String buildResult(InputStream inputStream) throws IOException {
+        InputStreamReader streamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(streamReader);
+        StringBuilder builder = new StringBuilder();
+        boolean isReady;
         int count = 0;
-        while (!cmdEntrance.ready()) {
-            if (count >= Integer.MAX_VALUE) {
-                cache.deleteProcess(getPid(process.toString()));
-                LOGGER.debug("Process {} deleted", process.toString());
-                return "Code was not Executed";
+        int MAXIMUM_WAITING_VALUE = 1000000;
+        while ((isReady = reader.ready()) || count < MAXIMUM_WAITING_VALUE) {
+            if (isReady) {
+                builder.append((char) reader.read());
+            } else {
+                count++;
             }
-            count++;
         }
-        char[] charBuffer = new char[inputStream.available()];
-        cmdEntrance.read(charBuffer);
-        LOGGER.info("Result value created");
-        return new String(charBuffer);
+        return builder.toString();
     }
 
     /**
