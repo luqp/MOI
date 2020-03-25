@@ -28,21 +28,23 @@ import java.nio.file.Paths;
 public enum Language {
 
     PYTHON_32(new PythonCommandBuilder(Paths.get(Constant.ROOTPATH.getValue() + "/thirdparty/python/win" +
-            "/python32/Portable_Python_3.2.5.1/App/python.exe"))),
-    CSHARP(new CsharpCommandBuilder()),
-    JAVA(new JavaCommandBuilder()),
-    CPP(new CppCommandBuilder());
+            "/python32/Portable_Python_3.2.5.1/App/python.exe")), ".py"),
+    CSHARP(new CsharpCommandBuilder(), ".cs"),
+    JAVA(new JavaCommandBuilder(), ".java"),
+    CPP(new CppCommandBuilder(), ".cpp");
 
     private static Logger LOGGER = LoggerFactory.getLogger(Language.class);
     private final ICommandBuilder commandBuilder;
+    private final String fileExtention;
 
     /**
      * Set the command builder of a specific language and version.
      *
      * @param commandBuilder contains a ICommandBuilder
      */
-    Language(ICommandBuilder commandBuilder) {
+    Language(ICommandBuilder commandBuilder, String fileExtention) {
         this.commandBuilder = commandBuilder;
+        this.fileExtention = fileExtention;
     }
 
     /**
@@ -53,5 +55,9 @@ public enum Language {
     public ICommandBuilder getCommandBuilder() {
         LOGGER.info("Use {}", this.commandBuilder.toString());
         return commandBuilder;
+    }
+
+    public String getFileExtention() {
+        return fileExtention;
     }
 }

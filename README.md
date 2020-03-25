@@ -43,3 +43,32 @@ gradle clean bootrun
 ```
 http://localhost:9091/api/v1/swagger-ui.html
 ```
+## To execute MOI whit MySql DataBase
+- Install Docker:
+```
+https://hub.docker.com/editions/community/docker-ce-desktop-windows/
+```
+- Open CMD console and execute:
+```
+docker version
+```
+- Example of expected result:
+```
+Client: Docker Engine - Community
+ Version:           18.09.2
+ API version:       1.39
+ Go version:        go1.10.8
+ Git commit:        6247962
+ Built:             Sun Feb 10 04:12:39 2019
+ OS/Arch:           darwin/amd64
+ Experimental:      false
+ ```
+- On CMD console execute this command:
+```
+docker run -d -p 33061:3306 --name moi-mysql -e MYSQL_ROOT_PASSWORD=root mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```
+- Example of expected result:
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
+4c2623959deb        mysql:5.7           "docker-entrypoint.s…"   4 days ago          Up 4 days           33060/tcp, 0.0.0.0:33061->3306/tcp   moi-mysql
+```
