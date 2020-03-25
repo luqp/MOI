@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -88,9 +88,8 @@ public class Executer {
         int MAXIMUM_WAITING_VALUE = 1000000;
         while ((isReady = reader.ready()) || count < MAXIMUM_WAITING_VALUE) {
             if (isReady) {
-                builder.append((char)reader.read());
-            }
-            else {
+                builder.append((char) reader.read());
+            } else {
                 count++;
             }
         }
