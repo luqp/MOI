@@ -16,6 +16,8 @@ import java.io.IOException;
 import org.jalasoft.moi.controller.services.FileService;
 import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.domain.FileCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Parameters;
@@ -33,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/file")
 @Api(value = "file", description = "Operations pertaining to manage files")
 public class FileController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     @Autowired
     private FileService fileService;
@@ -72,6 +76,7 @@ public class FileController {
     public FileCode addNewFile(@RequestParam(value = "File Name") String name,
                                @RequestParam(value = "Code") String code,
                                @PathVariable Long projectId) throws IOException {
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
         fileService.saveFileB64(name, code, projectId);
         return fileService.addNewFile(name, code, projectId);
     }
@@ -109,6 +114,7 @@ public class FileController {
      */
     @PostMapping(path = "/execute/project/{projectId}")
     public String executeCode(@PathVariable Long projectId) {
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.setParams(projectId);
         return handler.runProgram(codeParams).wrappedResult();

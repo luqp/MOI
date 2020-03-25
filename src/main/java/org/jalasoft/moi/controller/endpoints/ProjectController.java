@@ -12,6 +12,9 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.ProjectService;
 import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.model.core.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +37,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/project")
 @Api(value = "project", description = "Operations pertaining to manage projects")
 public class ProjectController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     @Autowired
     private ProjectService service;
@@ -74,6 +79,7 @@ public class ProjectController {
                                  @RequestParam(value = "Description", required = false) String desc,
                                  @RequestParam(value = "Language") String lang,
                                  @PathVariable Long userId) {
+        LOGGER.info("User id retrieved from URL: {}", userId);
         return service.addNewProject(name, desc, lang, userId);
     }
 
