@@ -63,9 +63,9 @@ public class FileController {
     /**
      * Inserts a new file in to data base and creates a file inside the project path.
      *
+     * @param projectId URL param that points to the project id where the new file will be created
      * @param name inserts the new file name
      * @param code inserts the new file code
-     * @param projectId assigns a user the new project
      * @return contains the inserted project information
      */
     @PostMapping(path = "/project/{projectId}")
@@ -105,12 +105,14 @@ public class FileController {
     /**
      * Returns a String that shows the output of the program.
      *
+     * @param projectId URL param that points to the project id that will be executed
      * @return the output from the execution
      */
-    @PostMapping(path = "/execute")
-    public String executeCode(@RequestParam(value = "Project Id") Long projectID) {
+    @PostMapping(path = "/execute/project/{projectId}")
+    public String executeCode(@PathVariable Long projectId) {
+        System.out.println(projectId);
         Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.setParams(projectID);
+        Parameters codeParams = fileService.setParams(projectId);
         return handler.runProgram(codeParams).wrappedResult();
     }
 }
