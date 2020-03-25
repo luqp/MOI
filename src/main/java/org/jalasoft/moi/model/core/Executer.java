@@ -1,4 +1,4 @@
-/*
+/**
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -12,8 +12,11 @@ package org.jalasoft.moi.model.core;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,9 +28,11 @@ import java.util.Objects;
  *
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
- * @version 1.1 03 March 2020
+ * @version 1.2
  */
 public class Executer {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     private ICacheProvider cache;
     private Result result;
@@ -44,11 +49,14 @@ public class Executer {
      */
     public Result execute(String command) throws IOException {
         String builtCommand = "cmd /c \"" + command + "\"";
+        LOGGER.info("Running process with the next command: {}", builtCommand);
         Process tempProcess = Runtime.getRuntime().exec(builtCommand);
+        LOGGER.info("Process running: {}", tempProcess.toString());
         long pid = getPid(tempProcess.toString());
         cache.add(pid, tempProcess);
+        LOGGER.info("Filling result");
         result.setPid(pid);
-        result.setValue(buildResult(tempProcess));
+        result.setValue(buildResult(tempProcess.getInputStream()));
         return result;
     }
 
@@ -61,37 +69,40 @@ public class Executer {
      */
     public Result processAnswer(InputParameters answer) throws IOException {
         Process process = cache.getProcessById(answer.getProcessId());
+        LOGGER.info("Process in use: pid={}",answer.getProcessId());
+        LOGGER.info("User input={}", answer.getValue());
         BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
         writer.write(answer.getValue() + System.lineSeparator());
         writer.flush();
-
+        LOGGER.info("Filling result");
         result.setPid(answer.getProcessId());
-        result.setValue(buildResult(process));
+        result.setValue(buildResult(process.getInputStream()));
         return result;
     }
 
     /**
      * Builds the result value.
      *
-     * @param process to obtain the result
+     * @param inputStream to obtain the result
      * @return result value
      * @throws IOException of system
      */
-    private String buildResult(Process process) throws IOException {
-        InputStream inputStream = process.getInputStream();
-        InputStreamReader cmdEntrance = new InputStreamReader(inputStream);
+    private String buildResult(InputStream inputStream) throws IOException {
+        InputStreamReader streamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(streamReader);
+        StringBuilder builder = new StringBuilder();
+        boolean isReady;
         int count = 0;
-        while (!cmdEntrance.ready()) {
-            if (count >= Integer.MAX_VALUE) {
-                cache.deleteProcess(getPid(process.toString()));
-                return "Code was not Executed";
+        int MAXIMUM_WAITING_VALUE = 1000000;
+        while ((isReady = reader.ready()) || count < MAXIMUM_WAITING_VALUE) {
+            if (isReady) {
+                builder.append((char) reader.read());
+            } else {
+                count++;
             }
-            count++;
         }
-        char[] charBuffer = new char[inputStream.available()];
-        cmdEntrance.read(charBuffer);
-        return new String(charBuffer);
+        return builder.toString();
     }
 
     /**
