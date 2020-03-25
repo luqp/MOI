@@ -17,7 +17,6 @@ import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 
-import javax.validation.constraints.Null;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +29,7 @@ import java.util.Objects;
  *
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
+ *         Diego Perez
  * @version 1.1 03 March 2020
  */
 public class Executer {
@@ -46,6 +46,9 @@ public class Executer {
      * Executes command in cmd.
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
+     * @throws CommandBuildException
+     * @throws ResultException
+     * @throws ProcessIDException
      */
     public Result execute(String command) throws CommandBuildException, ResultException, ProcessIDException {
         String builtCommand = "cmd /c \"" + command + "\"";
@@ -76,7 +79,8 @@ public class Executer {
      *
      * @param answer user input
      * @return a result value and the process id
-     * @throws IOException when there is a execution problem
+     * @throws InputParametersException
+     * @throws ResultException
      */
     public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
         Process process;

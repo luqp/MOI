@@ -15,7 +15,7 @@ import java.nio.file.Path;
  * The CommandBuildException wraps Java Standard exception.
  *
  * @author Diego Perez
- * @version 1.1
+ * @version 1.2
  */
 public class CommandBuildException extends Exception {
 

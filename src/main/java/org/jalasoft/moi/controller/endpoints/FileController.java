@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * This class defines the file controller.
  *
  * @author Carlos Meneses
+ *         Diego Perez
  * @version 1.2
  */
 @RestController

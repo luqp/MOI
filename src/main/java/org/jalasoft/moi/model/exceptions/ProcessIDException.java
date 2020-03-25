@@ -11,12 +11,14 @@ package org.jalasoft.moi.model.exceptions;
 
 
 /**
+ * The ProcessIDException wraps an exception related to the process id.
  *
+ * @author Diego Perez
+ * @version 1.2
  */
 public class ProcessIDException extends Exception {
 
     public ProcessIDException(Throwable cause) {
         super("Invalid process ID; id could not be captured.", cause);
     }
-
 }

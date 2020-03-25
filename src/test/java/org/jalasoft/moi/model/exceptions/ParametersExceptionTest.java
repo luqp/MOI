@@ -13,9 +13,10 @@ import org.jalasoft.moi.controller.services.ProcessCache;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.ICacheProvider;
 import org.jalasoft.moi.model.core.parameters.Params;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.Test;
 
 class ParametersExceptionTest {
 

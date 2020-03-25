@@ -18,13 +18,12 @@ import org.jalasoft.moi.model.exceptions.ParametersException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
 
-import java.io.IOException;
-
 /**
  * Handler is in charge to work with the executer and the command builder
  *
  * @author Carlos Meneses
  *         Lucero Quiroga Perez
+ *         Diego Perez
  * @version 1.1
  */
 public class Handler {
@@ -40,6 +39,10 @@ public class Handler {
      *
      * @param params contains the parameters to build a command a execute it
      * @return a String of result from CommandBuilder and Executer handling
+     * @throws CommandBuildException
+     * @throws ResultException
+     * @throws ProcessIDException
+     * @throws ParametersException
      */
     public Result runProgram(Parameters params) throws ResultException, CommandBuildException, ParametersException, ProcessIDException {
         String command;
@@ -58,6 +61,8 @@ public class Handler {
      *
      * @param params user inputs
      * @return a result value and the process id
+     * @throws InputParametersException
+     * @throws ResultException
      */
     public Result processInput(InputParameters params) throws InputParametersException, ResultException {
         Executer executer = new Executer(cache);

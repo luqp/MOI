@@ -11,10 +11,15 @@ package org.jalasoft.moi.model.exceptions;
 
 import org.jalasoft.moi.model.core.parameters.Result;
 
+/**
+ * The ResultException wraps Java Standard exception related to invalid values for result class, used between methods.
+ *
+ * @author Diego Perez
+ * @version 1.2
+ */
 public class ResultException extends Exception {
 
     public ResultException(Result result, Throwable cause) {
         super("Result cannot be generated " + result.getValue(), cause);
-
     }
 }

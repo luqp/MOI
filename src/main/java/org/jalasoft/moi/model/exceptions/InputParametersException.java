@@ -9,8 +9,12 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-import org.jalasoft.moi.model.core.parameters.InputParameters;
-
+/**
+ * The InputParametersException wraps Java Standard exception related to input interaction parameters.
+ *
+ * @author Diego Perez
+ * @version 1.2
+ */
 public class InputParametersException extends Exception {
 
     public InputParametersException(Throwable cause) {

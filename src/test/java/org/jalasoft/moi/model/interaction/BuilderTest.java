@@ -5,14 +5,11 @@ import org.jalasoft.moi.model.core.ICacheProvider;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Params;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.InputParametersException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
 import org.jalasoft.moi.model.exceptions.ResultException;
-
-import java.io.IOException;
 
 public class BuilderTest {
 
