@@ -66,11 +66,12 @@ public class ProjectController {
      * @param userId assigns a user the new project
      * @return contains the inserted project information
      */
-    @PostMapping
+    @PostMapping(path = "/user/{userId}")
     public Project addNewProject(@RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
                                  @RequestParam(value = "Language") String lang,
-                                 @RequestParam(value = "User Id") Long userId) {
+                                 @PathVariable Long userId) {
+        System.out.println(userId);
         return service.addNewProject(name, desc, lang, userId);
     }
 
