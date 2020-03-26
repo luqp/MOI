@@ -65,10 +65,10 @@ public class FileService {
      * @param projectID inserts the new project language
      * @return contains the inserted project information
      */
-    public FileCode addNewFile(String name, String code, Long projectID) {
+    public FileCode addNewFile(String name, String code, Long projectID) throws IOException {
         FileCode newFilecode = new FileCode();
         newFilecode.setName(name);
-        newFilecode.setCode(code);
+        newFilecode.setCode(saveFile(name,code, projectID));
         newFilecode.setProject(projectRepository.findById(projectID).get());
         return fileRepository.save(newFilecode);
     }
@@ -81,10 +81,10 @@ public class FileService {
      * @param code updates the code field
      * @return contains the updated project information
      */
-    public FileCode updateFileInfo(Long id, String name, String code) {
+    public FileCode updateFileInfo(Long id, String name, String code) throws IOException {
         FileCode fileToUpdate = fileRepository.findById(id).get();
         fileToUpdate.setName(name);
-        fileToUpdate.setCode(code);
+        fileToUpdate.setCode(updateFile(id, name, code));
         return fileRepository.save(fileToUpdate);
     }
 
@@ -93,7 +93,8 @@ public class FileService {
      *
      * @param id to search for the file to delete
      */
-    public void deleteFile(Long id) {
+    public void deleteFileInfo(Long id) throws IOException {
+        deleteFile(id);
         fileRepository.deleteById(id);
     }
 
@@ -119,12 +120,59 @@ public class FileService {
      * @param code saves the code inside the file
      * @param projectId gets the project path by project id
      */
-    private void saveFile(String name, String code, Long projectId) throws IOException {
+    private String saveFile(String name, String code, Long projectId) throws IOException {
         Project projInfo = projectRepository.findById(projectId).get();
         String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
+        return filePath;
+    }
+
+    /**
+     * Updates a new file with name and code to set the file properties in base 64.
+     *
+     * @param fileId gets the file information by its id
+     * @param name updates the file name in the project
+     * @param codeB64 updates the code inside the file in base 64
+     * @return a parameters object
+     */
+    public void updateFileB64(Long fileId, String name, String codeB64) throws IOException {
+        byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
+        String code = new String(byteArray);
+        updateFile(fileId, name, code);
+    }
+
+    /**
+     * Updates a new file with name and code to set the file properties in a new params object.
+     *
+     * @param fileId gets the file information by its id
+     * @param name updates the file name in the project path
+     * @param code updates the code inside the file
+     */
+    private String updateFile(Long fileId, String name, String code) throws IOException {
+        deleteFile(fileId);
+        FileCode fileCode = fileRepository.findById(fileId).get();
+        Project projInfo = fileCode.getProject();
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
+        FileWriter codeWriter = new FileWriter(filePath);
+        codeWriter.write(code);
+        codeWriter.close();
+        return filePath;
+    }
+
+    /**
+     * Deletes a file from the project foler.
+     *
+     * @param fileId gets a file information by its id
+     */
+    private void deleteFile(Long fileId) throws IOException {
+        FileCode fileCode = fileRepository.findById(fileId).get();
+        Project projInfo = fileCode.getProject();
+        String name = fileCode.getName();
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
+        File file = new File(filePath);
+        file.delete();
     }
 
     /**

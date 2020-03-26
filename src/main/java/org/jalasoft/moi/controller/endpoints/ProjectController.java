@@ -12,6 +12,9 @@ package org.jalasoft.moi.controller.endpoints;
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.ProjectService;
 import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.model.core.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,12 +30,15 @@ import org.springframework.web.bind.annotation.RestController;
  * Handles the projects CRUD basic operations.
  *
  * @author Carlos Meneses
+ *         Mauricio Oroza
  * @version 1.2
  */
 @RestController
 @RequestMapping(path = "/project")
 @Api(value = "project", description = "Operations pertaining to manage projects")
 public class ProjectController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     @Autowired
     private ProjectService service;
@@ -59,19 +65,21 @@ public class ProjectController {
     }
 
     /**
-     * Inserts a new user in to data base.
+     * Inserts a new project assigned to a user in to data base.
      *
+     * @param userId URL param that assign a user the new project being created
      * @param name   inserts the new project name
      * @param desc   inserts the new project description
      * @param lang   inserts the new project language
-     * @param userId assigns a user the new project
+     *
      * @return contains the inserted project information
      */
-    @PostMapping
-    public Project addNewProject(@RequestParam(value = "Project Name") String name,
+    @PostMapping(path = "/user/{userId}")
+    public Project addNewProject(@PathVariable Long userId,
+                                 @RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
-                                 @RequestParam(value = "Language") String lang,
-                                 @RequestParam(value = "User Id") Long userId) {
+                                 @RequestParam(value = "Language") String lang) {
+        LOGGER.info("User id retrieved from URL: {}", userId);
         return service.addNewProject(name, desc, lang, userId);
     }
 

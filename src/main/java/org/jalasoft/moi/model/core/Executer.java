@@ -12,6 +12,10 @@ package org.jalasoft.moi.model.core;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +32,7 @@ import java.util.Objects;
  *
  * @author Mauricio Oroza
  *         Lucero Quiroga Perez
+ *         Diego Perez
  * @version 1.2
  */
 public class Executer {
@@ -46,17 +51,35 @@ public class Executer {
      * Executes command in cmd.
      *
      * @return The output of the console in one string in the form: String1 + \n + String1 + \n + ...
+     * @throws CommandBuildException
+     * @throws ResultException
+     * @throws ProcessIDException
      */
     public Result execute(String command) throws IOException {
         ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
         builder.redirectErrorStream(true);
-        Process process = builder.start();
-        LOGGER.info("Process running: {}", process.toString());
-        long pid = getPid(process.toString());
+        try {
+            LOGGER.info("Running process with the next command: {}", builtCommand);
+            Process process = builder.start();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+            throw new CommandBuildException(e);
+        }
+        try {
+            long pid = getPid(process.toString());
+        } catch (StringIndexOutOfBoundsException e) {
+            LOGGER.error(e.getMessage());
+            throw new ProcessIDException(e);
+        }
         cache.add(pid, process);
         LOGGER.info("Filling result");
-        result.setPid(pid);
-        result.setValue(buildResult(process.getInputStream()));
+        try {
+            result.setPid(pid);
+            result.setValue(buildResult(process.getInputStream()));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+            throw new ResultException(result, e);
+        }
         return result;
     }
 
@@ -65,19 +88,32 @@ public class Executer {
      *
      * @param answer user input
      * @return a result value and the process id
-     * @throws IOException when there is a execution problem
+     * @throws InputParametersException
+     * @throws ResultException
      */
-    public Result processAnswer(InputParameters answer) throws IOException {
-        Process process = cache.getProcessById(answer.getProcessId());
-        LOGGER.info("Process in use: pid={}",answer.getProcessId());
-        LOGGER.info("User input={}", answer.getValue());
-        BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
-        writer.write(answer.getValue() + System.lineSeparator());
-        writer.flush();
-        LOGGER.info("Filling result");
-        result.setPid(answer.getProcessId());
-        result.setValue(buildResult(process.getInputStream()));
+    public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
+        Process process;
+        try {
+            LOGGER.info("Process in use: pid={}",answer.getProcessId());
+            LOGGER.info("User input={}", answer.getValue());
+            process = cache.getProcessById(answer.getProcessId());
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(Objects.requireNonNull(process).getOutputStream()));
+            writer.write(answer.getValue() + System.lineSeparator());
+            writer.flush();
+        } catch (IOException | NullPointerException e) {
+            LOGGER.error(e.getMessage());
+            throw new InputParametersException(e);
+        }
+
+        try {
+            LOGGER.info("Filling result");
+            result.setPid(answer.getProcessId());
+            result.setValue(buildResult(process.getInputStream()));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+            throw new ResultException(result, e);
+        }
         return result;
     }
 

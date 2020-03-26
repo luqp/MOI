@@ -5,10 +5,11 @@ import org.jalasoft.moi.model.core.ICacheProvider;
 import org.jalasoft.moi.model.core.ICommandBuilder;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
 import org.jalasoft.moi.model.core.parameters.Params;
-import org.jalasoft.moi.model.core.parameters.ProcessResult;
 import org.jalasoft.moi.model.core.parameters.Result;
-
-import java.io.IOException;
+import org.jalasoft.moi.model.exceptions.CommandBuildException;
+import org.jalasoft.moi.model.exceptions.InputParametersException;
+import org.jalasoft.moi.model.exceptions.ProcessIDException;
+import org.jalasoft.moi.model.exceptions.ResultException;
 
 public class BuilderTest {
 
@@ -19,34 +20,16 @@ public class BuilderTest {
         this.processCache = processCache;
     }
 
-    public Result createExecution(Params params) {
+    public Result createExecution(Params params) throws ResultException, CommandBuildException, ProcessIDException {
         ICommandBuilder commandBuilder = params.getLanguage().getCommandBuilder();
         String command = commandBuilder.buildCommand(params.getFilesPath());
+        System.out.println(command);
         Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-        return result;
+        return executer.execute(command);
     }
 
-    public Result buildResultWithInput(InputParameters input) {
+    public Result buildResultWithInput(InputParameters input) throws InputParametersException, ResultException {
         Executer executer = new Executer(processCache);
-        Result result;
-        try {
-            result = executer.processAnswer(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = new ProcessResult();
-            result.setValue(e.getMessage());
-            result.setPid(0);
-        }
-
-        return result;
+        return executer.processAnswer(input);
     }
 }
