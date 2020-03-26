@@ -80,7 +80,7 @@ public class FileController {
      * @param code inserts the new file code
      * @return contains the inserted project information
      */
-    @PostMapping(path = "/project/{projectId}")
+    @PostMapping(path = "/new/project/{projectId}")
     public FileCode addNewFile(@RequestParam(value = "File Name") String name,
                                @RequestParam(value = "Code") String code,
                                @PathVariable Long projectId) throws IOException {
