@@ -23,7 +23,8 @@ import java.nio.file.Path;
 public class CsharpCommandBuilder implements ICommandBuilder {
 
     private static final String COMPILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe ";
-    private static final String OUTPUT_EXE_CS = "-optimize -out:Output.exe ";
+    private static final String OPTIMIZE_OUT = "-optimize -out:";
+    private static final String OUTPUT_EXE = "Output.exe ";
     private static final String RUN_OUTPUT = "Output";
 
     /**
@@ -34,6 +35,6 @@ public class CsharpCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path completePath) {
-        return COMPILER_PATH + OUTPUT_EXE_CS + completePath + "\\*.cs" + " && " + completePath + "\\" + RUN_OUTPUT;
+        return COMPILER_PATH + OPTIMIZE_OUT + completePath + "\\" + OUTPUT_EXE + completePath + "\\*.cs" + " && " + completePath + "\\" + RUN_OUTPUT;
     }
 }

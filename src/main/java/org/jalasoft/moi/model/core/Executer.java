@@ -55,18 +55,20 @@ public class Executer {
      * @throws ResultException
      * @throws ProcessIDException
      */
-    public Result execute(String command) throws IOException {
+    public Result execute(String command) throws CommandBuildException, ProcessIDException, ResultException {
         ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
         builder.redirectErrorStream(true);
+        Process process;
+        long pid;
         try {
-            LOGGER.info("Running process with the next command: {}", builtCommand);
-            Process process = builder.start();
+            LOGGER.info("Running process with the next command: {}", command);
+            process = builder.start();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new CommandBuildException(e);
         }
         try {
-            long pid = getPid(process.toString());
+            pid = getPid(process.toString());
         } catch (StringIndexOutOfBoundsException e) {
             LOGGER.error(e.getMessage());
             throw new ProcessIDException(e);
