@@ -23,9 +23,8 @@ import java.nio.file.Path;
 public class CsharpCommandBuilder implements ICommandBuilder {
 
     private static final String COMPILER_PATH = "C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe ";
-    private static final String COMPILE_ALL_AND_OUTPUT = "-optimize -out:Output.exe *.cs";
+    private static final String OUTPUT_EXE_CS = "-optimize -out:Output.exe ";
     private static final String RUN_OUTPUT = "Output";
-    private static final String MOVE_TO = "cd ";
 
     /**
      * Builds a string with the command needed for compilation and execution of multiple files.
@@ -35,6 +34,6 @@ public class CsharpCommandBuilder implements ICommandBuilder {
      */
     @Override
     public String buildCommand(Path completePath) {
-        return MOVE_TO + completePath + " && " + COMPILER_PATH + COMPILE_ALL_AND_OUTPUT + " && " + RUN_OUTPUT;
+        return COMPILER_PATH + OUTPUT_EXE_CS + completePath + "\\*.cs" + " && " + completePath + "\\" + RUN_OUTPUT;
     }
 }
