@@ -1,10 +1,10 @@
 /**
- *   Copyright (c) 2020 Jalasoft.
- *
- *   This software is the confidential and proprietary information of Jalasoft.
- *   ("Confidential Information"). You shall not disclose such Confidential
- *   Information and shall use it only in accordance with the terms of the
- *   license agreement you entered into with Jalasoft.
+ * Copyright (c) 2020 Jalasoft.
+ * <p>
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.model.core;
@@ -31,8 +31,8 @@ import java.util.Objects;
  * Class receives a string, executes it on cmd and returns output on a string.
  *
  * @author Mauricio Oroza
- *         Lucero Quiroga Perez
  *         Diego Perez
+ *         Lucero Quiroga Perez
  * @version 1.2
  */
 public class Executer {
@@ -56,28 +56,28 @@ public class Executer {
      * @throws ProcessIDException
      */
     public Result execute(String command) throws CommandBuildException, ResultException, ProcessIDException {
-        String builtCommand = "cmd /c \"" + command + "\"";
-        Process tempProcess;
+        ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
+        builder.redirectErrorStream(true);
+        Process process;
         long pid;
         try {
-            LOGGER.info("Running process with the next command: {}", builtCommand);
-            tempProcess = Runtime.getRuntime().exec(builtCommand);
+            LOGGER.info("Running process with the next command: {}", command);
+            process = builder.start();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new CommandBuildException(e);
         }
         try {
-            LOGGER.info("Process running: {}", tempProcess.toString());
-            pid = getPid(tempProcess.toString());
-        }catch (StringIndexOutOfBoundsException e) {
+            pid = getPid(process.toString());
+        } catch (StringIndexOutOfBoundsException e) {
             LOGGER.error(e.getMessage());
             throw new ProcessIDException(e);
         }
-        cache.add(pid, tempProcess);
+        cache.add(pid, process);
         LOGGER.info("Filling result");
-        result.setPid(pid);
         try {
-            result.setValue(buildResult(tempProcess.getInputStream()));
+            result.setPid(pid);
+            result.setValue(buildResult(process.getInputStream()));
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new ResultException(result, e);
@@ -96,7 +96,7 @@ public class Executer {
     public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
         Process process;
         try {
-            LOGGER.info("Process in use: pid={}",answer.getProcessId());
+            LOGGER.info("Process in use: pid={}", answer.getProcessId());
             LOGGER.info("User input={}", answer.getValue());
             process = cache.getProcessById(answer.getProcessId());
             BufferedWriter writer = new BufferedWriter(

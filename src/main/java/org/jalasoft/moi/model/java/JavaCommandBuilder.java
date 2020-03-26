@@ -15,15 +15,14 @@ import java.nio.file.Path;
 /**
  * Builds a command for java compilation and execution.
  *
- * @version 1.0 03 March 2020
  * @author Mauricio Oroza
- *
+ *         Lucero Quiroga Perez
+ * @version 1.2
  */
 public class JavaCommandBuilder implements ICommandBuilder {
 
-    private static final String MOVE_TO = "cd ";
-    private static final String JAVA_COMPLILE_ALL = "javac *.java";
-    private static final String JAVA_RUN = "java ";
+    private static final String JAVA_COMPLILE = "javac ";
+    private static final String JAVA_CP = "java -cp ";
     private static String mainName;
     private static String folderPath;
 
@@ -34,7 +33,9 @@ public class JavaCommandBuilder implements ICommandBuilder {
     @Override
     public String buildCommand(Path completePath) {
         folderPath = completePath.toString();
-        mainName = completePath.getFileName().toString().replace(".java"," ");
-        return MOVE_TO + folderPath + " && " + JAVA_COMPLILE_ALL + " && " + JAVA_RUN + "MainClass";
+        mainName = completePath.getFileName().toString().replace(".java", " ");
+        String allFiles = "\\*.java";
+        String fileMain = " MainClass";
+        return JAVA_COMPLILE + folderPath + allFiles + " && " + JAVA_CP + folderPath + fileMain;
     }
 }
