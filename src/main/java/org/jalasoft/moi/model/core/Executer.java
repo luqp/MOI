@@ -1,10 +1,10 @@
 /**
- *   Copyright (c) 2020 Jalasoft.
- *
- *   This software is the confidential and proprietary information of Jalasoft.
- *   ("Confidential Information"). You shall not disclose such Confidential
- *   Information and shall use it only in accordance with the terms of the
- *   license agreement you entered into with Jalasoft.
+ * Copyright (c) 2020 Jalasoft.
+ * <p>
+ * This software is the confidential and proprietary information of Jalasoft.
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jalasoft.
  */
 
 package org.jalasoft.moi.model.core;
@@ -55,7 +55,7 @@ public class Executer {
      * @throws ResultException
      * @throws ProcessIDException
      */
-    public Result execute(String command) throws CommandBuildException, ProcessIDException, ResultException {
+    public Result execute(String command) throws CommandBuildException, ResultException, ProcessIDException {
         ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "\"" + command + "\"");
         builder.redirectErrorStream(true);
         Process process;
@@ -96,7 +96,7 @@ public class Executer {
     public Result processAnswer(InputParameters answer) throws InputParametersException, ResultException {
         Process process;
         try {
-            LOGGER.info("Process in use: pid={}",answer.getProcessId());
+            LOGGER.info("Process in use: pid={}", answer.getProcessId());
             LOGGER.info("User input={}", answer.getValue());
             process = cache.getProcessById(answer.getProcessId());
             BufferedWriter writer = new BufferedWriter(
