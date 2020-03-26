@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -34,11 +34,8 @@ import javax.servlet.http.HttpServletResponse;
  * This class defines the file controller.
  *
  * @author Carlos Meneses
-<<<<<<< HEAD
  *         Diego Perez
-=======
  *         Mauricio Oroza
->>>>>>> 513f98ec8929353d8fa4e6b5adce455803989144
  * @version 1.2
  */
 @RestController
@@ -71,6 +68,7 @@ public class FileController {
      */
     @GetMapping(path = "/{id}")
     public FileCode getFiletById(@PathVariable Long id) {
+        LOGGER.info("File id retrieved from URL: {}", id);
         return fileService.getFileById(id);
     }
 
@@ -87,7 +85,6 @@ public class FileController {
                                @RequestParam(value = "Code") String code,
                                @PathVariable Long projectId) throws IOException {
         LOGGER.info("Project id retrieved from URL: {}", projectId);
-        fileService.saveFileB64(name, code, projectId);
         return fileService.addNewFile(name, code, projectId);
     }
 
@@ -103,7 +100,7 @@ public class FileController {
     public FileCode updateFileInfo(@PathVariable Long id,
                                      @RequestParam(value = "File name") String name,
                                      @RequestParam(value = "Code") String code) throws IOException {
-        fileService.updateFileB64(id, name, code);
+        LOGGER.info("File id retrieved from URL: {}", id);
         return fileService.updateFileInfo(id, name, code);
     }
 
@@ -123,11 +120,11 @@ public class FileController {
      * @param projectId URL param that points to the project id that will be executed
      * @return the output from the execution
      */
-    @PostMapping(path = "/execute")
+    @PostMapping(path = "/execute/project/{projectId}")
     public String executeCode(@PathVariable Long projectId) throws IOException {
-        LOGGER.info("Project id retrieved from URL: {}", projectId);
         Handler handler = new Handler(cache);
         Parameters codeParams = fileService.setParams(projectId);
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
         HttpServletResponse response = null;
         try {
             return handler.runProgram(codeParams).wrappedResult();
