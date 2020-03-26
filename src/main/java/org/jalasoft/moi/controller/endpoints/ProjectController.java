@@ -49,7 +49,7 @@ public class ProjectController {
      * @return a list of projects
      */
     @GetMapping
-    public Iterable<Project> getAllPorjects() {
+    public Iterable<Project> getAllProjects() {
         return service.getAllProjects();
     }
 
@@ -74,7 +74,7 @@ public class ProjectController {
      *
      * @return contains the inserted project information
      */
-    @PostMapping(path = "/user/{userId}")
+    @PostMapping(path = "/new/user/{userId}")
     public Project addNewProject(@PathVariable Long userId,
                                  @RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
@@ -91,7 +91,7 @@ public class ProjectController {
      * @param desc updates the project description field
      * @return contains the updated user information
      */
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/info/{id}")
     public Project updateProjectInfo(@PathVariable Long id,
                                      @RequestParam(value = "Project name") String name,
                                      @RequestParam(value = "Description", required = false) String desc) {
@@ -103,7 +103,7 @@ public class ProjectController {
      *
      * @param id to search for the project to delete.
      */
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public void deleteProjectById(@PathVariable Long id) {
         service.deleteProject(id);
     }
