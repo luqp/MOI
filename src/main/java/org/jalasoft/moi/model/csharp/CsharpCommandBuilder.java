@@ -18,7 +18,8 @@ import java.nio.file.Path;
  *
  * @author Carlos Meneses
  *         Mauricio Oroza
- * @version 1.1
+ *         Lucero Quiroga Perez
+ * @version 1.2
  */
 public class CsharpCommandBuilder implements ICommandBuilder {
 
@@ -30,7 +31,7 @@ public class CsharpCommandBuilder implements ICommandBuilder {
     /**
      * Builds a string with the command needed for compilation and execution of multiple files.
      *
-     * @param  completePath contains the location of the directory of the files
+     * @param completePath contains the location of the directory of the files
      * @return String of the command builded with the path received
      */
     @Override

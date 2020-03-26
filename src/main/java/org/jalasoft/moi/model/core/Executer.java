@@ -31,8 +31,8 @@ import java.util.Objects;
  * Class receives a string, executes it on cmd and returns output on a string.
  *
  * @author Mauricio Oroza
- *         Lucero Quiroga Perez
  *         Diego Perez
+ *         Lucero Quiroga Perez
  * @version 1.2
  */
 public class Executer {
