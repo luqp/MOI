@@ -68,7 +68,6 @@ public class FileController {
      */
     @GetMapping(path = "/{id}")
     public FileCode getFiletById(@PathVariable Long id) {
-        LOGGER.info("File id retrieved from URL: {}", id);
         return fileService.getFileById(id);
     }
 
@@ -84,7 +83,6 @@ public class FileController {
     public FileCode addNewFile(@RequestParam(value = "File Name") String name,
                                @RequestParam(value = "Code") String code,
                                @PathVariable Long projectId) throws IOException {
-        LOGGER.info("Project id retrieved from URL: {}", projectId);
         return fileService.addNewFile(name, code, projectId);
     }
 
@@ -100,7 +98,6 @@ public class FileController {
     public FileCode updateFileInfo(@PathVariable Long id,
                                      @RequestParam(value = "File name") String name,
                                      @RequestParam(value = "Code") String code) throws IOException {
-        LOGGER.info("File id retrieved from URL: {}", id);
         return fileService.updateFileInfo(id, name, code);
     }
 

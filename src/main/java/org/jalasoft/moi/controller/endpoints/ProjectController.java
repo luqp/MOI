@@ -79,7 +79,6 @@ public class ProjectController {
                                  @RequestParam(value = "Project Name") String name,
                                  @RequestParam(value = "Description", required = false) String desc,
                                  @RequestParam(value = "Language") String lang) {
-        LOGGER.info("User id retrieved from URL: {}", userId);
         return service.addNewProject(name, desc, lang, userId);
     }
 

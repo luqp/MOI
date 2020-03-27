@@ -60,8 +60,7 @@ public class FileService {
      * @return contains a file found by id
      */
     public FileCode getFileById(Long id) {
-        LOGGER.info("File id retrieved from URL: {}", id);
-        return fileRepository.findById(id).orElse(null);
+        return fileRepository.findById(id).get();
     }
 
     /**
@@ -75,7 +74,7 @@ public class FileService {
     public FileCode addNewFile(String name, String code, Long projectID) throws IOException {
         FileCode newFilecode = new FileCode();
         newFilecode.setName(name);
-        newFilecode.setProject(projectRepository.findById(projectID).orElse(null));
+        newFilecode.setProject(projectRepository.findById(projectID).get());
         saveFileB64(name, code, projectID);
         LOGGER.info("Project id retrieved from URL: {}", projectID);
         return fileRepository.save(newFilecode);
@@ -90,10 +89,10 @@ public class FileService {
      * @return contains the updated project information
      */
     public FileCode updateFileInfo(Long id, String name, String code) throws IOException {
-        FileCode fileToUpdate = fileRepository.findById(id).orElse(null);
-        LOGGER.info("File id retrieved from URL: {}", id);
+        FileCode fileToUpdate = fileRepository.findById(id).get();
         fileToUpdate.setName(name);
         updateFileB64(id, name, code);
+        LOGGER.info("File id retrieved from URL: {}", id);
         return fileRepository.save(fileToUpdate);
     }
 
@@ -118,7 +117,7 @@ public class FileService {
     private void saveFileB64(String name, String codeB64, Long projectId) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        saveFile(name, code, projectId);
+        saveFileToProjectFolder(name, code, projectId);
         LOGGER.info("Project id retrieved from URL: {}", projectId);
     }
 
@@ -129,15 +128,13 @@ public class FileService {
      * @param code saves the code inside the file
      * @param projectId gets the project path by project id
      */
-    private void saveFile(String name, String code, Long projectId) throws IOException {
-        Project projInfo = projectRepository.findById(projectId).orElse(null);
-        LOGGER.info("Project id retrieved from URL: {}", projectId);
-        String filePath = projInfo.getPath()+"/"+ name + projInfo
-                .getLanguage()
-                .getFileExtention();
+    private void saveFileToProjectFolder(String name, String code, Long projectId) throws IOException {
+        Project projInfo = projectRepository.findById(projectId).get();
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
 
     }
 
@@ -151,7 +148,7 @@ public class FileService {
     private void updateFileB64(Long fileId, String name, String codeB64) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        updateFile(fileId, name, code);
+        updateFileToProjectFolder(fileId, name, code);
         LOGGER.info("File id retrieved from URL: {}", fileId);
     }
 
@@ -162,17 +159,15 @@ public class FileService {
      * @param name updates the file name in the project path
      * @param code updates the code inside the file
      */
-    private void updateFile(Long fileId, String name, String code) throws IOException {
+    private void updateFileToProjectFolder(Long fileId, String name, String code) throws IOException {
         deleteFile(fileId);
-        FileCode fileCode = fileRepository.findById(fileId).orElse(null);
-        LOGGER.info("File id retrieved from URL: {}", fileId);
+        FileCode fileCode = fileRepository.findById(fileId).get();
         Project projInfo = fileCode.getProject();
-        String filePath = projInfo.getPath()+"/"+ name + projInfo
-                .getLanguage()
-                .getFileExtention();
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
+        LOGGER.info("File id retrieved from URL: {}", fileId);
     }
 
     /**
@@ -181,13 +176,10 @@ public class FileService {
      * @param fileId gets a file information by its id
      */
     private void deleteFile(Long fileId) {
-        FileCode fileCode = fileRepository.findById(fileId).orElse(null);
-        LOGGER.info("File id retrieved from URL: {}", fileId);
+        FileCode fileCode = fileRepository.findById(fileId).get();
         Project projInfo = fileCode.getProject();
         String name = fileCode.getName();
-        String filePath = projInfo.getPath()+"/"+ name + projInfo
-                .getLanguage()
-                .getFileExtention();
+        String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         File file = new File(filePath);
         file.delete();
     }
@@ -199,8 +191,7 @@ public class FileService {
      * @return the parameters setted object
      */
     public Parameters setParams(Long projectId){
-        Project projInfo = projectRepository.findById(projectId).orElse(null);
-        LOGGER.info("Project id retrieved from URL: {}", projectId);
+        Project projInfo = projectRepository.findById(projectId).get();
         Parameters codeParams = new Params();
         File codeFile = new File(projInfo.getPath());
         codeParams.setFilesPath(codeFile.toPath());
