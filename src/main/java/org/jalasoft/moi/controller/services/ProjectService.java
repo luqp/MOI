@@ -84,6 +84,7 @@ public class ProjectService {
         Project projectToUpdate = projectRepository.findById(id).get();
         projectToUpdate.setProjectName(name);
         projectToUpdate.setDescription(desc);
+        projectToUpdate.setPath(updateProjectFolder(id,name));
         return projectRepository.save(projectToUpdate);
     }
 
@@ -111,6 +112,14 @@ public class ProjectService {
         File path = new File(projectPath);
         path.mkdirs();
         return projectPath;
+    }
+
+    private String updateProjectFolder(Long projectId, String updateProjectName){
+        Project project = projectRepository.findById(projectId).get();
+        File projectFolder = new File(project.getPath());
+        File updateFolder = new File(projectFolder.getParent()+"/"+ updateProjectName);
+        projectFolder.renameTo(updateFolder);
+        return updateFolder.getPath();
     }
 
     /**
