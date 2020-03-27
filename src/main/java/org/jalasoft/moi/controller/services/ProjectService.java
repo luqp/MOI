@@ -114,6 +114,13 @@ public class ProjectService {
         return projectPath;
     }
 
+    /**
+     * Update the project folder path using projectId and the new project name.
+     *
+     * @param projectId to get the project path and update the project folder name
+     * @param updateProjectName to build a folder with the new project name
+     * @return a string with the updated built path
+     */
     private String updateProjectFolder(Long projectId, String updateProjectName){
         Project project = projectRepository.findById(projectId).get();
         File projectFolder = new File(project.getPath());
