@@ -10,7 +10,7 @@
 package org.jalasoft.moi.controller.endpoints;
 
 import io.swagger.annotations.Api;
-import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Answer;
 import org.jalasoft.moi.model.core.parameters.InputParameters;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LanguageController {
 
     @Autowired
-    private ProcessCache cache;
+    private ProcessService cache;
 
     /**
      * Handles the user input and processes an result.

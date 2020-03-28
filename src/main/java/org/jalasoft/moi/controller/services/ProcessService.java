@@ -21,11 +21,11 @@ import java.util.HashMap;
  * @version 1.1
  */
 @Service
-public class ProcessCache implements ICacheProvider {
+public class ProcessService implements ICacheProvider {
 
     private HashMap<Long, Process> processMap;
 
-    public ProcessCache() {
+    public ProcessService() {
         this.processMap = new HashMap<>();
     }
 

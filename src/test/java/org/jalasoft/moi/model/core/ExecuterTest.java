@@ -9,8 +9,7 @@
 
 package org.jalasoft.moi.model.core;
 
-import org.jalasoft.moi.controller.services.ProcessCache;
-import org.jalasoft.moi.model.core.Executer;
+import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.model.core.parameters.Result;
 import org.jalasoft.moi.model.exceptions.CommandBuildException;
 import org.jalasoft.moi.model.exceptions.ProcessIDException;
@@ -45,7 +44,7 @@ public class ExecuterTest {
 
     @Test
     public void throwsExceptionWhenCommandNullTest() {
-        Executer executer = new Executer(new ProcessCache());
+        Executer executer = new Executer(new ProcessService());
         Exception exception = assertThrows(ProcessIDException.class, () -> {
             executer.execute(null);;
         });

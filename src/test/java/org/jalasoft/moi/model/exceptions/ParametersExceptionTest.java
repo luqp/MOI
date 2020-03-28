@@ -9,7 +9,7 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.ICacheProvider;
 import org.jalasoft.moi.model.core.parameters.Params;
@@ -23,7 +23,7 @@ class ParametersExceptionTest {
     @Test
     public void throwsExceptionWhenCommandNullTest() {
         Params params = null;
-        ICacheProvider cache = new ProcessCache();
+        ICacheProvider cache = new ProcessService();
         Handler handler = new Handler(cache);
         Exception exception = assertThrows(ParametersException.class, () -> {
             handler.runProgram(params);

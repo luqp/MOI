@@ -14,7 +14,7 @@ import io.swagger.annotations.Api;
 import java.io.IOException;
 
 import org.jalasoft.moi.controller.services.FileService;
-import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.domain.FileCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +48,7 @@ public class FileController {
     @Autowired
     private FileService fileService;
     @Autowired
-    private ProcessCache cache;
+    private ProcessService cache;
 
     /**
      * Gets a list of all files.

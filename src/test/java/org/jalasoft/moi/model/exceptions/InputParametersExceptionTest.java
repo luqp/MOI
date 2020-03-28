@@ -9,7 +9,7 @@
 
 package org.jalasoft.moi.model.exceptions;
 
-import org.jalasoft.moi.controller.services.ProcessCache;
+import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.model.core.Executer;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class InputParametersExceptionTest {
 
     @Test(expected = InputParametersException.class)
     public void inputParametersExceptionNullTest() throws InputParametersException, ResultException {
-        Executer executer = new Executer(new ProcessCache());
+        Executer executer = new Executer(new ProcessService());
         executer.processAnswer(null);
     }
 }
