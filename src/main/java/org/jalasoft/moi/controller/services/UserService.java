@@ -40,6 +40,10 @@ public class UserService {
         return repository.findByUserNameAndPassword(username, password);
     }
 
+    public User getUserByUserName(String username) {
+        return repository.findByUserName(username);
+    }
+
 
     /**
      * Gets a user by a id parameter.
