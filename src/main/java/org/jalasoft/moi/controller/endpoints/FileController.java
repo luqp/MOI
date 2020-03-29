@@ -14,21 +14,21 @@ import io.swagger.annotations.Api;
 import java.io.IOException;
 
 import org.jalasoft.moi.controller.services.FileService;
-import org.jalasoft.moi.controller.services.ProcessService;
 import org.jalasoft.moi.domain.FileCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.jalasoft.moi.model.core.Handler;
-import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.exceptions.CommandBuildException;
-import org.jalasoft.moi.model.exceptions.ParametersException;
-import org.jalasoft.moi.model.exceptions.ProcessIDException;
-import org.jalasoft.moi.model.exceptions.ResultException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class defines the file controller.
@@ -47,8 +47,6 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-    @Autowired
-    private ProcessService cache;
 
     /**
      * Gets a list of all files.
@@ -109,34 +107,5 @@ public class FileController {
     @DeleteMapping(path = "/{id}")
     public void deleteFileById(@PathVariable Long id) throws IOException {
         fileService.deleteFileInfo(id);
-    }
-
-    /**
-     * Returns a String that shows the output of the program.
-     *
-     * @param projectId URL param that points to the project id that will be executed
-     * @return the output from the execution
-     */
-    @PostMapping(path = "/execute/project/{projectId}")
-    public String executeCode(@PathVariable Long projectId) throws IOException {
-        Handler handler = new Handler(cache);
-        Parameters codeParams = fileService.setParams(projectId);
-        LOGGER.info("Project id retrieved from URL: {}", projectId);
-        HttpServletResponse response = null;
-        try {
-            return handler.runProgram(codeParams).wrappedResult();
-        } catch (ResultException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-            return e.getMessage();
-        } catch (CommandBuildException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-            return e.getMessage();
-        } catch (ParametersException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-            return e.getMessage();
-        } catch (ProcessIDException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-            return e.getMessage();
-        }
     }
 }

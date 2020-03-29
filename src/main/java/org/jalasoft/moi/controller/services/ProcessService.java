@@ -9,9 +9,15 @@
 
 package org.jalasoft.moi.controller.services;
 
+import org.jalasoft.moi.controller.repository.ProjectRepository;
+import org.jalasoft.moi.domain.Project;
 import org.jalasoft.moi.model.core.ICacheProvider;
+import org.jalasoft.moi.model.core.parameters.Parameters;
+import org.jalasoft.moi.model.core.parameters.Params;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -23,6 +29,8 @@ import java.util.HashMap;
 @Service
 public class ProcessService implements ICacheProvider {
 
+    @Autowired
+    private ProjectRepository projectRepository;
     private HashMap<Long, Process> processMap;
 
     public ProcessService() {
@@ -60,5 +68,20 @@ public class ProcessService implements ICacheProvider {
     public void deleteProcess(long pid) {
         Process process = processMap.remove(pid);
         process.destroy();
+    }
+
+    /**
+     * Create a new file with name and code to set the file properties in a new params object.
+     *
+     * @param projectId gets the project path by project id
+     * @return the parameters setted object
+     */
+    public Parameters setParams(Long projectId){
+        Project projInfo = projectRepository.findById(projectId).get();
+        Parameters codeParams = new Params();
+        File codeFile = new File(projInfo.getPath());
+        codeParams.setFilesPath(codeFile.toPath());
+        codeParams.setLanguage(projInfo.getLanguage());
+        return codeParams;
     }
 }
