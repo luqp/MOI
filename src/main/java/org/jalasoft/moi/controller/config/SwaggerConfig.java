@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -11,24 +11,26 @@ package org.jalasoft.moi.controller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
+
 /**
  * Implements basic configurations and documentations on Swagger user interface.
  *
  * @author Carlos Meneses
- * @version 1.1
+ *         Lucero Quiroga Perez
+ * @version 1.3
  */
 @Configuration
 @EnableSwagger2
@@ -55,15 +57,36 @@ public class SwaggerConfig {
                 "This pages documents Multilaguage Online Ide app RESTful Web Service endpoints",
                 "1.0",
                 "http://www.jalasoft.com/terms", contact,
-                "Apache 2.0", "http://www.jalasoft.com/privacy",vendorExtensions);
+                "Apache 2.0", "http://www.jalasoft.com/privacy", vendorExtensions);
 
-        Docket docket =  new Docket(DocumentationType.SWAGGER_2)
+        List<SecurityScheme> schemes = new ArrayList<>();
+        schemes.add(new ApiKey(HttpHeaders.AUTHORIZATION, "JWT", "header"));
+
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
+                .securitySchemes(schemes)
+                .securityContexts(singletonList(securityContext()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.jalasoft.moi.controller"))
                 .paths(PathSelectors.any())
                 .build();
 
         return docket;
+    }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope
+                = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return singletonList(
+                new SecurityReference("JWT", authorizationScopes));
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("/api/.*"))
+                .build();
     }
 }
