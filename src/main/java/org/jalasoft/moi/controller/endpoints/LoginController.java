@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -14,10 +14,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import io.swagger.annotations.Api;
 
+import org.jalasoft.moi.controller.services.UserService;
+import org.jalasoft.moi.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * Handles the login whit correct credentials and generates a token.
@@ -30,6 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "login", description = "Login a user and generates a token")
 public class LoginController {
 
+    @Autowired
+    private UserService userService;
+
     /**
      * Builds a token whit the correct credentials.
      *
@@ -38,13 +46,25 @@ public class LoginController {
      * @return token
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String login(@RequestParam(value = "username")String username,
-                        @RequestParam(value = "password")String password){
-        String secret = "AWT05";
+    public String login(@RequestParam(value = "username") String username,
+                        @RequestParam(value = "password") String password) {
+        User user = userService.getUserByUserNameAndPassword(username, password);
+        String token = getJwtsToken(username, user.getRol());
+        user.setToken(token);
+        userService.save(user);
+        return token;
+    }
+
+
+    public String getJwtsToken(String username, String role) {
+        String secret = "AWT05Moi";
+        long currentTime = System.currentTimeMillis();
         String token = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
                 .setSubject(username)
-                .claim("Role","Admin")
+                .claim("Role", role)
+                .setIssuedAt(new Date(currentTime))
+                .setExpiration(new Date(currentTime + 600000))
+                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
                 .compact();
         return token;
     }

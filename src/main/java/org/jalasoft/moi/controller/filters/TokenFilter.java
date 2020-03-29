@@ -1,4 +1,4 @@
-/**
+/*
  *   Copyright (c) 2020 Jalasoft.
  *
  *   This software is the confidential and proprietary information of Jalasoft.
@@ -24,13 +24,13 @@ import java.io.IOException;
 public class TokenFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String url = req.getRequestURL().toString();
-        String token =req.getHeader("Authorization");
-        if (token != null || url.contains("/login")){
-            chain.doFilter(request, response);
+        String token = req.getHeader("Authorization");
+        if (token != null || url.contains("/login")) {
+            filterChain.doFilter(request, response);
         }
         res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "access denied");
     }

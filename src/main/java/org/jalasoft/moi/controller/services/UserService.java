@@ -36,6 +36,11 @@ public class UserService {
         return repository.findAll();
     }
 
+    public User getUserByUserNameAndPassword(String username, String password) {
+        return repository.findByUserNameAndPassword(username, password);
+    }
+
+
     /**
      * Gets a user by a id parameter.
      *
@@ -53,17 +58,18 @@ public class UserService {
      * @param lastName inserts the new user last name
      * @param email inserts the new user email
      * @param userName inserts the new user username
-     * @param pass inserts the new user password
+     * @param password inserts the new user password
      * @return contains the inserted user information
      */
-    public User addNewUser(String name, String lastName, String email, String userName, String pass) {
+    public User addNewUser(String name, String lastName, String email, String userName, String password, String token) {
         User newUser = new User();
         newUser.setFirstName(name);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setUserName(userName);
-        newUser.setPassword(pass);
+        newUser.setPassword(password);
         newUser.setRol("user");
+        newUser.setToken(token);
         return repository.save(newUser);
     }
 
@@ -119,5 +125,9 @@ public class UserService {
      */
     public void deleteUser(Long id) {
         repository.deleteById(id);
+    }
+
+    public void save(User user) {
+        repository.save(user);
     }
 }
