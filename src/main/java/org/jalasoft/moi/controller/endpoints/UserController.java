@@ -74,12 +74,8 @@ public class UserController {
                            @RequestParam(value = "Last Name", required = false) String lastName,
                            @RequestParam(value = "E-mail", required = false) String email,
                            @RequestParam(value = "Username") String userName,
-                           @RequestParam(value = "Password") String password,
-                           @RequestParam(value = "Role") String role) {
-
-        LoginController login = new LoginController();
-        String token = login.getJwtsToken(userName, role);
-        return userService.addNewUser(firstName, lastName, email, userName, password, token);
+                           @RequestParam(value = "Password") String password) {
+        return userService.addNewUser(firstName, lastName, email, userName, password);
     }
 
     /**

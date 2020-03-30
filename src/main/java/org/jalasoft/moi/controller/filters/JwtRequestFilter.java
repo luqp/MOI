@@ -9,8 +9,9 @@
 
 package org.jalasoft.moi.controller.filters;
 
-import org.jalasoft.moi.controller.validationToken.JwtTokenUtil;
-import org.jalasoft.moi.controller.validationToken.MoiUserDetailsService;
+import org.jalasoft.moi.controller.authentication.JwtTokenUtil;
+import org.jalasoft.moi.controller.services.MoiUserDetailsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,11 +25,16 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Configures the filters to request authorization and token.
+ *
+ * @author Lucero Quiroga Perez
+ * @version 1.3
+ */
 @Component
 public class JwtRequestFilter implements Filter {
 
@@ -38,6 +44,15 @@ public class JwtRequestFilter implements Filter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    /**
+     * Creates the filter to decide if the user can access to endpoints.
+     *
+     * @param request ServletRequest
+     * @param response ServletResponse
+     * @param filterChain FilterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -54,7 +69,7 @@ public class JwtRequestFilter implements Filter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            if (jwtTokenUtil.validateToken(jwt,userDetails)) {
+            if (jwtTokenUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
@@ -64,7 +79,6 @@ public class JwtRequestFilter implements Filter {
             }
 
         }
-        filterChain.doFilter(req,res);
-        //res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "access denied");
+        filterChain.doFilter(req, res);
     }
 }

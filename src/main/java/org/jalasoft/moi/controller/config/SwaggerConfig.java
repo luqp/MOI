@@ -76,6 +76,11 @@ public class SwaggerConfig {
         return docket;
     }
 
+    /**
+     * Set ups the scope to use the security reference JWT to handler the authorizations.
+     *
+     * @return a list of SecurityReference
+     */
     List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope
                 = new AuthorizationScope("global", "accessEverything");
@@ -85,6 +90,12 @@ public class SwaggerConfig {
                 new SecurityReference("JWT", authorizationScopes));
     }
 
+    /**
+     * Builds the authorizations to apply to each api operation.
+     * To customize which request mappings the list of authorizations are applied.
+     *
+     * @return SecurityContext default set of authorizations
+     */
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
@@ -92,6 +103,11 @@ public class SwaggerConfig {
                 .build();
     }
 
+    /**
+     * Builds the security configuration to handler the header in swagger.
+     *
+     * @return SecurityConfiguration
+     */
     @Bean
     public SecurityConfiguration security() {
         return SecurityConfigurationBuilder
