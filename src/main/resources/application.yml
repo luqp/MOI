@@ -3,9 +3,10 @@ spring:
     url: jdbc:mysql://localhost:33061/mysql
     username: root
     password: root
+    initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     database-platform: org.hibernate.dialect.MySQL5Dialect
     database: mysql
     show-sql: true
