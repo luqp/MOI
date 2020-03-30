@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -14,12 +14,16 @@ import org.jalasoft.moi.controller.repository.FileRepository;
 import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.domain.Project;
+import org.jalasoft.moi.model.core.Handler;
 import org.jalasoft.moi.model.core.parameters.Parameters;
 import org.jalasoft.moi.model.core.parameters.Params;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,6 +36,8 @@ import java.io.IOException;
  */
 @Service
 public class FileService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(Handler.class);
 
     @Autowired
     private FileRepository fileRepository;
@@ -68,8 +74,9 @@ public class FileService {
     public FileCode addNewFile(String name, String code, Long projectID) throws IOException {
         FileCode newFilecode = new FileCode();
         newFilecode.setName(name);
-        newFilecode.setCode(saveFile(name,code, projectID));
         newFilecode.setProject(projectRepository.findById(projectID).get());
+        saveFileB64(name, code, projectID);
+        LOGGER.info("Project id retrieved from URL: {}", projectID);
         return fileRepository.save(newFilecode);
     }
 
@@ -84,7 +91,8 @@ public class FileService {
     public FileCode updateFileInfo(Long id, String name, String code) throws IOException {
         FileCode fileToUpdate = fileRepository.findById(id).get();
         fileToUpdate.setName(name);
-        fileToUpdate.setCode(updateFile(id, name, code));
+        updateFileB64(id, name, code);
+        LOGGER.info("File id retrieved from URL: {}", id);
         return fileRepository.save(fileToUpdate);
     }
 
@@ -95,6 +103,7 @@ public class FileService {
      */
     public void deleteFileInfo(Long id) throws IOException {
         deleteFile(id);
+        LOGGER.info("File id retrieved from URL: {}", id);
         fileRepository.deleteById(id);
     }
 
@@ -104,13 +113,12 @@ public class FileService {
      * @param name saves the file name in the project
      * @param codeB64 saves the code inside the file in base 64
      * @param projectId gets the project path by project id
-     * @return a parameters object
      */
-    public Parameters saveFileB64(String name, String codeB64, Long projectId) throws IOException {
+    private void saveFileB64(String name, String codeB64, Long projectId) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        saveFile(name, code, projectId);
-        return setParams(projectId);
+        saveFileToProjectFolder(name, code, projectId);
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
     }
 
     /**
@@ -120,13 +128,14 @@ public class FileService {
      * @param code saves the code inside the file
      * @param projectId gets the project path by project id
      */
-    private String saveFile(String name, String code, Long projectId) throws IOException {
+    private void saveFileToProjectFolder(String name, String code, Long projectId) throws IOException {
         Project projInfo = projectRepository.findById(projectId).get();
         String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
-        return filePath;
+        LOGGER.info("Project id retrieved from URL: {}", projectId);
+
     }
 
     /**
@@ -135,12 +144,12 @@ public class FileService {
      * @param fileId gets the file information by its id
      * @param name updates the file name in the project
      * @param codeB64 updates the code inside the file in base 64
-     * @return a parameters object
      */
-    public void updateFileB64(Long fileId, String name, String codeB64) throws IOException {
+    private void updateFileB64(Long fileId, String name, String codeB64) throws IOException {
         byte[] byteArray = Base64.decodeBase64(codeB64.getBytes());
         String code = new String(byteArray);
-        updateFile(fileId, name, code);
+        updateFileToProjectFolder(fileId, name, code);
+        LOGGER.info("File id retrieved from URL: {}", fileId);
     }
 
     /**
@@ -150,7 +159,7 @@ public class FileService {
      * @param name updates the file name in the project path
      * @param code updates the code inside the file
      */
-    private String updateFile(Long fileId, String name, String code) throws IOException {
+    private void updateFileToProjectFolder(Long fileId, String name, String code) throws IOException {
         deleteFile(fileId);
         FileCode fileCode = fileRepository.findById(fileId).get();
         Project projInfo = fileCode.getProject();
@@ -158,7 +167,7 @@ public class FileService {
         FileWriter codeWriter = new FileWriter(filePath);
         codeWriter.write(code);
         codeWriter.close();
-        return filePath;
+        LOGGER.info("File id retrieved from URL: {}", fileId);
     }
 
     /**
@@ -166,7 +175,7 @@ public class FileService {
      *
      * @param fileId gets a file information by its id
      */
-    private void deleteFile(Long fileId) throws IOException {
+    private void deleteFile(Long fileId) {
         FileCode fileCode = fileRepository.findById(fileId).get();
         Project projInfo = fileCode.getProject();
         String name = fileCode.getName();
