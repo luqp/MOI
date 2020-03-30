@@ -15,15 +15,12 @@ import org.jalasoft.moi.controller.repository.ProjectRepository;
 import org.jalasoft.moi.domain.FileCode;
 import org.jalasoft.moi.domain.Project;
 import org.jalasoft.moi.model.core.Handler;
-import org.jalasoft.moi.model.core.parameters.Parameters;
-import org.jalasoft.moi.model.core.parameters.Params;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -182,20 +179,5 @@ public class FileService {
         String filePath = projInfo.getPath()+"/"+ name + projInfo.getLanguage().getFileExtention();
         File file = new File(filePath);
         file.delete();
-    }
-
-    /**
-     * Create a new file with name and code to set the file properties in a new params object.
-     *
-     * @param projectId gets the project path by project id
-     * @return the parameters setted object
-     */
-    public Parameters setParams(Long projectId){
-        Project projInfo = projectRepository.findById(projectId).get();
-        Parameters codeParams = new Params();
-        File codeFile = new File(projInfo.getPath());
-        codeParams.setFilesPath(codeFile.toPath());
-        codeParams.setLanguage(projInfo.getLanguage());
-        return codeParams;
     }
 }

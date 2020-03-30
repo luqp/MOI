@@ -84,6 +84,7 @@ public class ProjectService {
         Project projectToUpdate = projectRepository.findById(id).get();
         projectToUpdate.setProjectName(name);
         projectToUpdate.setDescription(desc);
+        projectToUpdate.setPath(updateProjectFolder(id,name));
         return projectRepository.save(projectToUpdate);
     }
 
@@ -111,6 +112,21 @@ public class ProjectService {
         File path = new File(projectPath);
         path.mkdirs();
         return projectPath;
+    }
+
+    /**
+     * Update the project folder path using projectId and the new project name.
+     *
+     * @param projectId to get the project path and update the project folder name
+     * @param updateProjectName to build a folder with the new project name
+     * @return a string with the updated built path
+     */
+    private String updateProjectFolder(Long projectId, String updateProjectName){
+        Project project = projectRepository.findById(projectId).get();
+        File projectFolder = new File(project.getPath());
+        File updateFolder = new File(projectFolder.getParent()+"/"+ updateProjectName);
+        projectFolder.renameTo(updateFolder);
+        return updateFolder.getPath();
     }
 
     /**
