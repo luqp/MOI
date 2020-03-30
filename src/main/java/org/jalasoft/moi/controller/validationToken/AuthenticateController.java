@@ -26,28 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "authenticate")
 public class AuthenticateController {
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//    @Autowired
-//    private MoiUserDetailsService userDetailsService;
-//
-//    @Autowired
-//    private JwtTokenUtil jwtTokenUtil;
-//
-//    @RequestMapping(method = RequestMethod.POST)
-//    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest autRequest) throws Exception {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(autRequest.getUsername(), autRequest.getPassword())
-//            );
-//        } catch (BadCredentialsException e) {
-//            throw new Exception("Incorrect username or password", e);
-//        }
-//
-//        final UserDetails userDetails = userDetailsService.loadUserByUsername(autRequest.getUsername());
-//        final String jwt = jwtTokenUtil.generateToken(userDetails.getUsername(), "admin");
-//
-//        return ResponseEntity.ok(new AuthenticationResponse(jwt));
-//    }
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private MoiUserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest autRequest) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(autRequest.getUsername(), autRequest.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(autRequest.getUsername());
+        final String jwt = jwtTokenUtil.generateToken(userDetails.getUsername(), "admin");
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
 }

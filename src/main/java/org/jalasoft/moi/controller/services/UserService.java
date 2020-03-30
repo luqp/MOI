@@ -73,7 +73,6 @@ public class UserService {
         newUser.setUserName(userName);
         newUser.setPassword(password);
         newUser.setRol("user");
-        newUser.setToken(token);
         return repository.save(newUser);
     }
 

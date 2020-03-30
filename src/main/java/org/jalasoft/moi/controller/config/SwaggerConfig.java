@@ -18,6 +18,8 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class SwaggerConfig {
                 "Apache 2.0", "http://www.jalasoft.com/privacy", vendorExtensions);
 
         List<SecurityScheme> schemes = new ArrayList<>();
-        schemes.add(new ApiKey(HttpHeaders.AUTHORIZATION, "JWT", "header"));
+        schemes.add(new ApiKey("JWT", HttpHeaders.AUTHORIZATION, "header"));
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
@@ -86,7 +88,17 @@ public class SwaggerConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/api/.*"))
+                .forPaths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
+    public SecurityConfiguration security() {
+        return SecurityConfigurationBuilder
+                .builder()
+                .scopeSeparator(",")
+                .additionalQueryStringParams(null)
+                .useBasicAuthenticationWithAccessCodeGrant(false)
                 .build();
     }
 }

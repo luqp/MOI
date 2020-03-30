@@ -28,6 +28,6 @@ public class MoiUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByUserName(username);
-        return new org.springframework.security.core.userdetails.User("Juan", "123", new ArrayList<>());
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), new ArrayList<>());
     }
 }

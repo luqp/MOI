@@ -50,7 +50,6 @@ public class LoginController {
                         @RequestParam(value = "password") String password) {
         User user = userService.getUserByUserNameAndPassword(username, password);
         String token = getJwtsToken(username, user.getRol());
-        user.setToken(token);
         userService.save(user);
         return token;
     }

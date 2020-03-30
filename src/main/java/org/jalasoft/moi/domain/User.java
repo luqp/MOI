@@ -35,7 +35,6 @@ public class User {
     private String password;
     private String email;
     private String rol;
-    private String token;
 
     public Long getUserId() {
         return userId;
@@ -91,13 +90,5 @@ public class User {
 
     public void setFirstName(String firstName) {
         FirstName = firstName;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }
