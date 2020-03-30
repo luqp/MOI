@@ -47,21 +47,22 @@ public class JwtRequestFilter implements Filter {
     /**
      * Creates the filter to decide if the user can access to endpoints.
      *
-     * @param request ServletRequest
-     * @param response ServletResponse
+     * @param request     ServletRequest
+     * @param response    ServletResponse
      * @param filterChain FilterChain
      * @throws IOException
      * @throws ServletException
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         String username = null;
         String jwt = null;
-
         String authHeader = req.getHeader("Authorization");
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             username = jwtTokenUtil.extractUserName(jwt);
@@ -70,9 +71,9 @@ public class JwtRequestFilter implements Filter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             if (jwtTokenUtil.validateToken(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

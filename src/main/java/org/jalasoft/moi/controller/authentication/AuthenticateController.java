@@ -11,8 +11,10 @@ package org.jalasoft.moi.controller.authentication;
 
 import io.swagger.annotations.Api;
 import org.jalasoft.moi.controller.services.MoiUserDetailsService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Determines whether user is who declares itself to be
+ * Determines whether user is who declares itself to be.
  *
  * @author Lucero Quiroga Perez
  * @version 1.3

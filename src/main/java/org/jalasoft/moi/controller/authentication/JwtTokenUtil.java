@@ -26,6 +26,7 @@ import java.util.function.Function;
  */
 @Service
 public class JwtTokenUtil {
+
     private String secret = "AWT_MOI";
 
     /**

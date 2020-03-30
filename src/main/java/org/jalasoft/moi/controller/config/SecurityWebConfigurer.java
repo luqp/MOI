@@ -11,6 +11,7 @@ package org.jalasoft.moi.controller.config;
 
 import org.jalasoft.moi.controller.filters.JwtRequestFilter;
 import org.jalasoft.moi.controller.services.MoiUserDetailsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -131,8 +131,4 @@ public class UserService {
     public void deleteUser(Long id) {
         repository.deleteById(id);
     }
-
-    public void save(User user) {
-        repository.save(user);
-    }
 }

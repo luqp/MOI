@@ -10,6 +10,7 @@
 package org.jalasoft.moi.controller.services;
 
 import org.jalasoft.moi.domain.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
