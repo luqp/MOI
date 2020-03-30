@@ -89,7 +89,7 @@ public class UserController {
      */
     @PutMapping(path = "/info/{id}")
     public User updateUserInfo(@PathVariable Long id,
-                               @RequestParam(value = "Fist Name") String firstName,
+                               @RequestParam(value = "First Name") String firstName,
                                @RequestParam(value = "LastName", required = false) String lastName,
                                @RequestParam(value = "E-mail",required = false) String email) {
         return userService.updateUserInfo(id, firstName, lastName, email);

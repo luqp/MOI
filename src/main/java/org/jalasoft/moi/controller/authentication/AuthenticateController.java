@@ -66,10 +66,8 @@ public class AuthenticateController {
             LOGGER.error("Incorrect username<{}> or password", autRequest.getUsername());
             throw new Exception("Incorrect username or password", e);
         }
-
         final UserDetails userDetails = userDetailsService.loadUserByUsername(autRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails.getUsername());
-
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 }
