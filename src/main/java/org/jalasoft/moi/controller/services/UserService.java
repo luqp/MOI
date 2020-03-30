@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
  * Provides to controller the CRUD basic operations.
  *
  * @author Carlos Meneses
- * @version 1.2
+ *         Lucero Quiroga Perez
+ * @version 1.3
  */
 @Service
 public class UserService {
@@ -34,6 +35,16 @@ public class UserService {
      */
     public Iterable<User> getAllUsers() {
         return repository.findAll();
+    }
+
+    /**
+     * Get a user by username parameter.
+     *
+     * @param username inserts to search user
+     * @return User found by username.
+     */
+    public User getUserByUserName(String username) {
+        return repository.findByUserName(username);
     }
 
     /**
@@ -53,16 +64,16 @@ public class UserService {
      * @param lastName inserts the new user last name
      * @param email inserts the new user email
      * @param userName inserts the new user username
-     * @param pass inserts the new user password
+     * @param password inserts the new user password
      * @return contains the inserted user information
      */
-    public User addNewUser(String name, String lastName, String email, String userName, String pass) {
+    public User addNewUser(String name, String lastName, String email, String userName, String password) {
         User newUser = new User();
         newUser.setFirstName(name);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setUserName(userName);
-        newUser.setPassword(pass);
+        newUser.setPassword(password);
         newUser.setRol("user");
         return repository.save(newUser);
     }

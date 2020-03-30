@@ -16,7 +16,15 @@ import org.springframework.data.repository.CrudRepository;
  * Defines the user CRUD repository.
  *
  * @author Carlos Meneses
- * @version 1.2
+ *         Lucero Quiroga Perez
+ * @version 1.3
  */
 public interface UserRepository extends CrudRepository<User, Long> {
+    /**
+     * Allows searches by username.
+     *
+     * @param userName contains the user value
+     * @return user with the specified username
+     */
+    User findByUserName(String userName);
 }

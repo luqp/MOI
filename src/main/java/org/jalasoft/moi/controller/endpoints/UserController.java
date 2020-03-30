@@ -66,7 +66,7 @@ public class UserController {
      * @param lastName inserts the new user last name
      * @param email inserts the new user email
      * @param userName inserts the new user username
-     * @param pass inserts the new user password
+     * @param password inserts the new user password
      * @return contains the inserted user information
      */
     @PostMapping(path = "/new")
@@ -74,8 +74,8 @@ public class UserController {
                            @RequestParam(value = "Last Name", required = false) String lastName,
                            @RequestParam(value = "E-mail", required = false) String email,
                            @RequestParam(value = "Username") String userName,
-                           @RequestParam(value = "Password") String pass) {
-        return userService.addNewUser(firstName, lastName, email, userName, pass);
+                           @RequestParam(value = "Password") String password) {
+        return userService.addNewUser(firstName, lastName, email, userName, password);
     }
 
     /**
@@ -89,7 +89,7 @@ public class UserController {
      */
     @PutMapping(path = "/info/{id}")
     public User updateUserInfo(@PathVariable Long id,
-                               @RequestParam(value = "Fist Name") String firstName,
+                               @RequestParam(value = "First Name") String firstName,
                                @RequestParam(value = "LastName", required = false) String lastName,
                                @RequestParam(value = "E-mail",required = false) String email) {
         return userService.updateUserInfo(id, firstName, lastName, email);
