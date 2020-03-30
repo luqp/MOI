@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2020 Jalasoft.
  *
  * This software is the confidential and proprietary information of Jalasoft.
@@ -69,7 +69,7 @@ public class UserController {
      * @param pass inserts the new user password
      * @return contains the inserted user information
      */
-    @PostMapping
+    @PostMapping(path = "/new")
     public User addNewUser(@RequestParam(value = "First Name") String firstName,
                            @RequestParam(value = "Last Name", required = false) String lastName,
                            @RequestParam(value = "E-mail", required = false) String email,
@@ -128,7 +128,7 @@ public class UserController {
      *
      * @param id to search for the user to delete.
      */
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public void deleteUserById(@PathVariable Long id) {
         userService.deleteUser(id);
     }
